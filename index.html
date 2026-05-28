@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYCO PRO MEDIA | Creative Media & Web Solutions</title>
+  <meta name="description" content="CYCO PRO MEDIA — photography, videography, web development, and content creation for businesses, creators, and brands. Based in Atlanta, available worldwide." />
+  <meta name="theme-color" content="#0A0A0F" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CYCO PRO MEDIA" />
+  <meta property="og:title" content="CYCO PRO MEDIA | Creative Media & Web Solutions" />
+  <meta property="og:description" content="Photography, videography, web development, and content creation for businesses, creators, and brands." />
+  <meta property="og:image" content="https://cycopro.pic-time.com/portfolio" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "CYCO PRO MEDIA",
+    "description": "Creative media and web solutions — photography, videography, web development, and content creation for businesses, creators, and brands.",
+    "email": "joffre@cycopromedia.com",
+    "telephone": "+1-470-652-6060",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Atlanta",
+      "addressRegion": "GA",
+      "addressCountry": "US"
+    },
+    "sameAs": ["https://www.instagram.com/cycoprozz"],
+    "serviceType": ["Photography", "Videography", "Web Development", "Content Creation"]
+  }
+  </script>
+
+  <style>
+    /* ============================================================
+       CYCO PRO MEDIA — Single-Page Site
+       Cyberpunk / Tech-Forward Dark Aesthetic
+    ============================================================ */
+
+    /* --- CSS Custom Properties --- */
+    :root {
+      --color-bg: #0A0A0F;
+      --color-bg-alt: #0D0D12;
+      --color-surface: #111118;
+      --color-ink: #E0E0E0;
+      --color-ink-sub: #AAAAAA;
+      --color-muted: #888899;
+      --color-accent: #00F0FF;
+      --color-accent-secondary: #FF00AA;
+      --color-accent-green: #00FF88;
+      --color-accent-dark: #00C4D6;
+      --color-border: #1A1A2E;
+      --color-border-glow: rgba(0,240,255,0.2);
+      --color-glow: rgba(0,240,255,0.15);
+      --color-glow-magenta: rgba(255,0,170,0.12);
+      --color-card-bg: rgba(17,17,24,0.8);
+      --color-footer-bg: #08080D;
+      --color-overlay: rgba(10,10,15,0.85);
+
+      --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      --sp-xs: 0.25rem;
+      --sp-sm: 0.5rem;
+      --sp-md: 1rem;
+      --sp-lg: 1.5rem;
+      --sp-xl: 2rem;
+      --sp-2xl: 3rem;
+      --sp-3xl: 4rem;
+      --sp-4xl: 6rem;
+      --sp-5xl: 8rem;
+
+      --max-width: 1200px;
+      --nav-height: 80px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      --transition-base: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+
+    /* --- Animated Background Particles (CSS only) --- */
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes scanlineMove {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-particles::before,
+    .bg-particles::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+
+    .bg-particles::before {
+      width: 3px;
+      height: 3px;
+      background: var(--color-accent);
+      box-shadow:
+        60px 80px 0 var(--color-accent),
+        200px 300px 0 rgba(0,240,255,0.5),
+        350px 120px 0 var(--color-accent-secondary),
+        500px 400px 0 rgba(0,240,255,0.4),
+        700px 250px 0 rgba(0,240,255,0.3),
+        850px 150px 0 var(--color-accent),
+        1000px 500px 0 rgba(255,0,170,0.5),
+        150px 550px 0 rgba(0,240,255,0.3),
+        420px 620px 0 var(--color-accent-secondary),
+        650px 700px 0 rgba(0,240,255,0.4),
+        900px 350px 0 rgba(0,240,255,0.3),
+        1100px 80px 0 var(--color-accent),
+        80px 420px 0 rgba(255,0,170,0.3),
+        280px 480px 0 rgba(0,240,255,0.3),
+        550px 50px 0 var(--color-accent),
+        750px 600px 0 rgba(0,240,255,0.3);
+      animation-duration: 18s;
+      animation-delay: 0s;
+    }
+
+    .bg-particles::after {
+      width: 2px;
+      height: 2px;
+      background: rgba(0,240,255,0.6);
+      box-shadow:
+        120px 40px 0 rgba(255,0,170,0.4),
+        320px 180px 0 rgba(0,240,255,0.5),
+        480px 320px 0 var(--color-accent-secondary),
+        620px 80px 0 rgba(0,240,255,0.3),
+        780px 420px 0 rgba(0,240,255,0.4),
+        950px 200px 0 rgba(255,0,170,0.4),
+        40px 300px 0 rgba(0,240,255,0.3),
+        250px 620px 0 var(--color-accent),
+        580px 500px 0 rgba(0,240,255,0.3),
+        720px 180px 0 rgba(255,0,170,0.3),
+        880px 550px 0 rgba(0,240,255,0.4),
+        1050px 380px 0 var(--color-accent),
+        170px 700px 0 rgba(0,240,255,0.3),
+        400px 100px 0 rgba(255,0,170,0.3),
+        690px 250px 0 rgba(0,240,255,0.4);
+      animation-duration: 22s;
+      animation-delay: -8s;
+    }
+
+    /* --- Reset & Base --- */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--color-ink);
+      background-color: var(--color-bg);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color var(--transition-base), text-shadow var(--transition-base);
+    }
+    a:hover {
+      color: var(--color-accent-dark);
+      text-shadow: 0 0 12px var(--color-glow);
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--color-ink);
+    }
+
+    h1 { font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.01em; text-shadow: 0 0 30px var(--color-glow); }
+    h3 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
+    h4 { font-size: 1.25rem; }
+
+    p { margin-bottom: var(--sp-lg); }
+    p:last-child { margin-bottom: 0; }
+
+    .lead {
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      color: var(--color-muted);
+      line-height: 1.75;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--sp-md);
+      text-shadow: 0 0 10px var(--color-glow);
+    }
+
+    /* --- Utility --- */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--sp-xl);
+      position: relative;
+      z-index: 1;
+    }
+
+    .container--narrow {
+      max-width: 800px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .section {
+      padding: var(--sp-5xl) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section--alt {
+      background-color: var(--color-bg-alt);
+    }
+
+    .section--accent {
+      background-color: var(--color-footer-bg);
+      color: var(--color-ink);
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--color-border);
+      margin: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* --- Buttons --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-sm);
+      padding: 0.9rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .btn--primary {
+      background-color: transparent;
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 15px rgba(0,240,255,0.1), inset 0 0 15px rgba(0,240,255,0.05);
+    }
+    .btn--primary:hover {
+      background-color: var(--color-accent);
+      color: var(--color-bg);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 30px rgba(0,240,255,0.35), 0 0 60px rgba(0,240,255,0.15);
+      text-shadow: none;
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--color-ink-sub);
+      border-color: var(--color-border);
+    }
+    .btn--outline:hover {
+      background: var(--color-surface);
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 20px var(--color-glow);
+    }
+
+    .btn--outline-light {
+      background: transparent;
+      color: var(--color-ink);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .btn--outline-light:hover {
+      background: rgba(0,240,255,0.08);
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 25px rgba(0,240,255,0.2);
+    }
+
+    .btn--light {
+      background: rgba(0,240,255,0.08);
+      color: var(--color-ink);
+      border-color: rgba(0,240,255,0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .btn--light:hover {
+      background: rgba(0,240,255,0.18);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      box-shadow: 0 0 30px rgba(0,240,255,0.25);
+    }
+
+    .btn--large {
+      padding: 1.1rem 2.8rem;
+      font-size: 0.95rem;
+    }
+
+    /* ================================================================
+       NAVIGATION
+    ================================================================ */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      background: rgba(10,10,15,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: all var(--transition-base);
+    }
+
+    .site-header.scrolled {
+      border-bottom-color: var(--color-border);
+      box-shadow: 0 1px 30px rgba(0,240,255,0.08);
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .site-logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--color-ink);
+      text-decoration: none;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(0,240,255,0.2);
+    }
+    .site-logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-list {
+      display: flex;
+      gap: var(--sp-2xl);
+    }
+
+    .nav-list a {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      text-decoration: none;
+      padding: var(--sp-xs) 0;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-base);
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+      text-shadow: 0 0 10px var(--color-glow);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--sp-sm);
+      color: var(--color-ink);
+      z-index: 1001;
+    }
+    .nav-toggle svg {
+      width: 28px;
+      height: 28px;
+    }
+    .nav-toggle .line {
+      transition: all var(--transition-base);
+      transform-origin: center;
+    }
+    .nav-toggle.active .line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .nav-toggle.active .line:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.active .line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ================================================================
+       HERO
+    ================================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, #0A0A0F 0%, #0D0D14 30%, #0F0F1A 60%, #0A0A0F 100%);
+      overflow: hidden;
+    }
+
+    /* Grid/dot pattern overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(0,240,255,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow orbs */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 80%, rgba(255,0,170,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,240,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scanline overlay */
+    .hero .hero-scanlines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,240,255,0.5) 2px,
+        rgba(0,240,255,0.5) 4px
+      );
+      animation: scanlineMove 8s linear infinite;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 850px;
+      padding: var(--sp-2xl);
+    }
+
+    .hero__content .eyebrow {
+      color: var(--color-accent);
+      margin-bottom: var(--sp-lg);
+      text-shadow: 0 0 15px var(--color-glow);
+    }
+
+    .hero__content h1 {
+      color: var(--color-ink);
+      margin-bottom: var(--sp-lg);
+      font-weight: 400;
+      text-shadow: 0 0 40px rgba(0,240,255,0.15);
+    }
+    .hero__content h1 em {
+      font-style: italic;
+      color: var(--color-accent);
+      text-shadow: 0 0 30px rgba(0,240,255,0.4);
+    }
+
+    .hero__content .lead {
+      color: var(--color-ink-sub);
+      margin-bottom: var(--sp-2xl);
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: var(--sp-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero__trust {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: var(--sp-lg) var(--sp-xl);
+      background: rgba(10,10,15,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-border);
+      box-shadow: 0 -1px 20px rgba(0,240,255,0.05);
+    }
+
+    .hero__trust p {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    /* ================================================================
+       SERVICES
+    ================================================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-xl);
+      margin-top: var(--sp-3xl);
+    }
+
+    .service-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-2xl) var(--sp-xl);
+      text-align: center;
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-slow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-lg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 40px var(--color-glow), 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .service-card__icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,240,255,0.06);
+      border-radius: 50%;
+      color: var(--color-accent);
+      border: 1px solid rgba(0,240,255,0.15);
+      transition: all var(--transition-slow);
+    }
+
+    .service-card:hover .service-card__icon {
+      box-shadow: 0 0 25px var(--color-glow);
+      border-color: rgba(0,240,255,0.4);
+    }
+
+    .service-card__icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 0;
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      color: var(--color-muted);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    .service-card__price {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 10px var(--color-glow);
+    }
+
+    .service-card__link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: all var(--transition-base);
+      margin-top: auto;
+    }
+    .service-card:hover .service-card__link {
+      color: var(--color-accent);
+    }
+
+    /* ================================================================
+       PRICING
+    ================================================================ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-xl);
+      margin-top: var(--sp-3xl);
+    }
+
+    .pricing-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-2xl);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-slow);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .pricing-card:hover {
+      border-color: rgba(0,240,255,0.3);
+      box-shadow: 0 0 30px rgba(0,240,255,0.08);
+    }
+
+    .pricing-card--featured {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 40px rgba(0,240,255,0.15), 0 0 80px rgba(0,240,255,0.05);
+      transform: scale(1.03);
+    }
+
+    .pricing-card--featured:hover {
+      box-shadow: 0 0 50px rgba(0,240,255,0.25), 0 0 100px rgba(0,240,255,0.08);
+    }
+
+    .pricing-card__badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent);
+      color: var(--color-bg);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1.2rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      box-shadow: 0 0 25px rgba(0,240,255,0.4);
+    }
+
+    .pricing-card__header {
+      text-align: center;
+      padding-bottom: var(--sp-xl);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--sp-xl);
+    }
+
+    .pricing-card__header h3 {
+      margin-bottom: var(--sp-sm);
+    }
+
+    .pricing-card__price {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      line-height: 1;
+    }
+
+    .pricing-card--featured .pricing-card__price {
+      color: var(--color-accent);
+      text-shadow: 0 0 20px var(--color-glow);
+    }
+
+    .pricing-card__price span {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--color-muted);
+      display: block;
+      margin-top: var(--sp-xs);
+    }
+
+    .pricing-card__features {
+      flex: 1;
+      margin-bottom: var(--sp-xl);
+    }
+
+    .pricing-card__features li {
+      padding: 0.6rem 0;
+      font-size: 0.92rem;
+      color: var(--color-ink-sub);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+    .pricing-card__features li:last-child {
+      border-bottom: none;
+    }
+    .pricing-card__features li::before {
+      content: '✓';
+      color: var(--color-accent-green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      text-shadow: 0 0 8px rgba(0,255,136,0.4);
+    }
+
+    .pricing-note {
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      margin-top: var(--sp-2xl);
+      font-style: italic;
+    }
+
+    /* ================================================================
+       PORTFOLIO
+    ================================================================ */
+    /* Slideshow animations */
+    @keyframes slide1 {
+      0%, 13%   { background: url('images/portfolio/cyco-pro-1.png') center/cover no-repeat; }
+      17%, 30%  { background: url('images/portfolio/cyco-pro-2.png') center/cover no-repeat; }
+      34%, 47%  { background: url('images/portfolio/cyco-pro-3.jpg') center/cover no-repeat; }
+      51%, 63%  { background: url('images/portfolio/cyco-pro-4.png') center/cover no-repeat; }
+      67%, 80%  { background: url('images/portfolio/cyco-pro-5.png') center/cover no-repeat; }
+      84%, 97%  { background: url('images/portfolio/cyco-pro-6.jpeg') center/cover no-repeat; }
+    }
+    @keyframes slide2 {
+      0%, 13%   { background: url('images/portfolio/elle-1.jpg') center/cover no-repeat; }
+      17%, 30%  { background: url('images/portfolio/elle-2.jpg') center/cover no-repeat; }
+      34%, 47%  { background: url('images/portfolio/elle-3.jpg') center/cover no-repeat; }
+      51%, 63%  { background: url('images/portfolio/elle-4.jpg') center/cover no-repeat; }
+      67%, 80%  { background: url('images/portfolio/elle-5.jpg') center/cover no-repeat; }
+      84%, 97%  { background: url('images/portfolio/elle-6.jpg') center/cover no-repeat; }
+    }
+    @keyframes slide3 {
+      0%, 13%   { background: url('images/portfolio/brand/brand-1.png') center/cover no-repeat; }
+      17%, 30%  { background: url('images/portfolio/brand/brand-2.png') center/cover no-repeat; }
+      34%, 47%  { background: url('images/portfolio/brand/brand-3.png') center/cover no-repeat; }
+      51%, 63%  { background: url('images/portfolio/brand/brand-4.jpg') center/cover no-repeat; }
+      67%, 80%  { background: url('images/portfolio/brand/brand-5.png') center/cover no-repeat; }
+      84%, 97%  { background: url('images/portfolio/brand/brand-6.png') center/cover no-repeat; }
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-xl);
+      margin-top: var(--sp-3xl);
+    }
+
+    .portfolio-item {
+      display: block;
+      position: relative;
+      aspect-ratio: 3 / 4;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #0A0A0F;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-slow);
+    }
+
+    .portfolio-item--slideshow {
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .portfolio-slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .portfolio-item:hover {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 30px rgba(0,240,255,0.15);
+    }
+
+    .portfolio-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10,10,15,0.65) 100%);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .portfolio-item:hover::before {
+      opacity: 1;
+    }
+
+    .portfolio-item__icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      color: var(--color-accent);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+    .portfolio-item:hover .portfolio-item__icon {
+      opacity: 1;
+    }
+    .portfolio-item__icon svg {
+      width: 48px;
+      height: 48px;
+      filter: drop-shadow(0 0 10px rgba(0,240,255,0.5));
+    }
+
+    .portfolio-item__label {
+      position: absolute;
+      bottom: var(--sp-lg);
+      left: var(--sp-lg);
+      right: var(--sp-lg);
+      z-index: 2;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: var(--color-accent);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all var(--transition-base);
+      text-shadow: 0 0 10px rgba(0,240,255,0.3);
+    }
+    .portfolio-item:hover .portfolio-item__label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .portfolio-cta {
+      text-align: center;
+      margin-top: var(--sp-2xl);
+    }
+
+    /* ================================================================
+       CONTACT
+    ================================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--sp-3xl);
+      margin-top: var(--sp-3xl);
+      align-items: start;
+    }
+
+    .contact-form {
+      background: var(--color-card-bg);
+      padding: var(--sp-2xl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .form-group {
+      margin-bottom: var(--sp-lg);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: var(--sp-sm);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-ink);
+      background: rgba(10,10,15,0.6);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-base);
+      outline: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(136,136,153,0.5);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-glow), 0 0 20px rgba(0,240,255,0.08);
+      background: rgba(10,10,20,0.8);
+    }
+
+    .form-group select {
+      color-scheme: dark;
+    }
+    .form-group select option {
+      background: var(--color-surface);
+      color: var(--color-ink);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2xl);
+    }
+
+    .contact-info__block h4 {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--sp-md);
+    }
+
+    .contact-info__block a,
+    .contact-info__block p {
+      font-size: 1rem;
+      color: var(--color-ink);
+      display: block;
+      margin-bottom: var(--sp-xs);
+    }
+
+    .contact-info__block a:hover {
+      color: var(--color-accent);
+      text-shadow: 0 0 10px var(--color-glow);
+    }
+
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-sm);
+      margin-top: var(--sp-md);
+    }
+
+    .payment-badge {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--color-accent);
+      background: rgba(0,240,255,0.05);
+      border: 1px solid rgba(0,240,255,0.15);
+      border-radius: 50px;
+    }
+
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    .site-footer {
+      background: var(--color-footer-bg);
+      color: var(--color-ink-sub);
+      padding: var(--sp-4xl) 0 var(--sp-xl);
+      border-top: 1px solid var(--color-border);
+      box-shadow: 0 -2px 30px rgba(0,240,255,0.04);
+      position: relative;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--sp-3xl);
+      margin-bottom: var(--sp-3xl);
+    }
+
+    .footer-grid h5 {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .footer-grid .site-logo {
+      color: var(--color-ink);
+      font-size: 1.4rem;
+      margin-bottom: var(--sp-md);
+      display: inline-block;
+    }
+
+    .footer-grid ul li {
+      margin-bottom: var(--sp-sm);
+    }
+
+    .footer-grid ul li a {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      transition: color var(--transition-base), text-shadow var(--transition-base);
+    }
+    .footer-grid ul li a:hover {
+      color: var(--color-accent);
+      text-shadow: 0 0 10px var(--color-glow);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--sp-xl);
+      border-top: 1px solid var(--color-border);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-payment-badges {
+      display: flex;
+      gap: var(--sp-md);
+    }
+
+    /* ================================================================
+       SCROLL ANIMATIONS
+    ================================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ================================================================
+       RESPONSIVE
+    ================================================================ */
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--sp-md);
+      }
+
+      .pricing-card--featured {
+        transform: scale(1.01);
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--sp-2xl);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      :root {
+        --nav-height: 68px;
+      }
+
+      .container {
+        padding: 0 var(--sp-lg);
+      }
+
+      .section {
+        padding: var(--sp-3xl) 0;
+      }
+
+      /* Nav */
+      .nav-toggle {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--color-surface);
+        padding: calc(var(--nav-height) + var(--sp-2xl)) var(--sp-2xl) var(--sp-2xl);
+        transition: right var(--transition-base);
+        box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+        border-left: 1px solid var(--color-border);
+      }
+
+      nav.open {
+        right: 0;
+      }
+
+      .nav-list {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .nav-list li {
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .nav-list a {
+        display: block;
+        padding: var(--sp-md) 0;
+        font-size: 0.85rem;
+        border-bottom: none;
+      }
+
+      /* Services */
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-lg);
+      }
+
+      /* Pricing */
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .pricing-card--featured {
+        transform: none;
+      }
+
+      /* Portfolio */
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      .portfolio-item {
+        aspect-ratio: 4 / 5;
+      }
+
+      /* Hero */
+      .hero__actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero__actions .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+      h1 { font-size: clamp(2rem, 8vw, 3rem); }
+      h2 { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+
+      /* Services */
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-lg);
+      }
+
+      /* Footer */
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-xl);
+        text-align: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--sp-md);
+        text-align: center;
+      }
+    }
+
+    /* Small mobile */
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+
+      .hero__content {
+        padding: var(--sp-lg);
+      }
+
+      .hero__trust p {
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+      }
+
+      .portfolio-item {
+        aspect-ratio: 1 / 1;
+      }
+
+      .services-card {
+        padding: var(--sp-lg);
+      }
+    }
+
+    /* --- Nav overlay for mobile --- */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+    .nav-overlay.open {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background particle effects -->
+  <div class="bg-particles" aria-hidden="true"></div>
+
+  <a class="sr-only" href="#main">Skip to main content</a>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a class="site-logo" href="#hero" aria-label="CYCO PRO MEDIA home">CYCO<span>.</span> PRO MEDIA</a>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <line class="line" x1="3" y1="7" x2="21" y2="7"/>
+          <line class="line" x1="3" y1="12" x2="21" y2="12"/>
+          <line class="line" x1="3" y1="17" x2="21" y2="17"/>
+        </svg>
+      </button>
+
+      <nav id="mainNav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <div class="hero-scanlines" aria-hidden="true"></div>
+      <div class="hero__content" data-reveal>
+        <span class="eyebrow">Atlanta · Worldwide · Premium Media</span>
+        <h1 id="heroTitle">Creative Media &amp;<br><em>Web Solutions</em></h1>
+        <p class="lead">Photography, videography, web development, and content creation for businesses, creators, and brands.</p>
+        <div class="hero__actions">
+          <a href="#portfolio" class="btn btn--light btn--large">View Our Work</a>
+          <a href="#contact" class="btn btn--outline-light btn--large">Start a Project</a>
+        </div>
+      </div>
+      <div class="hero__trust">
+        <p>Based in Atlanta &nbsp;·&nbsp; Available Worldwide &nbsp;·&nbsp; 24/7 Inquiries</p>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="section" id="portfolio" aria-labelledby="portfolioTitle">
+      <div class="container">
+        <div class="text-center" data-reveal>
+          <span class="eyebrow">Our Work</span>
+          <h2 id="portfolioTitle">Selected Projects</h2>
+          <p class="lead" style="max-width:600px;margin:0 auto;">A glimpse into our recent work across photography, videography, and digital projects.</p>
+        </div>
+
+        <div class="portfolio-grid">
+          <a href="https://cycopro.pic-time.com/-portfolio6831/gallery" target="_blank" rel="noopener" class="portfolio-item portfolio-item--slideshow" data-slideshow="slide1" aria-label="Editorial Portraits">
+            <img src="https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-1.jpg" alt="" class="portfolio-slide-img">
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00F0FF" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            </div>
+            <div class="portfolio-item__label">Editorial Portraits</div>
+          </a>
+
+          <a href="https://drive.google.com/drive/folders/1rcb29Hic7b1llCxjMiOpXX23NP6UzpF9" target="_blank" rel="noopener" class="portfolio-item portfolio-item--slideshow" data-slideshow="slide3" aria-label="Brand Campaigns">
+            <img src="https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-1.jpg" alt="" class="portfolio-slide-img">
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF00AA" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="portfolio-item__label">Brand Campaigns</div>
+          </a>
+
+          <a href="https://cycopro.pic-time.com/RvTQeILC2HgFo" target="_blank" rel="noopener" class="portfolio-item portfolio-item--slideshow" data-slideshow="slide2" aria-label="Event Coverage">
+            <img src="https://salaries-endif-ala-walked.trycloudflare.com/images/elle-1.jpg" alt="" class="portfolio-slide-img">
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF00AA" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </div>
+            <div class="portfolio-item__label">Event Coverage <span style="font-size:0.7em;opacity:0.7;">▶ Video</span></div>
+          </a>
+
+          <a href="images/portfolio/commercial-video.mov" target="_blank" rel="noopener" class="portfolio-item" data-reveal data-reveal-delay="1" aria-label="Commercial Video" style="overflow:hidden;">
+            <video autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <source src="images/portfolio/commercial-video.mov" type="video/quicktime">
+              <source src="images/portfolio/commercial-video.mov" type="video/mp4">
+            </video>
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FF88" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="portfolio-item__label">Commercial Video</div>
+          </a>
+
+          <a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" class="portfolio-item" data-reveal data-reveal-delay="2" style="background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80') center/cover;" aria-label="Real Estate">
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00F0FF" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <div class="portfolio-item__label">Real Estate</div>
+          </a>
+
+          <a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" class="portfolio-item" data-reveal data-reveal-delay="3" style="background:linear-gradient(135deg, #00FF8810 0%, #00F0FF08 50%, #FF00AA08 100%);" aria-label="Web Projects">
+            <div class="portfolio-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FF88" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="portfolio-item__label">Web Projects</div>
+          </a>
+        </div>
+
+        <div class="portfolio-cta" data-reveal>
+          <a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" class="btn btn--primary btn--large">
+            View Full Portfolio on Pic-Time &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services" aria-labelledby="servicesTitle">
+      <div class="container">
+        <div class="text-center" data-reveal>
+          <span class="eyebrow">What We Offer</span>
+          <h2 id="servicesTitle">Services Built Around Your Vision</h2>
+          <p class="lead" style="max-width:600px;margin:0 auto;">From a single frame to a full digital presence — we deliver creative work that elevates your brand.</p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Photography -->
+          <div class="service-card" data-reveal data-reveal-delay="1">
+            <div class="service-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <h3>Photography</h3>
+            <p>Portraits, events, brand shoots, real estate — editorial quality imagery that tells your story.</p>
+            <div class="service-card__price">Starting at $300</div>
+            <a href="#contact" class="service-card__link">Learn More &rarr;</a>
+          </div>
+
+          <!-- Videography -->
+          <div class="service-card" data-reveal data-reveal-delay="2">
+            <div class="service-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+            <h3>Videography</h3>
+            <p>Promos, events, reels, music videos — cinematic motion that captures attention and drives engagement.</p>
+            <div class="service-card__price">Starting at $1,500</div>
+            <a href="#contact" class="service-card__link">Learn More &rarr;</a>
+          </div>
+
+          <!-- Web Development -->
+          <div class="service-card" data-reveal data-reveal-delay="3">
+            <div class="service-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <h3>Web Development</h3>
+            <p>Landing pages, business sites, maintenance — clean, fast, and built to convert visitors into clients.</p>
+            <div class="service-card__price">Starting at $750</div>
+            <a href="#contact" class="service-card__link">Learn More &rarr;</a>
+          </div>
+
+          <!-- Content Creation -->
+          <div class="service-card" data-reveal data-reveal-delay="4">
+            <div class="service-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </div>
+            <h3>Content Creation</h3>
+            <p>Social media packages, brand content, AI consulting — consistent, strategic content that grows your audience.</p>
+            <div class="service-card__price">Starting at $600/mo</div>
+            <a href="#contact" class="service-card__link">Learn More &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PRICING -->
+    <section class="section section--alt" id="pricing" aria-labelledby="pricingTitle">
+      <div class="container">
+        <div class="text-center" data-reveal>
+          <span class="eyebrow">Transparent Pricing</span>
+          <h2 id="pricingTitle">Packages That Fit Your Scale</h2>
+          <p class="lead" style="max-width:600px;margin:0 auto;">Every project is unique — these packages give you a clear starting point. Custom builds always available.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Starter -->
+          <div class="pricing-card" data-reveal data-reveal-delay="1">
+            <div class="pricing-card__header">
+              <h3>Starter</h3>
+              <div class="pricing-card__price">$300<span>starting price</span></div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>1-hour photo session</li>
+              <li>15 professionally edited images</li>
+              <li>Online gallery delivery</li>
+              <li>1 location</li>
+              <li>Basic retouching</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" style="width:100%;">Get Started</a>
+          </div>
+
+          <!-- Business (Featured) -->
+          <div class="pricing-card pricing-card--featured" data-reveal data-reveal-delay="2">
+            <div class="pricing-card__badge">Most Popular</div>
+            <div class="pricing-card__header">
+              <h3>Business</h3>
+              <div class="pricing-card__price">$1,500<span>starting price</span></div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>Half-day photo or video session</li>
+              <li>40+ edited images or 60-sec video</li>
+              <li>Creative direction & mood board</li>
+              <li>Up to 3 locations</li>
+              <li>Advanced retouching / color grade</li>
+              <li>Web-ready & social cuts</li>
+            </ul>
+            <a href="#contact" class="btn btn--primary" style="width:100%;">Book This Package</a>
+          </div>
+
+          <!-- Custom -->
+          <div class="pricing-card" data-reveal data-reveal-delay="3">
+            <div class="pricing-card__header">
+              <h3>Custom</h3>
+              <div class="pricing-card__price">$3,000+<span>tailored to you</span></div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>Full-day production</li>
+              <li>Photo + video combo available</li>
+              <li>Web development integration</li>
+              <li>Unlimited locations</li>
+              <li>Dedicated creative director</li>
+              <li>Content strategy consultation</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" style="width:100%;">Let's Talk</a>
+          </div>
+        </div>
+
+        <p class="pricing-note" data-reveal>All packages include consultation, professional editing, and digital delivery.</p>
+
+        <div class="text-center" style="margin-top:var(--sp-2xl);" data-reveal>
+          <a href="#contact" class="btn btn--primary btn--large">Book a Free Consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / BOOKING -->
+    <section class="section section--alt" id="contact" aria-labelledby="contactTitle">
+      <div class="container">
+        <div class="text-center" data-reveal>
+          <span class="eyebrow">Let's Work Together</span>
+          <h2 id="contactTitle">Start Your Project</h2>
+          <p class="lead" style="max-width:600px;margin:0 auto;">Tell us about what you need. We'll follow up within 24 hours with a custom plan and quote.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Form -->
+          <div class="contact-form" data-reveal>
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="contact" />
+              <p class="sr-only">
+                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+              </p>
+
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Your full name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" />
+              </div>
+
+              <div class="form-group">
+                <label for="service">Service Interested In</label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="Photography">Photography</option>
+                  <option value="Videography">Videography</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Content Creation">Content Creation</option>
+                  <option value="Not Sure">Not Sure — Let's Talk</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Tell Us About Your Project</label>
+                <textarea id="message" name="message" placeholder="Describe your project, timeline, budget, and any specific needs..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--large" style="width:100%;">Send Inquiry</button>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info" data-reveal data-reveal-delay="2">
+            <div class="contact-info__block">
+              <h4>Email</h4>
+              <a href="mailto:joffre@cycopromedia.com">joffre@cycopromedia.com</a>
+            </div>
+
+            <div class="contact-info__block">
+              <h4>Phone</h4>
+              <a href="tel:+14706526060">470-652-6060</a>
+            </div>
+
+            <div class="contact-info__block">
+              <h4>Location</h4>
+              <p>Atlanta, GA</p>
+              <p style="font-size:0.85rem;color:var(--color-muted);">Available for travel worldwide</p>
+            </div>
+
+            <div class="contact-info__block">
+              <h4>Social</h4>
+              <a href="https://www.instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram @cycoprozz</a>
+            </div>
+
+            <div class="contact-info__block">
+              <h4>Payment Methods</h4>
+              <p style="font-size:0.9rem;color:var(--color-muted);margin-bottom:var(--sp-md);">
+                Secure payment links provided upon booking.
+              </p>
+              <div class="payment-methods">
+                <span class="payment-badge">Cash App</span>
+                <span class="payment-badge">Venmo</span>
+                <span class="payment-badge">Zelle</span>
+                <span class="payment-badge">Apple Pay</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div>
+          <a class="site-logo" href="#hero">CYCO<span>.</span> PRO MEDIA</a>
+          <p style="margin-top:var(--sp-md);font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.55);">
+            Creative Media &amp; Web Solutions — Atlanta, GA<br />
+            Photography, videography, web development, and content creation for businesses, creators, and brands.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h5>Navigate</h5>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Photography</a></li>
+            <li><a href="#services">Videography</a></li>
+            <li><a href="#services">Web Development</a></li>
+            <li><a href="#services">Content Creation</a></li>
+          </ul>
+        </div>
+
+        <!-- Connect -->
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="mailto:joffre@cycopromedia.com">Email Us</a></li>
+            <li><a href="https://www.instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram @cycoprozz</a></li>
+            <li><a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener">Pic-Time Portfolio</a></li>
+            <li><a href="#contact">Book a Consultation</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2024 CYCO PRO MEDIA. All rights reserved.</span>
+        <div class="footer-payment-badges">
+          <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Cash App</span>
+          <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Venmo</span>
+          <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Zelle</span>
+          <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    (function() {
+      'use strict';
+
+      // --- DOM references ---
+      var header = document.getElementById('siteHeader');
+      var navToggle = document.getElementById('navToggle');
+      var mainNav = document.getElementById('mainNav');
+      var navOverlay = document.getElementById('navOverlay');
+      var navLinks = mainNav.querySelectorAll('.nav-list a');
+
+      // --- Sticky header scroll effect ---
+      function onScroll() {
+        if (window.scrollY > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); // init
+
+      // --- Mobile nav toggle ---
+      function openNav() {
+        mainNav.classList.add('open');
+        navOverlay.classList.add('open');
+        navToggle.classList.add('active');
+        navToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNav() {
+        mainNav.classList.remove('open');
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      navToggle.addEventListener('click', function() {
+        if (mainNav.classList.contains('open')) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+
+      navOverlay.addEventListener('click', closeNav);
+
+      // Close nav when a link is clicked (mobile)
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (mainNav.classList.contains('open')) {
+            closeNav();
+          }
+        });
+      });
+
+      // --- Active nav link highlighting ---
+      var sections = [];
+      navLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          var section = document.getElementById(href.substring(1));
+          if (section) {
+            sections.push({ link: link, section: section });
+          }
+        }
+      });
+
+      function updateActiveLink() {
+        var scrollPos = window.scrollY + 120;
+
+        sections.forEach(function(item) {
+          var top = item.section.offsetTop;
+          var bottom = top + item.section.offsetHeight;
+
+          if (scrollPos >= top && scrollPos < bottom) {
+            item.link.classList.add('active');
+          } else {
+            item.link.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+
+      // --- Intersection Observer for scroll reveal animations ---
+      var revealElements = document.querySelectorAll('[data-reveal]');
+
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(function(el) {
+          el.classList.add('reveal');
+          revealObserver.observe(el);
+        });
+      } else {
+        // Fallback: show all immediately
+        revealElements.forEach(function(el) {
+          el.classList.add('reveal', 'revealed');
+        });
+      }
+
+      // --- Portfolio Slideshows ---
+      var slideshows = {
+        slide1: ['https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-1.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-2.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-3.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-4.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-5.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/cyco-pro-6.jpg'],
+        slide2: ['https://salaries-endif-ala-walked.trycloudflare.com/images/elle-1.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/elle-2.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/elle-3.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/elle-4.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/elle-5.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/elle-6.jpg'],
+        slide3: ['https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-1.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-2.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-3.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-4.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-5.jpg','https://salaries-endif-ala-walked.trycloudflare.com/images/brand/brand-6.jpg']
+      };
+      
+      Object.keys(slideshows).forEach(function(name) {
+        var cards = document.querySelectorAll('[data-slideshow="' + name + '"]');
+        cards.forEach(function(card) {
+          var images = slideshows[name];
+          var idx = 0;
+          var img = card.querySelector('.portfolio-slide-img');
+          if (img) {
+            img.src = images[0];
+            img.style.opacity = '1';
+            setInterval(function() {
+              idx = (idx + 1) % images.length;
+              img.style.opacity = '0';
+              setTimeout(function() {
+                img.src = images[idx];
+                img.style.opacity = '1';
+              }, 300);
+            }, 3000);
+          }
+        });
+      });
+
+      // --- Smooth scroll for all anchor links ---
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          var target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            var navHeight = header.offsetHeight;
+            var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- Escape key to close mobile nav ---
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+          closeNav();
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
