@@ -138,7 +138,15 @@ a:hover { color: var(--magenta); }
   color: var(--white);
   display: flex; align-items: center; gap: 10px;
 }
-.nav-logo span { color: var(--cyan); text-shadow: 0 0 20px var(--cyan-dim); }
+.nav-logo-img {
+  height: 40px; width: auto; display: block;
+  filter: drop-shadow(0 0 12px rgba(0,240,255,0.4)) drop-shadow(0 0 24px rgba(184,176,208,0.3));
+  animation: logo-glow 3s ease-in-out infinite alternate;
+}
+@keyframes logo-glow {
+  0% { filter: drop-shadow(0 0 8px rgba(0,240,255,0.3)) drop-shadow(0 0 16px rgba(184,176,208,0.2)); }
+  100% { filter: drop-shadow(0 0 18px rgba(0,240,255,0.6)) drop-shadow(0 0 36px rgba(184,176,208,0.5)); }
+}
 .nav-logo-dot {
   width: 10px; height: 10px; border-radius: 50%;
   background: linear-gradient(135deg, var(--silver) 0%, var(--magenta) 100%);
@@ -745,7 +753,7 @@ a:hover { color: var(--magenta); }
 <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="CYCO PRO MEDIA Home">
-      <img src="images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img" style="height:40px;width:auto;">
+      <img src="images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img">
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
@@ -1147,7 +1155,7 @@ a:hover { color: var(--magenta); }
 <footer class="footer" role="contentinfo">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="images/logo.png" alt="CYCO PRO MEDIA" style="height:44px;width:auto;"></a>
+      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" style="height:44px;width:auto;"></a>
       <p>Creative Media &amp; Web Solutions. Photography, videography, web development, and content creation — crafted in Atlanta, delivered worldwide.</p>
     </div>
     <div class="footer-col">
