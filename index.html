@@ -139,9 +139,18 @@ a:hover { color: var(--magenta); }
   display: flex; align-items: center; gap: 10px;
 }
 .nav-logo-img {
-  height: 40px; width: auto; display: block;
+  height: 72px; width: auto; display: block;
   filter: drop-shadow(0 0 12px rgba(0,240,255,0.4)) drop-shadow(0 0 24px rgba(184,176,208,0.3));
   animation: logo-glow 3s ease-in-out infinite alternate;
+}
+.nav-logo-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  text-transform: uppercase;
+  opacity: 0.6;
 }
 @keyframes logo-glow {
   0% { filter: drop-shadow(0 0 8px rgba(0,240,255,0.3)) drop-shadow(0 0 16px rgba(184,176,208,0.2)); }
@@ -753,7 +762,10 @@ a:hover { color: var(--magenta); }
 <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="CYCO PRO MEDIA Home">
-      <img src="images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img">
+      <div>
+        <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img">
+        <div class="nav-logo-tagline">Creative Media &amp; Web Solutions</div>
+      </div>
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
@@ -1155,7 +1167,7 @@ a:hover { color: var(--magenta); }
 <footer class="footer" role="contentinfo">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" style="height:44px;width:auto;"></a>
+      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" style="height:56px;width:auto;"></a>
       <p>Creative Media &amp; Web Solutions. Photography, videography, web development, and content creation — crafted in Atlanta, delivered worldwide.</p>
     </div>
     <div class="footer-col">
