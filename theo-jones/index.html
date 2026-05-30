@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theo Jones Beauty, Health &amp; Wellness | Luxury Hair Care, Color, Styling & Education</title>
+  <meta name="description" content="Experience luxury hair care, personalized hair education, color artistry, styling, wellness rituals, and coaching at Theo Jones Beauty, Health &amp; Wellness." />
+  <meta property="og:title" content="Theo Jones Beauty, Health &amp; Wellness" />
+  <meta property="og:description" content="Luxury hair care, education, and wellness rituals." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ivory:#FAF7F2; --cream:#F5EFE6; --beige:#EDE0D0; --nude:#DDD0BE;
+      --champagne:#C9A96E; --gold:#B8924A; --blush:#E8C4B8; --rose:#D4927E;
+      --cocoa:#8B6F5E; --espresso:#3D2B1F; --espresso-lt:#5A3E30;
+      --text-dark:#2C1A0E; --text-mid:#6B4F3A; --text-light:#9C8070; --white:#FFFFFF;
+      --shadow-soft:0 4px 30px rgba(61,43,31,0.08);
+      --shadow-med:0 8px 50px rgba(61,43,31,0.12);
+      --radius-sm:8px; --radius-md:16px; --radius-lg:28px; --radius-xl:40px;
+      --serif:'Cormorant Garamond',Georgia,serif;
+      --sans:'Jost',system-ui,sans-serif;
+      --transition:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+    body{font-family:var(--sans);background:var(--ivory);color:var(--text-dark);line-height:1.7;overflow-x:hidden}
+    img{max-width:100%;display:block;height:auto}
+    a{text-decoration:none;color:inherit}
+    button{cursor:pointer;border:none;background:none;font-family:var(--sans)}
+    ul{list-style:none}
+
+    /* Utility */
+    .container{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+    .container-wide{max-width:1400px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+    .section-tag{font-family:var(--sans);font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--champagne);display:block;margin-bottom:16px}
+    .section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,3.2rem);font-weight:400;line-height:1.2;color:var(--espresso)}
+    .section-title em{font-style:italic;color:var(--gold)}
+    .section-subtitle{font-size:clamp(0.9rem,1.5vw,1rem);color:var(--text-mid);max-width:640px;margin:16px auto 0;line-height:1.85}
+    .divider{width:60px;height:2px;background:linear-gradient(90deg,var(--champagne),var(--blush));margin:24px auto;border-radius:2px}
+
+    /* SVG Icons */
+    .icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+    .icon svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:50px;font-family:var(--sans);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;transition:var(--transition);cursor:pointer;white-space:nowrap}
+    .btn-primary{background:linear-gradient(135deg,var(--champagne),var(--gold));color:var(--white);box-shadow:0 6px 30px rgba(185,146,74,0.35)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(185,146,74,0.45)}
+    .btn-secondary{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.6)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:var(--white);transform:translateY(-2px)}
+    .btn-outline{background:transparent;color:var(--espresso);border:1.5px solid var(--nude)}
+    .btn-outline:hover{background:var(--espresso);color:var(--white);border-color:var(--espresso);transform:translateY(-2px)}
+    .btn-dark{background:var(--espresso);color:var(--ivory)}
+    .btn-dark:hover{background:var(--espresso-lt);transform:translateY(-2px);box-shadow:0 8px 30px rgba(61,43,31,0.25)}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-left{opacity:0;transform:translateX(-36px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal-left.visible{opacity:1;transform:translateX(0)}
+    .reveal-right{opacity:0;transform:translateX(36px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal-right.visible{opacity:1;transform:translateX(0)}
+    .d1{transition-delay:0.08s}.d2{transition-delay:0.16s}.d3{transition-delay:0.24s}.d4{transition-delay:0.32s}.d5{transition-delay:0.4s}
+
+    /* ── HEADER ── */
+    #site-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:clamp(14px,2vw,24px) 0;transition:background 0.4s,box-shadow 0.4s,padding 0.4s}
+    #site-header.scrolled{background:rgba(250,247,242,0.97);box-shadow:0 2px 30px rgba(61,43,31,0.08);padding:12px 0;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:flex;flex-direction:column;line-height:1}
+    .nav-logo .logo-name{font-family:var(--serif);font-size:clamp(1.2rem,2vw,1.5rem);font-weight:500;color:var(--white);letter-spacing:0.04em;transition:color 0.3s}
+    .nav-logo .logo-tag{font-size:0.52rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.3s}
+    #site-header.scrolled .logo-name{color:var(--espresso)}
+    #site-header.scrolled .logo-tag{color:var(--text-light)}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .nav-links a{font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.82);padding:6px 10px;border-radius:4px;transition:color 0.3s;white-space:nowrap}
+    .nav-links a:hover{color:var(--white)}
+    #site-header.scrolled .nav-links a{color:var(--text-mid)}
+    #site-header.scrolled .nav-links a:hover{color:var(--espresso)}
+    .nav-cta{background:linear-gradient(135deg,var(--champagne),var(--gold)) !important;color:var(--white) !important;padding:8px 18px !important;border-radius:50px !important;box-shadow:0 4px 20px rgba(185,146,74,0.3)}
+    .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 25px rgba(185,146,74,0.4) !important}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;min-width:44px;min-height:44px;align-items:center;justify-content:center}
+    .nav-toggle span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:var(--transition)}
+    #site-header.scrolled .nav-toggle span{background:var(--espresso)}
+    .mobile-menu{display:none;position:fixed;inset:0;background:var(--ivory);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2rem);font-weight:400;color:var(--espresso)}
+    .mobile-close{position:absolute;top:20px;right:20px;font-size:1.4rem;color:var(--espresso);padding:10px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+
+    /* ── HERO ── */
+    #hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,rgba(61,43,31,0.78) 0%,rgba(90,62,48,0.6) 40%,rgba(139,111,94,0.44) 70%,rgba(201,169,110,0.3) 100%),linear-gradient(135deg,#3D2B1F 0%,#7A5242 35%,#C9A96E 75%,#E8C4B8 100%)}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+    .hero-orb-1{width:min(600px,80vw);height:min(600px,80vw);background:radial-gradient(circle,rgba(201,169,110,0.18),transparent 70%);top:-100px;right:-100px}
+    .hero-orb-2{width:min(400px,60vw);height:min(400px,60vw);background:radial-gradient(circle,rgba(232,196,184,0.15),transparent 70%);bottom:0;left:0}
+    .hero-content{position:relative;z-index:1;width:100%;padding:clamp(100px,15vw,140px) 0 clamp(60px,8vw,100px)}
+    .hero-inner{max-width:min(780px,100%)}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:8px 20px;margin-bottom:28px;backdrop-filter:blur(8px)}
+    .hero-badge-dot{width:6px;height:6px;background:var(--champagne);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+    .hero-badge span{font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+    .hero-headline{font-family:var(--serif);font-size:clamp(2.6rem,7vw,5.5rem);font-weight:300;line-height:1.08;color:var(--white);margin-bottom:22px}
+    .hero-headline em{font-style:italic;color:var(--champagne)}
+    .hero-sub{font-size:clamp(0.95rem,1.8vw,1.12rem);color:rgba(255,255,255,0.82);max-width:min(580px,100%);line-height:1.85;margin-bottom:36px;font-weight:300}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
+    .hero-trust{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+    .hero-trust-item{font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+    .hero-trust-dot{width:3px;height:3px;background:var(--champagne);border-radius:50%;flex-shrink:0}
+    .scroll-ind{position:absolute;bottom:clamp(20px,4vw,40px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.45);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;z-index:1;animation:sbounce 2.5s ease-in-out infinite}
+    .scroll-ind-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,0.45),transparent)}
+    @keyframes sbounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+    /* ── EXPERIENCE ── */
+    #experience{padding:clamp(60px,10vw,120px) 0;background:var(--ivory)}
+    .experience-header{text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+    .experience-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,2vw,24px)}
+    .exp-card{background:var(--white);border-radius:var(--radius-lg);padding:clamp(20px,3vw,36px) clamp(16px,2.5vw,28px);box-shadow:var(--shadow-soft);border:1px solid rgba(237,224,208,0.6);position:relative;overflow:hidden;transition:transform 0.4s,box-shadow 0.4s}
+    .exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--champagne),var(--blush))}
+    .exp-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-med)}
+    .exp-icon-wrap{width:52px;height:52px;background:linear-gradient(135deg,var(--cream),var(--beige));border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--gold)}
+    .exp-number{font-size:0.72rem;font-weight:600;color:var(--champagne);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px}
+    .exp-title{font-family:var(--serif);font-size:clamp(1rem,1.5vw,1.2rem);font-weight:500;color:var(--espresso);margin-bottom:10px;line-height:1.3}
+    .exp-text{font-size:clamp(0.8rem,1.2vw,0.88rem);color:var(--text-mid);line-height:1.75}
+
+    /* ── SERVICES ── */
+    #services{padding:clamp(60px,10vw,120px) 0;background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%)}
+    .services-header{text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-bottom:36px}
+    .service-card{background:var(--white);border-radius:var(--radius-lg);padding:clamp(24px,3.5vw,40px) clamp(20px,3vw,32px);box-shadow:var(--shadow-soft);border:1px solid rgba(237,224,208,0.5);transition:transform 0.4s,box-shadow 0.4s;position:relative;overflow:hidden}
+    .service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blush),var(--champagne));transform:scaleX(0);transition:transform 0.4s}
+    .service-card:hover::after{transform:scaleX(1)}
+    .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-med)}
+    .service-card.consultation{grid-column:span 3;background:linear-gradient(135deg,var(--espresso) 0%,var(--espresso-lt) 100%)}
+    .service-card.consultation .service-name{color:var(--white)}
+    .service-card.consultation .service-desc{color:rgba(255,255,255,0.7)}
+    .service-card.consultation::after{background:linear-gradient(90deg,var(--champagne),var(--blush))}
+    .svc-icon{width:44px;height:44px;color:var(--champagne);margin-bottom:14px}
+    .service-card.consultation .svc-icon{color:var(--champagne)}
+    .service-name{font-family:var(--serif);font-size:clamp(1.1rem,1.8vw,1.35rem);font-weight:500;color:var(--espresso);margin-bottom:8px}
+    .service-price{font-family:var(--serif);font-size:clamp(1.2rem,2vw,1.5rem);font-weight:600;color:var(--champagne);margin-bottom:10px}
+    .service-desc{font-size:clamp(0.8rem,1.2vw,0.88rem);color:var(--text-mid);line-height:1.7}
+    .services-notes{background:var(--cream);border-radius:var(--radius-md);padding:clamp(20px,3vw,32px) clamp(20px,3.5vw,40px);border-left:4px solid var(--champagne);margin-bottom:44px}
+    .services-notes p{font-size:0.88rem;color:var(--text-mid);line-height:1.75;margin-bottom:10px}
+    .services-notes p:last-child{margin-bottom:0}
+    .services-notes strong{color:var(--espresso)}
+    .services-cta{text-align:center}
+
+    /* ── WELLNESS ── */
+    #wellness{padding:clamp(60px,10vw,120px) 0;background:var(--espresso);position:relative;overflow:hidden}
+    .w-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
+    .w-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(201,169,110,0.12),transparent 70%);top:-100px;right:-100px}
+    .w-orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(232,196,184,0.08),transparent 70%);bottom:-80px;left:0}
+    .wellness-header{text-align:center;margin-bottom:clamp(40px,6vw,64px);position:relative;z-index:1}
+    .wellness-header .section-title{color:var(--ivory)}
+    .wellness-header .section-subtitle{color:rgba(255,255,255,0.6)}
+    .wellness-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,20px);position:relative;z-index:1}
+    .wellness-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);padding:clamp(18px,2.5vw,28px) clamp(16px,2vw,24px);transition:var(--transition);backdrop-filter:blur(8px)}
+    .wellness-card:hover{background:rgba(255,255,255,0.1);transform:translateY(-4px)}
+    .w-icon{width:40px;height:40px;color:var(--champagne);margin-bottom:12px}
+    .wellness-name{font-family:var(--serif);font-size:clamp(1rem,1.4vw,1.1rem);font-weight:500;color:var(--ivory);margin-bottom:8px}
+    .wellness-desc{font-size:clamp(0.78rem,1.1vw,0.82rem);color:rgba(255,255,255,0.55);line-height:1.7}
+    .wellness-tag{display:inline-block;margin-top:12px;padding:4px 12px;background:rgba(201,169,110,0.15);border-radius:50px;font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--champagne)}
+
+    /* ── COACHING ── */
+    #coaching{padding:clamp(60px,10vw,120px) 0;background:var(--ivory)}
+    .coaching-header{text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+    .coaching-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,32px);margin-bottom:clamp(48px,8vw,80px)}
+    .coaching-card{background:var(--white);border-radius:var(--radius-lg);padding:clamp(28px,4vw,48px) clamp(20px,3vw,36px);box-shadow:var(--shadow-soft);border:1px solid rgba(237,224,208,0.6);display:flex;flex-direction:column;gap:18px;transition:transform 0.4s,box-shadow 0.4s}
+    .coaching-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-med)}
+    .coaching-card.featured{background:linear-gradient(160deg,var(--champagne) 0%,var(--gold) 100%)}
+    .coaching-card.featured .coaching-card-title{color:var(--white)}
+    .coaching-card.featured .coaching-card-text{color:rgba(255,255,255,0.85)}
+    .c-icon{width:44px;height:44px;color:var(--champagne)}
+    .coaching-card.featured .c-icon{color:rgba(255,255,255,0.9)}
+    .coaching-card-number{font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--champagne)}
+    .coaching-card.featured .coaching-card-number{color:rgba(255,255,255,0.65)}
+    .coaching-card-title{font-family:var(--serif);font-size:clamp(1.3rem,2vw,1.6rem);font-weight:500;color:var(--espresso);line-height:1.2}
+    .coaching-card-text{font-size:clamp(0.82rem,1.2vw,0.9rem);color:var(--text-mid);line-height:1.8;flex:1}
+    .community-signup{background:var(--cream);border-radius:var(--radius-xl);padding:clamp(36px,6vw,72px) clamp(20px,5vw,60px);text-align:center;border:1px solid rgba(237,224,208,0.6)}
+    .signup-form{max-width:560px;margin:0 auto}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .form-group{display:flex;flex-direction:column;gap:6px;text-align:left}
+    .form-group label{font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid)}
+    .form-group input,.form-group select,.form-group textarea{padding:13px 16px;border:1.5px solid var(--beige);border-radius:var(--radius-sm);background:var(--white);font-family:var(--sans);font-size:0.9rem;color:var(--text-dark);outline:none;transition:border-color 0.3s;width:100%;-webkit-appearance:none;appearance:none}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--champagne)}
+    .form-group textarea{resize:vertical;min-height:96px}
+    .form-group.full{grid-column:span 2}
+    .form-radio-group{display:flex;gap:14px;flex-wrap:wrap}
+    .form-radio-label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.88rem;color:var(--text-mid)}
+    .form-radio-label input[type="radio"]{accent-color:var(--champagne);width:16px;height:16px}
+
+    /* ── GALLERY ── */
+    #gallery{padding:clamp(60px,10vw,120px) 0;background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%)}
+    .gallery-header{text-align:center;margin-bottom:clamp(36px,5vw,64px)}
+    .gallery-micro{font-size:0.88rem;font-style:italic;color:var(--text-light);margin-top:8px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(180px,20vw,260px);gap:clamp(8px,1.2vw,16px);margin-bottom:44px}
+    .gallery-item{border-radius:var(--radius-md);overflow:hidden;position:relative;cursor:pointer;background:var(--beige)}
+    .gallery-item.tall{grid-row:span 2}
+    .gallery-item.wide{grid-column:span 2}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.55s ease}
+    .gallery-item:hover img{transform:scale(1.06)}
+    .gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(61,43,31,0.8),transparent 55%);opacity:0;transition:opacity 0.4s;display:flex;align-items:flex-end;padding:clamp(12px,2vw,24px)}
+    .gallery-item:hover .gallery-overlay{opacity:1}
+    .gallery-overlay-text{color:var(--white);font-family:var(--serif);font-size:clamp(0.9rem,1.5vw,1rem)}
+    .ig-section{background:var(--espresso);border-radius:var(--radius-xl);padding:clamp(36px,6vw,60px);text-align:center;margin-top:clamp(32px,5vw,60px);position:relative;overflow:hidden}
+    .ig-bg-orb{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.08),transparent 70%);filter:blur(60px);top:-100px;right:-100px;pointer-events:none}
+    .ig-section h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);color:var(--ivory);margin-bottom:12px}
+    .ig-section p{color:rgba(255,255,255,0.6);margin-bottom:28px;font-size:0.92rem}
+    .ig-handle{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:10px 24px;color:var(--champagne);font-size:0.88rem;font-weight:500;margin-bottom:28px;transition:var(--transition)}
+    .ig-handle:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px)}
+
+    /* ── LIGHTBOX ── */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+    .lightbox.open{display:flex}
+    .lightbox-close{position:absolute;top:20px;right:24px;color:var(--white);font-size:1.8rem;cursor:pointer;padding:10px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+    .lightbox-close:hover{color:var(--champagne);transform:rotate(90deg)}
+    .lightbox-content{max-width:min(700px,92vw);width:100%;text-align:center}
+    .lightbox-img{width:100%;border-radius:var(--radius-md);object-fit:cover;max-height:75vh}
+    .lightbox-caption{font-family:var(--serif);font-size:1rem;color:rgba(255,255,255,0.75);margin-top:16px}
+
+    /* ── TESTIMONIALS ── */
+    #testimonials{padding:clamp(60px,10vw,120px) 0;background:var(--cream)}
+    .testimonials-header{text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+    .testimonials-slider{position:relative;overflow:hidden}
+    .testimonials-track{display:flex;gap:clamp(16px,2.5vw,28px);transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+    .testimonial-card{flex:0 0 calc(33.333% - 19px);background:var(--white);border-radius:var(--radius-lg);padding:clamp(24px,3.5vw,44px) clamp(20px,3vw,40px);box-shadow:var(--shadow-soft);border:1px solid rgba(237,224,208,0.5);display:flex;flex-direction:column;gap:18px}
+    .testimonial-stars{display:flex;gap:3px;color:var(--champagne);font-size:0.95rem}
+    .testimonial-quote{font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.22rem);font-weight:400;font-style:italic;color:var(--espresso);line-height:1.65;flex:1}
+    .testimonial-quote::before{content:'\201C'}.testimonial-quote::after{content:'\201D'}
+    .testimonial-author{display:flex;align-items:center;gap:14px}
+    .testimonial-avatar{width:44px;height:44px;background:linear-gradient(135deg,var(--champagne),var(--blush));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:0.95rem;font-weight:600;color:var(--white);flex-shrink:0}
+    .testimonial-name{font-weight:600;font-size:0.86rem;color:var(--espresso)}
+    .testimonial-service{font-size:0.74rem;color:var(--text-light);letter-spacing:0.05em}
+    .testimonials-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:clamp(28px,4vw,48px)}
+    .slider-btn{width:44px;height:44px;border-radius:50%;background:var(--white);border:1.5px solid var(--beige);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);font-size:0.9rem;color:var(--espresso)}
+    .slider-btn:hover{background:var(--espresso);color:var(--white);border-color:var(--espresso)}
+    .slider-dots{display:flex;gap:8px}
+    .slider-dot{width:8px;height:8px;border-radius:50%;background:var(--nude);cursor:pointer;transition:var(--transition);border:none}
+    .slider-dot.active{background:var(--champagne);width:24px;border-radius:4px}
+
+    /* ── BOOKING ── */
+    #booking{padding:clamp(60px,10vw,120px) 0;background:var(--ivory)}
+    .booking-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start}
+    .booking-left h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--espresso);margin-bottom:18px;line-height:1.2}
+    .booking-left h2 em{font-style:italic;color:var(--gold)}
+    .booking-left p{font-size:0.93rem;color:var(--text-mid);line-height:1.85;margin-bottom:32px}
+    .booking-actions{display:flex;flex-direction:column;gap:12px}
+    .booking-action-btn{display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--white);border:1.5px solid var(--beige);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);text-align:left}
+    .booking-action-btn:hover{border-color:var(--champagne);transform:translateX(4px);box-shadow:var(--shadow-soft)}
+    .ba-icon{width:36px;height:36px;color:var(--champagne);flex-shrink:0}
+    .booking-action-text strong{display:block;font-size:0.9rem;color:var(--espresso);margin-bottom:2px}
+    .booking-action-text span{font-size:0.76rem;color:var(--text-light)}
+    .booking-form{background:var(--white);border-radius:var(--radius-xl);padding:clamp(28px,4vw,52px) clamp(22px,4vw,44px);box-shadow:var(--shadow-med);border:1px solid rgba(237,224,208,0.5)}
+    .booking-form h3{font-family:var(--serif);font-size:clamp(1.3rem,2vw,1.6rem);color:var(--espresso);margin-bottom:8px}
+    .booking-form .form-sub{font-size:0.82rem;color:var(--text-light);margin-bottom:28px}
+    .booking-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .form-success{display:none;text-align:center;padding:clamp(20px,4vw,32px)}
+    .form-success-icon{font-size:2.8rem;margin-bottom:14px}
+    .form-success h4{font-family:var(--serif);font-size:1.35rem;color:var(--espresso);margin-bottom:8px}
+    .form-success p{font-size:0.86rem;color:var(--text-mid);line-height:1.75}
+
+    /* ── FAQ ── */
+    #faq{padding:clamp(60px,10vw,120px) 0;background:var(--cream)}
+    .faq-header{text-align:center;margin-bottom:clamp(36px,5vw,64px)}
+    .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+    .faq-item{background:var(--white);border-radius:var(--radius-md);border:1.5px solid rgba(237,224,208,0.6);overflow:hidden;transition:border-color 0.3s}
+    .faq-item.open{border-color:var(--champagne)}
+    .faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;padding:clamp(16px,2.5vw,24px) clamp(16px,2.5vw,28px);cursor:pointer;background:none;border:none;text-align:left;gap:16px;min-height:44px}
+    .faq-question-text{font-family:var(--serif);font-size:clamp(1rem,1.5vw,1.1rem);font-weight:500;color:var(--espresso);line-height:1.4}
+    .faq-icon{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--champagne);transition:transform 0.3s,background 0.3s}
+    .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--champagne);color:var(--white)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+    .faq-answer-inner{padding:0 clamp(16px,2.5vw,28px) clamp(14px,2vw,22px);font-size:clamp(0.82rem,1.2vw,0.9rem);color:var(--text-mid);line-height:1.85}
+    .faq-item.open .faq-answer{max-height:300px}
+
+    /* ── FOOTER ── */
+    #footer{background:var(--espresso);padding:clamp(48px,8vw,80px) 0 28px;position:relative;overflow:hidden}
+    .footer-orb{position:absolute;width:600px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.05),transparent 70%);filter:blur(80px);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none}
+    .footer-book-cta{text-align:center;padding:clamp(28px,5vw,48px);background:rgba(255,255,255,0.04);border-radius:var(--radius-xl);border:1px solid rgba(255,255,255,0.08);margin-bottom:clamp(40px,6vw,60px);position:relative;z-index:1}
+    .footer-book-cta h3{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.8rem);color:var(--ivory);margin-bottom:8px}
+    .footer-book-cta p{font-size:0.86rem;color:rgba(255,255,255,0.5);margin-bottom:24px}
+    .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(28px,5vw,60px);margin-bottom:clamp(40px,6vw,60px);position:relative;z-index:1}
+    .footer-logo{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:400;color:var(--ivory);margin-bottom:4px}
+    .footer-tagline{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--champagne);margin-bottom:18px}
+    .footer-brand p{font-size:0.84rem;color:rgba(255,255,255,0.48);line-height:1.8;max-width:280px;margin-bottom:24px}
+    .footer-social{display:flex;gap:10px}
+    .footer-social-link{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.55);transition:var(--transition);min-width:40px}
+    .footer-social-link:hover{background:var(--champagne);border-color:var(--champagne);color:var(--white);transform:translateY(-3px)}
+    .footer-social-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .footer-col h4{font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--champagne);margin-bottom:20px}
+    .footer-links{display:flex;flex-direction:column;gap:10px}
+    .footer-links a{font-size:0.84rem;color:rgba(255,255,255,0.48);transition:color 0.3s}
+    .footer-links a:hover{color:var(--ivory)}
+    .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+    .footer-contact-icon{width:16px;height:16px;color:var(--champagne);flex-shrink:0;margin-top:2px}
+    .footer-contact-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .footer-contact-text{font-size:0.82rem;color:rgba(255,255,255,0.48);line-height:1.5}
+    .footer-contact-text a{color:rgba(255,255,255,0.48);transition:color 0.3s}
+    .footer-contact-text a:hover{color:var(--ivory)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;position:relative;z-index:1}
+    .footer-copy{font-size:0.74rem;color:rgba(255,255,255,0.28)}
+    .footer-bottom-links{display:flex;gap:18px}
+    .footer-bottom-links a{font-size:0.74rem;color:rgba(255,255,255,0.28);transition:color 0.3s}
+    .footer-bottom-links a:hover{color:var(--champagne)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      .experience-cards{grid-template-columns:repeat(3,1fr)}
+      .wellness-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-inner{grid-template-columns:1fr 1fr;gap:36px}
+    }
+    @media(max-width:900px){
+      .services-grid{grid-template-columns:1fr 1fr}
+      .service-card.consultation{grid-column:span 2}
+      .coaching-cards{grid-template-columns:1fr}
+      .booking-wrapper{grid-template-columns:1fr;gap:40px}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery-item.wide{grid-column:span 1}
+      .testimonial-card{flex:0 0 calc(50% - 14px)}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .nav-toggle{display:flex}
+      .experience-cards{grid-template-columns:1fr 1fr}
+      .services-grid{grid-template-columns:1fr}
+      .service-card.consultation{grid-column:span 1}
+      .community-signup{padding:36px 20px}
+      .form-grid{grid-template-columns:1fr}
+      .form-group.full{grid-column:span 1}
+      .booking-form-grid{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr;gap:32px}
+      .footer-bottom{flex-direction:column;text-align:center}
+      .testimonial-card{flex:0 0 100%}
+      .hero-actions{flex-direction:column;align-items:flex-start}
+      .gallery-item.tall{grid-row:span 1}
+    }
+    @media(max-width:520px){
+      .experience-cards{grid-template-columns:1fr}
+      .wellness-grid{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr}
+      .coaching-cards{grid-template-columns:1fr}
+    }
+    @media(hover:none){
+      .gallery-overlay{opacity:1;background:linear-gradient(to top,rgba(61,43,31,0.6),transparent 60%)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+    }
+
+    /* ── TOOLS BANNER ── */
+    .tools-banner{position:relative;width:100%;height:clamp(200px,28vw,380px);overflow:hidden}
+    .tools-banner img{width:100%;height:100%;object-fit:cover;object-position:center}
+    .tools-banner-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(61,43,31,0.72) 0%,rgba(61,43,31,0.3) 60%,transparent 100%);display:flex;align-items:center;padding:0 clamp(24px,6vw,80px)}
+    .tools-banner-text{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.8rem);font-weight:300;color:var(--white);max-width:520px;line-height:1.5;font-style:italic}
+    .tools-banner-text em{color:var(--champagne);font-style:normal}
+
+    /* ── ICON STRIP ── */
+    .icon-strip{background:var(--cream);padding:clamp(24px,4vw,48px) 0;overflow:hidden;border-top:1px solid var(--beige);border-bottom:1px solid var(--beige)}
+    .icon-strip-inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;justify-content:center}
+    .icon-strip-img{width:100%;max-width:820px;height:auto;object-fit:contain;filter:sepia(0.6) saturate(0.7) hue-rotate(340deg) brightness(0.85);mix-blend-mode:multiply;opacity:0.82}
+
+    /* ── FLOATING CTA ── */
+    .fab-wrap{position:fixed;bottom:clamp(20px,4vw,36px);right:clamp(16px,3vw,32px);z-index:900;opacity:0;transform:translateY(20px);transition:opacity 0.4s,transform 0.4s;pointer-events:none}
+    .fab-wrap.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+    .fab{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--champagne),var(--gold));color:var(--white);padding:14px 22px;border-radius:50px;font-family:var(--sans);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;box-shadow:0 8px 32px rgba(185,146,74,0.45);transition:transform 0.3s,box-shadow 0.3s;white-space:nowrap}
+    .fab:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(185,146,74,0.55)}
+    .fab svg{flex-shrink:0}
+    @media(max-width:480px){.fab span{display:none}.fab{padding:14px 14px;border-radius:50%}}
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="#hero" class="nav-logo" aria-label="Theo Jones Beauty, Health &amp; Wellness home">
+        <span class="logo-name">Theo Jones</span>
+        <span class="logo-tag">Beauty, Health &amp; Wellness</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#experience">The Experience</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#coaching">Coaching</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Client Love</a></li>
+        <li><a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="#booking" class="nav-cta">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+  <button class="mobile-close" id="mobile-close" aria-label="Close menu">&#10005;</button>
+  <a href="#hero">Home</a>
+  <a href="#experience">The Experience</a>
+  <a href="#services">Services</a>
+  <a href="#coaching">Coaching</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#testimonials">Client Love</a>
+  <a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo" target="_blank" rel="noopener noreferrer">Instagram</a>
+  <a href="#booking" style="color:var(--champagne)">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <div class="hero-badge-dot" aria-hidden="true"></div>
+          <span>Now Welcoming New Clients</span>
+        </div>
+        <h1 class="hero-headline"><em>Theo Jones</em><br>Beauty, Health &amp; Wellness</h1>
+        <p class="hero-sub">Luxury hair artistry, personalized education, and a restorative beauty experience designed to elevate how you look, feel, and care for your crown.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary">Book Your Wellness Session</a>
+          <a href="#experience" class="btn btn-secondary">Explore the Experience</a>
+        </div>
+        <div class="hero-trust" aria-label="Services at a glance">
+          <span class="hero-trust-item">Hair Care</span><span class="hero-trust-dot" aria-hidden="true"></span>
+          <span class="hero-trust-item">Color Artistry</span><span class="hero-trust-dot" aria-hidden="true"></span>
+          <span class="hero-trust-item">Styling</span><span class="hero-trust-dot" aria-hidden="true"></span>
+          <span class="hero-trust-item">Wellness Rituals</span><span class="hero-trust-dot" aria-hidden="true"></span>
+          <span class="hero-trust-item">Education</span><span class="hero-trust-dot" aria-hidden="true"></span>
+          <span class="hero-trust-item">Community</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true"><span>Scroll</span><div class="scroll-ind-line"></div></div>
+</section>
+
+
+<!-- TOOLS BANNER -->
+<div class="tools-banner" aria-hidden="true">
+  <img src="images/tools-banner.jpg" alt="Premium gold salon tools — brushes, scissors, curling irons" />
+  <div class="tools-banner-overlay">
+    <p class="tools-banner-text">Where every tool is chosen with intention. Where every detail is designed for <em>you.</em></p>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience" aria-labelledby="exp-heading">
+  <div class="container">
+    <div class="experience-header reveal">
+      <span class="section-tag">The Ritual</span>
+      <h2 class="section-title" id="exp-heading">More Than Hair.<br><em>A Whole Wellness Session.</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="section-subtitle">At Theo Jones, every appointment is designed as an elevated self-care experience. We begin with intention, consultation, and education — then move into customized hair care, relaxation, styling, and a plan that helps you maintain your results beyond the chair.</p>
+    </div>
+    <div class="experience-cards" role="list">
+      <!-- Step 1 -->
+      <article class="exp-card reveal d1" role="listitem">
+        <div class="exp-icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="exp-number">Step 01</div>
+        <h3 class="exp-title">Personal Consultation</h3>
+        <p class="exp-text">We listen to your lifestyle, hair goals, concerns, and maintenance needs. No assumptions — only intention.</p>
+      </article>
+      <!-- Step 2 -->
+      <article class="exp-card reveal d2" role="listitem">
+        <div class="exp-icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        </div>
+        <div class="exp-number">Step 02</div>
+        <h3 class="exp-title">Hair &amp; Scalp Education</h3>
+        <p class="exp-text">We explain what your hair needs, why it needs it, and how to care for it at home so you leave truly informed.</p>
+      </article>
+      <!-- Step 3 -->
+      <article class="exp-card reveal d3" role="listitem">
+        <div class="exp-icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10"/><path d="M12 6v6l4 2"/><path d="M18 2v4h4"/></svg>
+        </div>
+        <div class="exp-number">Step 03</div>
+        <h3 class="exp-title">Spa-Inspired Shampoo Ritual</h3>
+        <p class="exp-text">A calming cleanse, scalp attention, and restorative moment before styling begins.</p>
+      </article>
+      <!-- Step 4 -->
+      <article class="exp-card reveal d4" role="listitem">
+        <div class="exp-icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="exp-number">Step 04</div>
+        <h3 class="exp-title">Elevated Styling &amp; Finish</h3>
+        <p class="exp-text">A polished, confidence-building finish designed around your personal beauty and unique expression.</p>
+      </article>
+      <!-- Step 5 -->
+      <article class="exp-card reveal d5" role="listitem">
+        <div class="exp-icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="exp-number">Step 05</div>
+        <h3 class="exp-title">Aftercare Coaching</h3>
+        <p class="exp-text">You leave with guidance, product recommendations, and a personalized plan for healthy, thriving hair.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" aria-labelledby="svc-heading">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-tag">Signature Services</span>
+      <h2 class="section-title" id="svc-heading">Crafted for <em>Your Crown</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Every service is delivered with expertise, intention, and a commitment to healthy, beautiful hair.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal d1">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3 3 6l5 5-2 2c-1 1-1 3 0 4l1 1c1 1 3 1 4 0l7-7c1-1 1-3 0-4l-1-1c-1-1-3-1-4 0l-2 2-5-5Z"/><path d="m5 8 4 4"/></svg></div>
+        <h3 class="service-name">Haircut &amp; Blowout</h3>
+        <div class="service-price">$45 – $85+</div>
+        <p class="service-desc">A precision cut followed by a professional blowout for a polished, runway-ready finish.</p>
+      </article>
+      <article class="service-card reveal d2">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M12 10a2 2 0 0 1 2 2"/><path d="M2 12a10 10 0 0 0 10 10"/><path d="M6 12a6 6 0 0 0 6 6"/><path d="M10 12a2 2 0 0 0 2 2"/></svg></div>
+        <h3 class="service-name">Shampoo &amp; Blow Dry</h3>
+        <div class="service-price">$30 – $45</div>
+        <p class="service-desc">A luxurious wash, scalp massage, and professional blowout — the perfect everyday refresh.</p>
+      </article>
+      <article class="service-card reveal d3">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49"/><path d="M7.76 7.76a6 6 0 0 0 0 8.49"/></svg></div>
+        <h3 class="service-name">Partial Highlights</h3>
+        <div class="service-price">$85 – $140+</div>
+        <p class="service-desc">Strategically placed highlights to add dimension, warmth, and natural luminosity.</p>
+      </article>
+      <article class="service-card reveal d1">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/><path d="M17 17v5"/><path d="M19.5 19.5 17 22l-2.5-2.5"/></svg></div>
+        <h3 class="service-name">Balayage / Full Color</h3>
+        <div class="service-price">$125 – $200+</div>
+        <p class="service-desc">Hand-painted balayage or full-coverage color crafted to complement your skin tone and vision.</p>
+      </article>
+      <article class="service-card reveal d2">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 4.5H18l-3.75 2.75L15.75 14 12 11.25 8.25 14l1.5-4.75L6 6.5h4.5L12 2z"/><path d="M5 20h14"/><path d="M8 20v-6"/><path d="M16 20v-6"/></svg></div>
+        <h3 class="service-name">Special Occasion / Updo</h3>
+        <div class="service-price">$75 – $85+</div>
+        <p class="service-desc">Elegant updo and occasion styling — because every milestone deserves a crown moment.</p>
+      </article>
+      <article class="service-card consultation reveal d3">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>
+        <h3 class="service-name">Custom Color, Braids, Sew-Ins &amp; Lace Services</h3>
+        <div class="service-price">Priced Upon Consultation</div>
+        <p class="service-desc">Complex, custom, and creative services tailored entirely to your vision. Book a consultation to begin your transformation journey.</p>
+      </article>
+    </div>
+    <div class="services-notes reveal">
+      <p><strong>Pricing Note:</strong> Final pricing may vary based on hair length, density, desired result, product usage, and appointment complexity.</p>
+      <p><strong>Gratuity:</strong> Average gratuity is 15%–20% of the total service cost. Example: On a $60 haircut, a standard tip is $9–$12.</p>
+    </div>
+    <div class="services-cta reveal"><a href="#booking" class="btn btn-dark">Start With a Consultation</a></div>
+  </div>
+</section>
+
+<!-- WELLNESS ADD-ONS -->
+<section id="wellness" aria-labelledby="well-heading">
+  <div class="w-orb w-orb-1" aria-hidden="true"></div>
+  <div class="w-orb w-orb-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="wellness-header reveal">
+      <span class="section-tag">Signature Add-Ons</span>
+      <h2 class="section-title" id="well-heading">Elevate Your <em>Experience</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Our wellness add-ons transform your appointment into a complete self-care sanctuary. These are the moments that make the Theo Jones experience unlike any other.</p>
+    </div>
+    <div class="wellness-grid" role="list">
+      <article class="wellness-card reveal d1" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
+        <h3 class="wellness-name">Scalp Massage Moment</h3>
+        <p class="wellness-desc">A restorative scalp massage to stimulate circulation, relieve tension, and promote healthy hair growth.</p>
+        <span class="wellness-tag">Add-On</span>
+      </article>
+      <article class="wellness-card reveal d2" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg></div>
+        <h3 class="wellness-name">Deep Conditioning Ritual</h3>
+        <p class="wellness-desc">An intensive treatment designed to restore moisture, repair damage, and bring your hair back to life.</p>
+        <span class="wellness-tag">Add-On</span>
+      </article>
+      <article class="wellness-card reveal d3" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <h3 class="wellness-name">Hair Health Consultation</h3>
+        <p class="wellness-desc">A thorough assessment of your hair's health — texture, porosity, damage levels, and growth patterns.</p>
+        <span class="wellness-tag">Experience Element</span>
+      </article>
+      <article class="wellness-card reveal d4" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3 class="wellness-name">Product Education</h3>
+        <p class="wellness-desc">Learn exactly what your hair needs and which products will support your goals and daily routine.</p>
+        <span class="wellness-tag">Experience Element</span>
+      </article>
+      <article class="wellness-card reveal d1" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3 class="wellness-name">Maintenance Planning</h3>
+        <p class="wellness-desc">Leave with a personalized maintenance schedule so your hair thrives between every appointment.</p>
+        <span class="wellness-tag">Experience Element</span>
+      </article>
+      <article class="wellness-card reveal d2" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3 class="wellness-name">Confidence Coaching</h3>
+        <p class="wellness-desc">Beyond the chair — Theo walks you through styling, presentation, and showing up as your best self.</p>
+        <span class="wellness-tag">Add-On</span>
+      </article>
+      <article class="wellness-card reveal d3" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <h3 class="wellness-name">Relaxation Experience</h3>
+        <p class="wellness-desc">Aromatherapy, calming ambiance, and intentional pacing — every appointment feels like a private retreat.</p>
+        <span class="wellness-tag">Experience Element</span>
+      </article>
+      <article class="wellness-card reveal d4" role="listitem">
+        <div class="w-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3 class="wellness-name">Lifestyle Hair Routine Guidance</h3>
+        <p class="wellness-desc">Build a hair routine that works for your actual life — your schedule, habits, goals, and budget.</p>
+        <span class="wellness-tag">Add-On</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ICON STRIP -->
+<div class="icon-strip" aria-hidden="true">
+  <div class="icon-strip-inner">
+    <div class="icon-strip-item">
+      <img src="images/hair-icons.webp" alt="" class="icon-strip-img" />
+    </div>
+  </div>
+</div>
+
+<!-- COACHING -->
+<section id="coaching" aria-labelledby="coach-heading">
+  <div class="container">
+    <div class="coaching-header reveal">
+      <span class="section-tag">Education &amp; Community</span>
+      <h2 class="section-title" id="coach-heading">Coaching, <em>Education</em><br>&amp; Community</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Theo Jones is built on beauty, knowledge, and community. Whether you are a client learning how to care for your hair or a hairstylist ready to grow, our education experiences are designed to help you feel informed, supported, and empowered.</p>
+    </div>
+    <div class="coaching-cards">
+      <article class="coaching-card reveal d1">
+        <div class="c-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="coaching-card-number">For Clients</div>
+        <h3 class="coaching-card-title">Client Hair Coaching</h3>
+        <p class="coaching-card-text">Learn your hair type, routine, maintenance schedule, styling habits, and product needs. Walk away with the knowledge to care for your hair with confidence every single day.</p>
+        <a href="#booking" class="btn btn-outline">Book Client Coaching</a>
+      </article>
+      <article class="coaching-card featured reveal d2">
+        <div class="c-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div class="coaching-card-number">For Stylists</div>
+        <h3 class="coaching-card-title">Stylist Coaching</h3>
+        <p class="coaching-card-text">Mentorship for hairstylists who want to strengthen consultation skills, elevate client experience, master healthy hair practices, build their brand, and grow with true confidence.</p>
+        <a href="#booking" class="btn" style="background:var(--white);color:var(--espresso);border-radius:50px;font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:14px 32px;display:inline-flex;transition:var(--transition)">Apply for Stylist Coaching</a>
+      </article>
+      <article class="coaching-card reveal d3">
+        <div class="c-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="coaching-card-number">For Everyone</div>
+        <h3 class="coaching-card-title">Community Classes</h3>
+        <p class="coaching-card-text">Intimate education sessions, beauty conversations, live demos, and hair wellness workshops for clients and stylists alike. Join a community rooted in growth and empowerment.</p>
+        <a href="#booking" class="btn btn-outline">Join the Community</a>
+      </article>
+    </div>
+    <!-- Community Signup -->
+    <div class="community-signup reveal">
+      <span class="section-tag">Stay Connected</span>
+      <h2 class="section-title">Join the <em>Theo Jones Community</em></h2>
+      <p class="section-subtitle" style="margin-bottom:36px">Be the first to hear about education events, new services, coaching opportunities, and exclusive hair wellness content.</p>
+      <form class="signup-form" id="community-form" novalidate aria-label="Community newsletter signup">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="community-name">Full Name</label>
+            <input type="text" id="community-name" name="name" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="community-email">Email Address</label>
+            <input type="email" id="community-email" name="email" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group full">
+            <label>I am a:</label>
+            <div class="form-radio-group" role="radiogroup" aria-label="I am a">
+              <label class="form-radio-label"><input type="radio" name="user-type" value="client" /> Client</label>
+              <label class="form-radio-label"><input type="radio" name="user-type" value="stylist" /> Stylist</label>
+              <label class="form-radio-label"><input type="radio" name="user-type" value="both" /> Both</label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Join the Theo Jones Community</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" aria-labelledby="gal-heading">
+  <div class="container-wide">
+    <div class="gallery-header reveal">
+      <span class="section-tag">Visual Portfolio</span>
+      <h2 class="section-title" id="gal-heading">The Art of <em>Transformation</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="gallery-micro">Real clients. Real transformations. Real hair education.</p>
+    </div>
+    <div class="gallery-grid" role="list">
+      <div class="gallery-item tall reveal d1" role="listitem" tabindex="0" data-label="Balayage — Warm Caramel Tones" data-img="images/balayage.webp">
+        <img src="images/balayage.webp" alt="Caramel balayage transformation" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Balayage</span></div>
+      </div>
+      <div class="gallery-item reveal d2" role="listitem" tabindex="0" data-label="Color Artistry" data-img="images/color-artistry.jpg">
+        <img src="images/color-artistry.jpg" alt="Vivid color artistry" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Color Artistry</span></div>
+      </div>
+      <div class="gallery-item reveal d3" role="listitem" tabindex="0" data-label="Blowout Styling" data-img="images/blowout-1.jpg">
+        <img src="images/blowout-1.jpg" alt="Professional blowout — sleek finish" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Blowout</span></div>
+      </div>
+      <div class="gallery-item reveal d4" role="listitem" tabindex="0" data-label="Studio Life" data-img="images/studio-life.jpg">
+        <img src="images/studio-life.jpg" alt="Luxurious salon studio space" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Studio Life</span></div>
+      </div>
+      <div class="gallery-item wide reveal d1" role="listitem" tabindex="0" data-label="Before &amp; After — Blowout Transformation" data-img="images/blowout-2.jpg">
+        <img src="images/blowout-2.jpg" alt="Before and after blowout transformation" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Before &amp; After</span></div>
+      </div>
+      <div class="gallery-item reveal d2" role="listitem" tabindex="0" data-label="Braids &amp; Protective Styling" data-img="images/braids-1.jpg">
+        <img src="images/braids-1.jpg" alt="Elegant box braids — protective styling" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Braids</span></div>
+      </div>
+      <div class="gallery-item tall reveal d3" role="listitem" tabindex="0" data-label="Braiding in Progress" data-img="images/braids-2.webp">
+        <img src="images/braids-2.webp" alt="Braiding technique close-up" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Braiding</span></div>
+      </div>
+      <div class="gallery-item reveal d1" role="listitem" tabindex="0" data-label="Before &amp; After — Curly to Sleek" data-img="images/blowout-3.jpg">
+        <img src="images/blowout-3.jpg" alt="Curly to sleek blowout transformation" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Transformation</span></div>
+      </div>
+      <div class="gallery-item wide reveal d2" role="listitem" tabindex="0" data-label="Before &amp; After — Color &amp; Style" data-img="images/before-after-1.jpg">
+        <img src="images/before-after-1.jpg" alt="Before and after colour and style" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Before &amp; After</span></div>
+      </div>
+      <div class="gallery-item reveal d3" role="listitem" tabindex="0" data-label="Before &amp; After — Volume &amp; Finish" data-img="images/before-after-2.jpg">
+        <img src="images/before-after-2.jpg" alt="Before and after volume and finish" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true"><span class="gallery-overlay-text">Before &amp; After</span></div>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="ig-section reveal">
+      <div class="ig-bg-orb" aria-hidden="true"></div>
+      <h3>Follow the Journey</h3>
+      <p>Real transformations, education moments, and behind-the-scenes studio life — live on Instagram.</p>
+      <a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo"
+         target="_blank" rel="noopener noreferrer" class="ig-handle" aria-label="Follow @thebeautyofitall8 on Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @thebeautyofitall8
+      </a>
+      <br>
+      <a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo"
+         target="_blank" rel="noopener noreferrer" class="btn btn-primary">Follow Us on Instagram</a>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&#10005;</button>
+    <div class="lightbox-content">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" aria-labelledby="test-heading">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-tag">Client Love</span>
+      <h2 class="section-title" id="test-heading">What Our <em>Clients Say</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+    </div>
+    <div class="testimonials-slider" role="region" aria-label="Client testimonials">
+      <div class="testimonials-track" id="testimonials-track">
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <blockquote class="testimonial-quote">Theo didn't just style my hair. He taught me how to understand it. I left knowing my hair type, what products to use, and exactly how to care for my crown every single day.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">M.J.</div>
+            <div><div class="testimonial-name">M. Johnson</div><div class="testimonial-service">Balayage &amp; Consultation</div></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <blockquote class="testimonial-quote">My appointment felt like therapy, beauty, and education all in one. The shampoo ritual alone was worth every penny. This is not just a salon — it is a sanctuary.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">A.W.</div>
+            <div><div class="testimonial-name">A. Williams</div><div class="testimonial-service">Shampoo Ritual &amp; Blowout</div></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <blockquote class="testimonial-quote">I left feeling elevated, confident, and genuinely cared for. Theo spent time explaining everything and gave me a full routine I can actually follow. Game-changing experience.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">S.T.</div>
+            <div><div class="testimonial-name">S. Thomas</div><div class="testimonial-service">Haircut &amp; Aftercare Coaching</div></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <blockquote class="testimonial-quote">The color work is absolutely stunning. But what I appreciate most is the education. For the first time, I truly understand what my hair needs. I feel empowered in my crown.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">D.R.</div>
+            <div><div class="testimonial-name">D. Roberts</div><div class="testimonial-service">Full Color &amp; Wellness Add-On</div></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <blockquote class="testimonial-quote">As a stylist, Theo's coaching changed everything for me. He helped me build confidence, refine my consultations, and understand the business side of beauty. Truly invested in my growth.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">K.B.</div>
+            <div><div class="testimonial-name">K. Brown</div><div class="testimonial-service">Stylist Coaching Program</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="testimonials-controls" aria-label="Testimonial navigation">
+      <button class="slider-btn" id="prev-btn" aria-label="Previous">&#8592;</button>
+      <div class="slider-dots" id="slider-dots" role="tablist"></div>
+      <button class="slider-btn" id="next-btn" aria-label="Next">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" aria-labelledby="book-heading">
+  <div class="container">
+    <div class="booking-wrapper">
+      <div class="booking-left reveal-left">
+        <span class="section-tag">Book Your Visit</span>
+        <h2 id="book-heading">Ready for Your<br><em>Crown Care Experience?</em></h2>
+        <p>Book your appointment or consultation and step into a salon experience designed around beauty, wellness, education, and confidence. Every detail is crafted for you.</p>
+        <div class="booking-actions">
+          <a href="#booking-form-area" class="booking-action-btn">
+            <div class="ba-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="booking-action-text"><strong>Book Now</strong><span>Request your appointment using the form</span></div>
+          </a>
+          <a href="#booking-form-area" class="booking-action-btn">
+            <div class="ba-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="booking-action-text"><strong>Request Consultation</strong><span>Perfect for new clients &amp; custom services</span></div>
+          </a>
+          <a href="#coaching" class="booking-action-btn">
+            <div class="ba-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div class="booking-action-text"><strong>Ask About Coaching</strong><span>For clients and stylists ready to grow</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="booking-form reveal-right" id="booking-form-area">
+        <h3>Request My Appointment</h3>
+        <p class="form-sub">Fill out the form and we'll follow up to confirm your booking.</p>
+        <form id="appointment-form" novalidate aria-label="Appointment request form">
+          <div class="booking-form-grid">
+            <div class="form-group">
+              <label for="book-name">Full Name *</label>
+              <input type="text" id="book-name" name="name" placeholder="Your full name" autocomplete="name" required />
+            </div>
+            <div class="form-group">
+              <label for="book-email">Email *</label>
+              <input type="email" id="book-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+            </div>
+            <div class="form-group">
+              <label for="book-phone">Phone Number</label>
+              <input type="tel" id="book-phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label for="book-date">Preferred Date</label>
+              <input type="date" id="book-date" name="date" />
+            </div>
+            <div class="form-group full">
+              <label for="book-service">Desired Service</label>
+              <select id="book-service" name="service">
+                <option value="">Select a service…</option>
+                <option>Haircut &amp; Blowout</option>
+                <option>Shampoo &amp; Blow Dry</option>
+                <option>Partial Highlights</option>
+                <option>Balayage / Full Color</option>
+                <option>Special Occasion / Updo</option>
+                <option>Custom Color, Braids, Sew-Ins &amp; Lace (Consultation)</option>
+                <option>Client Hair Coaching</option>
+                <option>Stylist Coaching</option>
+                <option>Community Class</option>
+                <option>General Consultation</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>New or Returning Client?</label>
+              <div class="form-radio-group" role="radiogroup" aria-label="Client status">
+                <label class="form-radio-label"><input type="radio" name="client-type" value="new" /> New Client</label>
+                <label class="form-radio-label"><input type="radio" name="client-type" value="returning" /> Returning Client</label>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label for="book-goals">Hair Goals &amp; Notes</label>
+              <textarea id="book-goals" name="goals" placeholder="Share your hair goals, concerns, or anything you'd like Theo to know before your appointment…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:17px;margin-top:8px">Request My Appointment</button>
+        </form>
+        <div class="form-success" id="booking-success" role="alert" aria-live="polite">
+          <div class="form-success-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--champagne)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h4>Thank You.</h4>
+          <p>Your request has been received. The Theo Jones team will follow up to confirm your appointment. We look forward to welcoming you to the studio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="section-tag">Common Questions</span>
+      <h2 class="section-title" id="faq-heading">Frequently Asked <em>Questions</em></h2>
+      <div class="divider" aria-hidden="true"></div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+          <span class="faq-question-text">Do I need a consultation?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer" id="faq-1"><div class="faq-answer-inner">Consultations are recommended for custom color, braids, sew-ins, lace services, major transformations, and first-time clients. This ensures your appointment is properly prepared and your experience is entirely personalized to you.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+          <span class="faq-question-text">Are the prices final?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer" id="faq-2"><div class="faq-answer-inner">Listed prices are starting ranges. Final pricing depends on hair length, density, service complexity, and desired result. A consultation will provide clarity and ensure there are no surprises.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+          <span class="faq-question-text">Do you educate clients during appointments?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer" id="faq-3"><div class="faq-answer-inner">Yes. Education is a core part of the experience — not an afterthought. Clients receive personalized guidance on hair health, maintenance routines, styling habits, and product recommendations tailored to their specific hair type and lifestyle.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+          <span class="faq-question-text">Do you offer coaching for hairstylists?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer" id="faq-4"><div class="faq-answer-inner">Yes. Coaching options are available for stylists seeking mentorship, deeper education, greater confidence, and business growth support. Whether you are just starting out or refining your practice, Theo Jones coaching is designed to elevate where you are.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-5">
+          <span class="faq-question-text">Can I book special occasion styling?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer" id="faq-5"><div class="faq-answer-inner">Yes. Special occasion and updo services are available, with pricing starting from $75 to $85+. Whether it is a wedding, event, photoshoot, or milestone moment, we create elevated looks designed to honor the occasion.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-orb" aria-hidden="true"></div>
+  <div class="container">
+    <div class="footer-book-cta reveal">
+      <h3>Your Crown Deserves This.</h3>
+      <p>Book your wellness session and experience the Theo Jones difference.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="#booking" class="btn btn-primary">Book Now</a>
+        <a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.2)">Follow on Instagram</a>
+      </div>
+    </div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Theo Jones</div>
+        <div class="footer-tagline">Beauty, Health &amp; Wellness</div>
+        <p>Luxury hair care, wellness, education, and community — designed to elevate how you look, feel, and care for your crown.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow on Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#experience">The Experience</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#coaching">Coaching</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Client Love</a></li>
+          <li><a href="#booking">Book Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Haircut &amp; Blowout</a></li>
+          <li><a href="#services">Shampoo &amp; Blow Dry</a></li>
+          <li><a href="#services">Highlights</a></li>
+          <li><a href="#services">Balayage &amp; Color</a></li>
+          <li><a href="#services">Special Occasion</a></li>
+          <li><a href="#services">Braids &amp; Sew-Ins</a></li>
+          <li><a href="#coaching">Coaching</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
+          <div class="footer-contact-text"><a href="https://www.instagram.com/thebeautyofitall8?igsh=OWk1bGg1NnEzd3RwSo" target="_blank" rel="noopener noreferrer">@thebeautyofitall8</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+          <div class="footer-contact-text"><a href="mailto:theojonesllc@yahoo.com">theojonesllc@yahoo.com</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 5.51 5.51l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div class="footer-contact-text"><a href="tel:+12705196456">(270) 519-6456</a> &nbsp;·&nbsp; <a href="tel:+19014566585">(901) 456-6585</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div class="footer-contact-text">Studio Location — Coming Soon</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2024 Theo Jones Beauty, Health &amp; Wellness. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#booking">Book Now</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Sticky header */
+  const hdr = document.getElementById('site-header');
+  const syncHdr = () => hdr.classList.toggle('scrolled', window.scrollY > 60);
+  window.addEventListener('scroll', syncHdr, {passive:true}); syncHdr();
+
+  /* Mobile menu */
+  const tog = document.getElementById('nav-toggle');
+  const mob = document.getElementById('mobile-menu');
+  const cls = document.getElementById('mobile-close');
+  const openMob = () => { mob.classList.add('open'); tog.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  const closeMob = () => { mob.classList.remove('open'); tog.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  tog.addEventListener('click', openMob);
+  cls.addEventListener('click', closeMob);
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMob));
+
+  /* Scroll reveal */
+  const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => ro.observe(el));
+
+  /* Testimonials slider */
+  const track = document.getElementById('testimonials-track');
+  const dotsW = document.getElementById('slider-dots');
+  const cards = track.querySelectorAll('.testimonial-card');
+  let cur = 0;
+  const spv = () => window.innerWidth <= 768 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+  const tot = () => Math.ceil(cards.length / spv());
+  function buildDots() {
+    dotsW.innerHTML = '';
+    for(let i=0;i<tot();i++){
+      const b=document.createElement('button');
+      b.className='slider-dot'+(i===cur?' active':'');
+      b.setAttribute('role','tab'); b.setAttribute('aria-label','Slide '+(i+1));
+      b.addEventListener('click',()=>go(i)); dotsW.appendChild(b);
+    }
+  }
+  function go(idx){
+    cur=Math.max(0,Math.min(idx,tot()-1));
+    const w=cards[0].offsetWidth+parseInt(getComputedStyle(track).gap||'28');
+    track.style.transform=`translateX(-${cur*w*spv()}px)`;
+    dotsW.querySelectorAll('.slider-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  }
+  document.getElementById('prev-btn').addEventListener('click',()=>go(cur-1));
+  document.getElementById('next-btn').addEventListener('click',()=>go(cur+1));
+  buildDots();
+  window.addEventListener('resize',()=>{buildDots();go(0);});
+  setInterval(()=>go(cur<tot()-1?cur+1:0),5200);
+
+  /* FAQ */
+  document.querySelectorAll('.faq-question').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const item=btn.closest('.faq-item'), open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-question').setAttribute('aria-expanded','false');});
+      if(!open){item.classList.add('open');btn.setAttribute('aria-expanded','true');}
+    });
+  });
+
+  /* Lightbox */
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightbox-img');
+  const lbCap=document.getElementById('lightbox-caption');
+  const lbClose=document.getElementById('lightbox-close');
+  const closeLb=()=>{lb.classList.remove('open');document.body.style.overflow='';};
+  document.querySelectorAll('.gallery-item').forEach(item=>{
+    const open=()=>{
+      lbImg.src=item.dataset.img||''; lbImg.alt=item.dataset.label||'';
+      lbCap.textContent=item.dataset.label||'';
+      lb.classList.add('open'); document.body.style.overflow='hidden'; lbClose.focus();
+    };
+    item.addEventListener('click',open);
+    item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+  lbClose.addEventListener('click',closeLb);
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+
+  /* Escape key */
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    closeLb(); closeMob();
+  });
+
+  /* Booking form */
+  const apptForm=document.getElementById('appointment-form');
+  const apptSucc=document.getElementById('booking-success');
+  const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  apptForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const nEl=document.getElementById('book-name'), eEl=document.getElementById('book-email');
+    nEl.style.borderColor=''; eEl.style.borderColor='';
+    if(!nEl.value.trim()){nEl.style.borderColor='var(--rose)';nEl.focus();return;}
+    if(!emailRe.test(eEl.value.trim())){eEl.style.borderColor='var(--rose)';eEl.focus();return;}
+    apptForm.style.display='none'; apptSucc.style.display='block';
+    apptSucc.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  ['book-name','book-email'].forEach(id=>document.getElementById(id).addEventListener('input',function(){this.style.borderColor='';}));
+
+  /* Community form */
+  document.getElementById('community-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const btn=e.target.querySelector('button[type="submit"]');
+    btn.textContent="You're In! Welcome to the Community";
+    btn.style.background='linear-gradient(135deg,var(--cocoa),var(--espresso))';
+    btn.disabled=true;
+  });
+
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(!t)return; e.preventDefault();
+      window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-76,behavior:'smooth'});
+    });
+  });
+
+  /* Floating CTA — show after scrolling past hero */
+  const fabWrap = document.getElementById('fab-wrap');
+  const heroEl  = document.getElementById('hero');
+  const fabObs  = new IntersectionObserver(entries => {
+    fabWrap.classList.toggle('visible', !entries[0].isIntersecting);
+  }, {threshold: 0.1});
+  if (heroEl) fabObs.observe(heroEl);
+
+</script>
+
+<!-- FLOATING CTA -->
+<div class="fab-wrap" id="fab-wrap">
+  <a href="#booking" class="fab" aria-label="Book your wellness session">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>Book Now</span>
+  </a>
+</div>
+
+</body>
+</html>
