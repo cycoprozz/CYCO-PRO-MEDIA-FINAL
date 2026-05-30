@@ -152,6 +152,20 @@ a:hover { color: var(--magenta); }
   text-transform: uppercase;
   opacity: 0.6;
 }
+.nav-location-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--silver);
+  opacity: 0.75;
+  white-space: nowrap;
+  padding: 4px 12px;
+  border: 1px solid var(--silver-dim);
+  border-radius: 20px;
+  background: rgba(216, 216, 232, 0.05);
+  margin-left: auto;
+  margin-right: 12px;
+}
 @keyframes logo-glow {
   0% { filter: drop-shadow(0 0 8px rgba(0,240,255,0.3)) drop-shadow(0 0 16px rgba(184,176,208,0.2)); }
   100% { filter: drop-shadow(0 0 18px rgba(0,240,255,0.6)) drop-shadow(0 0 36px rgba(184,176,208,0.5)); }
@@ -724,6 +738,7 @@ a:hover { color: var(--magenta); }
 @media (max-width: 768px) {
   :root { --nav-height: 60px; }
   .nav-logo-img { height: 64px !important; }
+  .nav-location-badge { display: none; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; position: absolute;
@@ -768,6 +783,7 @@ a:hover { color: var(--magenta); }
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
     </button>
+    <div class="nav-location-badge" aria-label="Location">📍 ATL · 🌐 Worldwide</div>
     <ul class="nav-links" id="nav-links" role="menubar">
       <li role="none"><a href="#home" role="menuitem">Home</a></li>
       <li role="none"><a href="#services" role="menuitem">Services</a></li>
@@ -983,11 +999,7 @@ a:hover { color: var(--magenta); }
     <div class="about-grid">
       <div class="about-image-wrapper reveal reveal-delay-2">
         <div class="about-image-placeholder">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" style="width:80%;max-width:280px;height:auto;">
-        </div>
-        <div class="about-floating-badge">
-          📍 Atlanta, GA<br>
-          🌐 Worldwide
+          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img about-logo" style="width:80%;max-width:280px;height:auto;">
         </div>
       </div>
       <div class="about-content reveal reveal-delay-3">
