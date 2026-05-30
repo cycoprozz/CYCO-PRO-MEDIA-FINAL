@@ -875,6 +875,7 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" style="cursor:pointer;" onclick="var v=this.querySelector('video');v.paused?v.play():v.pause();this.querySelector('.play-overlay').style.display=v.paused?'flex':'none';">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-video.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
+                 poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
                  aria-label="Event coverage video reel"></video>
           <div class="play-overlay" style="display:flex;">
             <button class="play-btn" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button>
@@ -890,6 +891,7 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" id="video-card-media">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial-video.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
+                 poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
                  aria-label="Commercial video reel by CYCO PRO MEDIA"></video>
           <div class="play-overlay" id="video-play-overlay">
             <button class="play-btn" aria-label="Play video">
@@ -931,8 +933,10 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card web-card reveal reveal-delay-3">
         <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
           <iframe src="https://theo-jones.joffre-fab.workers.dev" 
-                  style="width:100%;height:100%;border:none;position:absolute;inset:0;transform:scale(0.35);transform-origin:0 0;width:285%;height:285%;"
-                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                  style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:1;z-index:2;"
+                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin" class="cf-iframe"></iframe>
+          <iframe style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:0;z-index:1;"
+                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin" class="cf-iframe"></iframe>
         </div>
         <div class="portfolio-info">
           <h3>Web Projects</h3>
@@ -1613,7 +1617,8 @@ a:hover { color: var(--magenta); }
   var carouselContainer = document.getElementById('web-projects-carousel');
   var carouselLabel = document.getElementById('web-projects-label');
   if (carouselContainer && carouselLabel) {
-    var cIframe = carouselContainer.querySelector('iframe');
+    var cIframes = carouselContainer.querySelectorAll('.cf-iframe');
+    var cActive = 0; // which iframe is visible (0 or 1)
     var cIndex = 0;
     var cInterval;
     var cUserPaused = false;
@@ -1622,12 +1627,19 @@ a:hover { color: var(--magenta); }
       cInterval = setInterval(function() {
         if (!cUserPaused && !document.hidden) {
           cIndex = (cIndex + 1) % webProjects.length;
-          cIframe.style.opacity = '0';
-          setTimeout(function() {
-            cIframe.src = webProjects[cIndex].url;
+          var next = cActive === 0 ? 1 : 0;
+          // Preload next project in hidden iframe
+          cIframes[next].src = webProjects[cIndex].url;
+          cIframes[next].onload = function() {
+            // Crossfade: show next, hide current
+            cIframes[next].style.opacity = '1';
+            cIframes[next].style.zIndex = '2';
+            cIframes[cActive].style.opacity = '0';
+            cIframes[cActive].style.zIndex = '1';
+            cActive = next;
             carouselLabel.textContent = webProjects[cIndex].label;
-            cIframe.style.opacity = '1';
-          }, 300);
+            cIframes[next].onload = null;
+          };
         }
       }, 6000);
     }
@@ -1642,7 +1654,6 @@ a:hover { color: var(--magenta); }
     carouselContainer.addEventListener('touchstart', function() { cUserPaused = true; }, {passive: true});
     carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
     
-    cIframe.style.transition = 'opacity 0.3s ease';
     startCarousel();
     
     // Left/right swipe for mobile
@@ -1654,12 +1665,17 @@ a:hover { color: var(--magenta); }
         cUserPaused = false;
         if (diff > 0) cIndex = (cIndex + 1) % webProjects.length;
         else cIndex = (cIndex - 1 + webProjects.length) % webProjects.length;
-        cIframe.style.opacity = '0';
-        setTimeout(function() {
-          cIframe.src = webProjects[cIndex].url;
+        var next = cActive === 0 ? 1 : 0;
+        cIframes[next].src = webProjects[cIndex].url;
+        cIframes[next].onload = function() {
+          cIframes[next].style.opacity = '1';
+          cIframes[next].style.zIndex = '2';
+          cIframes[cActive].style.opacity = '0';
+          cIframes[cActive].style.zIndex = '1';
+          cActive = next;
           carouselLabel.textContent = webProjects[cIndex].label;
-          cIframe.style.opacity = '1';
-        }, 300);
+          cIframes[next].onload = null;
+        };
       }
     });
   }
