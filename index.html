@@ -911,15 +911,17 @@ a:hover { color: var(--magenta); }
 
         <div class="portfolio-card video-card reveal reveal-delay-3">
         <div class="portfolio-media" id="video-card-media">
-          <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial-video.mp4"
+          <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-1.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
                  poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-1.jpg"
-                 aria-label="Commercial video reel by CYCO PRO MEDIA"></video>
+                 aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="5"></video>
           <div class="play-overlay" id="video-play-overlay">
             <button class="play-btn" aria-label="Play video">
               <svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg>
             </button>
           </div>
+          <button class="video-nav-btn prev" aria-label="Previous video" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">◂</button>
+          <button class="video-nav-btn next" aria-label="Next video" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">▸</button>
         </div>
         <div class="portfolio-info">
           <h3>Commercial Video</h3>
@@ -1641,6 +1643,32 @@ a:hover { color: var(--magenta); }
   var styleEl = document.createElement('style');
   styleEl.textContent = '.portfolio-card .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; }';
   document.head.appendChild(styleEl);
+
+  // --- Commercial Video Slideshow ---
+  var commVideo = document.querySelector('[data-video-slideshow="comm"]');
+  if (commVideo) {
+    var vCount = parseInt(commVideo.getAttribute('data-video-count'), 10);
+    var vBase = 'https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-';
+    var vCurrent = 0;
+    var vPoster = commVideo.getAttribute('poster');
+    
+    document.querySelector('#video-card-media .video-nav-btn.prev').addEventListener('click', function(e) {
+      e.stopPropagation();
+      vCurrent = (vCurrent - 1 + vCount) % vCount;
+      var wasPlaying = !commVideo.paused;
+      commVideo.src = vBase + (vCurrent + 1) + '.mp4';
+      commVideo.load();
+      if (wasPlaying) commVideo.play();
+    });
+    document.querySelector('#video-card-media .video-nav-btn.next').addEventListener('click', function(e) {
+      e.stopPropagation();
+      vCurrent = (vCurrent + 1) % vCount;
+      var wasPlaying = !commVideo.paused;
+      commVideo.src = vBase + (vCurrent + 1) + '.mp4';
+      commVideo.load();
+      if (wasPlaying) commVideo.play();
+    });
+  }
 })();
 
 // --- Web Projects Carousel ---
