@@ -829,17 +829,17 @@ a:hover { color: var(--magenta); }
     </p>
     <div class="portfolio-grid">
 
-      <div class="portfolio-card reveal gallery-card" data-gallery-slideshow="editorial" data-count="3">
+      <div class="portfolio-card reveal" data-docker-slideshow="editorial" data-count="29" data-docker-base="https://salaries-endif-ala-walked.trycloudflare.com/images/editorial">
         <div class="portfolio-media">
-          <img src="https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/377/46377844/homepage/smallres/homepage.jpg?rs=133969113164962363"
-               alt="CyCo Pro: Stories in Frames" loading="lazy" class="slide-img gallery-slide">
-          <button class="portfolio-nav-btn prev" aria-label="Previous gallery">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next gallery">▸</button>
+          <img src="https://salaries-endif-ala-walked.trycloudflare.com/images/editorial/editorial-1.jpg"
+               alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
+          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
         </div>
         <div class="portfolio-info">
           <h3>Editorial Portraits</h3>
-          <span class="portfolio-tag">3 Galleries · Pic-Time</span>
+          <span class="portfolio-tag">Photography · 29 Photos</span>
         </div>
       </div>
 
@@ -1430,8 +1430,8 @@ a:hover { color: var(--magenta); }
 (function() {
   var slideshows = {};
 
-  document.querySelectorAll('.portfolio-card[data-slideshow]').forEach(function(card) {
-    var prefix = card.getAttribute('data-slideshow');
+  document.querySelectorAll('.portfolio-card[data-slideshow], .portfolio-card[data-docker-slideshow]').forEach(function(card) {
+    var prefix = card.getAttribute('data-slideshow') || card.getAttribute('data-docker-slideshow');
     var count = parseInt(card.getAttribute('data-count'), 10);
     var current = 0;
     var img = card.querySelector('.slide-img');
@@ -1452,6 +1452,15 @@ a:hover { color: var(--magenta); }
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-' + i + '.jpg');
       } else if (prefix === 'art') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-' + i + '.jpg');
+      }
+    }
+
+    // Docker-served slideshows (assets on local Docker, not Cloudflare)
+    var dockerBase = card.getAttribute('data-docker-base');
+    if (dockerBase) {
+      images = [];
+      for (var di = 1; di <= count; di++) {
+        images.push(dockerBase + '/editorial-' + di + '.jpg');
       }
     }
 
