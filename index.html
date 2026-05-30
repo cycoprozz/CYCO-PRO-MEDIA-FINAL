@@ -482,7 +482,7 @@ a:hover { color: var(--magenta); }
   position: relative; overflow: hidden;
   aspect-ratio: 16/10; background: #080812;
 }
-.portfolio-media img, .portfolio-media video {
+.portfolio-media img, .portfolio-media video, .about-slideshow .slide-img {
   width: 100%; height: 100%; object-fit: contain;
   background: #0A0A0F;
   transition: transform 0.6s cubic-bezier(0.22,0.61,0.36,1);
@@ -1485,7 +1485,7 @@ a:hover { color: var(--magenta); }
 (function() {
   var slideshows = {};
 
-  document.querySelectorAll('.portfolio-card[data-slideshow], .portfolio-card[data-docker-slideshow]').forEach(function(card) {
+  document.querySelectorAll('.portfolio-card[data-slideshow], .portfolio-card[data-docker-slideshow], .about-slideshow[data-slideshow]').forEach(function(card) {
     var prefix = card.getAttribute('data-slideshow') || card.getAttribute('data-docker-slideshow');
     var count = parseInt(card.getAttribute('data-count'), 10);
     var current = 0;
@@ -1667,7 +1667,7 @@ a:hover { color: var(--magenta); }
 
   // Image fade transition style
   var styleEl = document.createElement('style');
-  styleEl.textContent = '.portfolio-card .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; }';
+  styleEl.textContent = '.portfolio-card .slide-img, .about-slideshow .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; width: 100% !important; height: 100% !important; }';
   document.head.appendChild(styleEl);
 
   // --- Commercial Video Slideshow ---
