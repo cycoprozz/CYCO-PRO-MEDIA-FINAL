@@ -913,6 +913,20 @@ a:hover { color: var(--magenta); }
         </div>
       </div>
 
+      <div class="portfolio-card reveal reveal-delay-3" data-slideshow="art" data-count="14">
+        <div class="portfolio-media">
+          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-1.jpg"
+               alt="Art photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
+          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
+          <div class="slide-indicators" aria-hidden="true"></div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Art</h3>
+          <span class="portfolio-tag">Fine Art Photography</span>
+        </div>
+      </div>
+
       <div class="portfolio-card web-card reveal reveal-delay-3">
         <div class="portfolio-media">
           <div class="web-grid-preview" aria-hidden="true">
@@ -1436,6 +1450,8 @@ a:hover { color: var(--magenta); }
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/cyco-pro-' + i + '.jpg');
       } else if (prefix === 'event') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-' + i + '.jpg');
+      } else if (prefix === 'art') {
+        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-' + i + '.jpg');
       }
     }
 
