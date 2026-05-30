@@ -973,6 +973,9 @@ a:hover { color: var(--magenta); }
 
       <div class="portfolio-card web-card reveal reveal-delay-3">
         <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
+          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-cover.jpg"
+               alt="Web development projects by CYCO PRO MEDIA" class="slide-img" style="position:absolute;inset:0;z-index:1;"
+               id="web-cover-img">
           <iframe src="https://theo-jones.joffre-fab.workers.dev" 
                   style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:1;z-index:2;"
                   loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin allow-forms" class="cf-iframe"></iframe>
@@ -1777,6 +1780,12 @@ a:hover { color: var(--magenta); }
     carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
     
     startCarousel();
+    
+    // Hide cover image once first iframe loads
+    cIframes[0].onload = function() {
+      var cover = document.getElementById('web-cover-img');
+      if (cover) { cover.style.opacity = '0'; setTimeout(function() { cover.style.display = 'none'; }, 500); }
+    };
     
     // Wire expand nav arrows
     document.getElementById('wp-prev').addEventListener('click', function(e) {
