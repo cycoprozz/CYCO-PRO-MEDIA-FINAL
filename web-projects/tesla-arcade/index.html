@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parked & Playing — Tesla Arcade Creator Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050507;
+      --panel:#0b0d12;
+      --panel-2:#10131b;
+      --panel-3:#171b26;
+      --line:rgba(255,255,255,.08);
+      --line-soft:rgba(255,255,255,.045);
+      --text:#f7f8f8;
+      --muted:#8a93a3;
+      --soft:#c9d2df;
+      --blue:#2ee9ff;
+      --violet:#7170ff;
+      --green:#31e981;
+      --red:#ff5277;
+      --amber:#ffcc66;
+      --shadow:0 24px 90px rgba(0,0,0,.52);
+      --radius:22px;
+      --radius-sm:12px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+      font-feature-settings:"cv01","ss03";
+      background:
+        radial-gradient(circle at 18% 0%, rgba(46,233,255,.16), transparent 34%),
+        radial-gradient(circle at 85% 12%, rgba(113,112,255,.18), transparent 30%),
+        linear-gradient(180deg,#050507 0%,#08090d 48%,#040405 100%);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    button,input,select,textarea{font:inherit;color:inherit}
+    button{cursor:pointer}
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E")}
+    .app{display:grid;grid-template-columns:286px minmax(0,1fr);min-height:100vh;position:relative;z-index:1}
+    aside{
+      position:sticky;top:0;height:100vh;padding:22px 16px;border-right:1px solid var(--line);background:rgba(5,6,9,.76);backdrop-filter:blur(24px);display:flex;flex-direction:column;gap:18px;
+    }
+    .brand{padding:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+    .logo-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .orb{width:38px;height:38px;border-radius:14px;background:radial-gradient(circle at 30% 25%,#fff, var(--blue) 28%, var(--violet) 72%, #050507);box-shadow:0 0 32px rgba(46,233,255,.28)}
+    .brand h1{margin:0;font-size:16px;letter-spacing:-.35px;line-height:1.05}
+    .brand p{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+    .status-pill{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 9px;border:1px solid rgba(49,233,129,.22);border-radius:999px;background:rgba(49,233,129,.08);font-size:11px;color:#c8ffdf;font-weight:600}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+    nav{display:grid;gap:7px}
+    .nav-btn{border:1px solid transparent;background:transparent;color:var(--muted);display:flex;align-items:center;gap:10px;border-radius:13px;padding:11px 12px;text-align:left;font-size:13px;font-weight:600;transition:.2s ease}
+    .nav-btn:hover{background:rgba(255,255,255,.045);color:var(--soft)}
+    .nav-btn.active{background:rgba(46,233,255,.10);border-color:rgba(46,233,255,.22);color:var(--text);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+    .nav-icon{width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.035);font-size:12px;color:var(--blue)}
+    .side-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.028)}
+    .side-card b{display:block;font-size:12px;margin-bottom:7px}.side-card span{display:block;color:var(--muted);font-size:12px;line-height:1.45}
+    main{padding:28px;max-width:1500px;width:100%;margin:0 auto}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
+    .eyebrow{font-family:"JetBrains Mono",monospace;color:var(--blue);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .hero{border:1px solid var(--line);border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.018) 55%,rgba(46,233,255,.06));padding:28px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .hero:after{content:"";position:absolute;right:-170px;top:-170px;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(46,233,255,.20),transparent 68%);filter:blur(4px)}
+    .hero-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:22px;position:relative;z-index:1}
+    h2{font-size:clamp(38px,5vw,76px);line-height:.92;letter-spacing:-2.1px;margin:10px 0 14px;font-weight:650;max-width:820px}
+    .lead{color:var(--soft);font-size:17px;line-height:1.65;max-width:760px;margin:0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .btn{border:1px solid var(--line);border-radius:13px;padding:11px 14px;background:rgba(255,255,255,.04);font-weight:700;font-size:13px;transition:.2s ease;text-decoration:none;color:var(--text);display:inline-flex;align-items:center;gap:9px}
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.075)}
+    .btn.primary{background:linear-gradient(135deg,var(--blue),var(--violet));border-color:transparent;color:#020204;box-shadow:0 12px 40px rgba(46,233,255,.20)}
+    .control-card{border:1px solid var(--line);border-radius:24px;background:rgba(8,10,14,.72);padding:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+    .host-screen{border:1px solid rgba(46,233,255,.20);background:#030406;border-radius:19px;padding:15px;min-height:250px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+    .host-screen:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(46,233,255,.05) 1px,transparent 1px);background-size:100% 9px;opacity:.26;pointer-events:none}.host-screen>*{position:relative;z-index:1}
+    .mono{font-family:"JetBrains Mono",monospace}.small{font-size:12px;color:var(--muted);line-height:1.45}.host-line{font-size:20px;line-height:1.25;letter-spacing:-.35px;font-weight:700;margin:20px 0;color:#eafcff}.meter{height:8px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.04)}.meter span{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--blue),var(--violet))}
+    .tab{display:none}.tab.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+    .section{margin-top:22px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:0 0 12px}.section h3{margin:0;font-size:24px;letter-spacing:-.7px}.section p.sub{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .grid{display:grid;gap:14px}.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}.grid.four{grid-template-columns:repeat(4,1fr)}
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.048),rgba(255,255,255,.018));padding:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+    .card h4{margin:0 0 8px;font-size:16px;letter-spacing:-.35px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:rgba(255,255,255,.035);font-size:11px;color:var(--soft);font-weight:700}.badge.blue{border-color:rgba(46,233,255,.25);color:#d8fbff;background:rgba(46,233,255,.075)}
+    .round-card{position:relative;overflow:hidden}.round-card:after{content:attr(data-num);position:absolute;right:12px;top:6px;font-size:64px;line-height:1;font-weight:800;color:rgba(255,255,255,.035);letter-spacing:-4px}.round-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.round-actions{display:flex;gap:8px;margin-top:14px}.tiny-btn{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);padding:8px 10px;font-size:12px;font-weight:700}.tiny-btn:hover{background:rgba(255,255,255,.07)}
+    .scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:14px}.player{border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.035);padding:18px}.player input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);padding:0 0 8px;font-weight:700;font-size:16px;outline:none}.score{font-size:82px;line-height:.95;letter-spacing:-4px;font-weight:800;margin:18px 0}.score-actions{display:flex;gap:8px}.score-actions button{flex:1;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.045);padding:10px;font-weight:800}.score-actions button.win{background:rgba(49,233,129,.10);border-color:rgba(49,233,129,.25)}.score-actions button.lose{background:rgba(255,82,119,.09);border-color:rgba(255,82,119,.22)}
+    .timer-wrap{text-align:center;border-radius:26px;border:1px solid var(--line);background:radial-gradient(circle at 50% 0%,rgba(46,233,255,.12),rgba(255,255,255,.025));padding:24px}.timer{font-family:"JetBrains Mono",monospace;font-size:82px;font-weight:600;letter-spacing:-4px}.timer-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px}.timer-controls button{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.045);padding:10px 12px;font-weight:800}.timer-controls button.primary{background:linear-gradient(135deg,var(--blue),var(--violet));color:#030306;border-color:transparent}
+    .script-box{border:1px solid var(--line);border-radius:22px;background:#06070a;padding:18px;min-height:230px;display:flex;flex-direction:column;gap:16px}.script-text{font-size:25px;line-height:1.25;letter-spacing:-.75px;font-weight:750;color:#edfbff}.script-actions{display:flex;gap:8px;flex-wrap:wrap}.copy-note{color:var(--green);font-size:12px;opacity:0;transition:.2s}.copy-note.show{opacity:1}
+    .checklist{display:grid;gap:9px}.check{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:rgba(255,255,255,.028);border-radius:14px;padding:11px 12px}.check input{accent-color:var(--blue);width:18px;height:18px}.check label{font-size:13px;color:var(--soft);line-height:1.35}.check.done{opacity:.58}.progress-bar{height:10px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.03);margin:12px 0}.progress-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:.25s}
+    .shot{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.025)}.shot strong{font-size:13px}.shot span{font-size:11px;color:var(--muted)}
+    .field{display:grid;gap:7px}.field label{font-size:12px;font-weight:800;color:var(--soft)}textarea,input[type="text"]{width:100%;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035);padding:12px;outline:none;color:var(--text)}textarea{min-height:130px;resize:vertical;line-height:1.45}.output{white-space:pre-wrap;font-size:13px;line-height:1.55;color:var(--soft);border:1px solid var(--line);border-radius:16px;background:#06070a;padding:14px;min-height:160px}
+    .platform-card{display:flex;gap:12px;align-items:flex-start}.platform-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);background:rgba(255,255,255,.045);font-weight:900}.timeline{display:grid;gap:10px}.timeline-item{display:grid;grid-template-columns:80px 1fr;gap:12px;border:1px solid var(--line);border-radius:15px;padding:11px;background:rgba(255,255,255,.025)}.timeline-time{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--blue)}.timeline-item b{font-size:13px}.timeline-item p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.4}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.70);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:30;padding:18px}.modal-backdrop.show{display:flex}.modal{max-width:720px;width:100%;border:1px solid rgba(46,233,255,.25);border-radius:26px;background:#090b10;box-shadow:0 30px 100px rgba(0,0,0,.8);padding:22px}.modal h3{font-size:28px;margin:0 0 10px}.modal p{color:var(--soft);line-height:1.6}.modal .host-line{font-size:31px}
+    @media(max-width:1050px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}.hero-grid,.grid.two,.grid.three,.grid.four{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.scoreboard{grid-template-columns:1fr}.timer{font-size:58px}main{padding:16px}h2{font-size:45px}.script-text{font-size:20px}}
+    @media(max-width:650px){nav{grid-template-columns:1fr 1fr}.nav-btn{font-size:12px;padding:9px}.hero{padding:18px;border-radius:22px}.score{font-size:62px}.timeline-item{grid-template-columns:1fr}.section-head{display:block}.hero-actions .btn{width:100%;justify-content:center}}
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo-row"><div class="orb"></div><div><h1>Parked & Playing</h1><p>Tesla Arcade House creator command center.</p></div></div>
+      <div class="status-pill"><span class="dot"></span> Parked-only production mode</div>
+    </div>
+    <nav id="nav">
+      <button class="nav-btn active" data-tab="control"><span class="nav-icon">⌁</span> Control Room</button>
+      <button class="nav-btn" data-tab="rounds"><span class="nav-icon">03</span> Game Rounds</button>
+      <button class="nav-btn" data-tab="host"><span class="nav-icon">VO</span> Hermes Host</button>
+      <button class="nav-btn" data-tab="production"><span class="nav-icon">✓</span> Production</button>
+      <button class="nav-btn" data-tab="content"><span class="nav-icon">✦</span> Content Hub</button>
+      <button class="nav-btn" data-tab="exports"><span class="nav-icon">↗</span> Export Kit</button>
+    </nav>
+    <div class="side-card">
+      <b>Show format</b>
+      <span>3–4 minute episode. 3 rounds. Hermes is the unseen Big Brother-style host. Loser enters confession seat.</span>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div><div class="eyebrow">Tesla Arcade Creator Platform</div><h2 style="margin:4px 0 0;font-size:28px;letter-spacing:-.8px">One dashboard to oversee the whole show.</h2></div>
+      <div class="hero-actions" style="margin:0"><button class="btn" id="resetAll">Reset Show</button><a class="btn" href="/Tesla_Big_Brother_Arcade_Show_Short_Format.pdf" target="_blank">Open PDF</a><button class="btn primary" id="bigBrotherBtn">Enter House Mode</button></div>
+    </div>
+
+    <section class="hero tab active" id="control">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Big Brother-style host format</div>
+          <h2>Tesla Arcade House</h2>
+          <p class="lead">Two players enter a parked Tesla. Hermes runs the house, starts the rounds, roasts the mistakes, tracks the score, and sends the loser to the confession seat.</p>
+          <div class="hero-actions">
+            <button class="btn primary" data-jump="host">Start Host Script</button>
+            <button class="btn" data-jump="rounds">View 3 Rounds</button>
+            <button class="btn" data-jump="production">Open Shoot Checklist</button>
+          </div>
+          <div class="section">
+            <div class="grid three">
+              <div class="card"><span class="badge blue">Runtime</span><h4 style="margin-top:12px">3–4 Minutes</h4><p>Shorter, faster, cleaner. Built for a tight YouTube episode and a 60-second cut.</p></div>
+              <div class="card"><span class="badge blue">Host</span><h4 style="margin-top:12px">Hermes VO</h4><p>Unseen control-room voice. Calm, shady, funny, authoritative.</p></div>
+              <div class="card"><span class="badge blue">Finale</span><h4 style="margin-top:12px">Confession Seat</h4><p>Loser says: “I got cooked by Tesla Arcade.”</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="control-card">
+          <div class="host-screen">
+            <div><span class="badge blue">HOUSE STATUS</span><p class="small mono" style="margin-top:12px">VOICE: HERMES<br>VEHICLE: PARKED<br>GAME MODE: ARCADE<br>CONFIDENCE: MONITORED</p></div>
+            <div class="host-line" id="liveHostLine">House Players, your challenge begins now.</div>
+            <div><div class="meter"><span></span></div><p class="small mono">Control-room energy: 72%</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab" id="rounds">
+      <div class="section-head"><div><div class="eyebrow">Best 2 out of 3</div><h3>Game Rounds</h3><p class="sub">Fast enough to film. Clear enough for viewers. Easy to cut into shorts.</p></div><span class="badge">Backup: Mahjong / Sudoku / Mystery Game</span></div>
+      <div class="grid three">
+        <div class="card round-card" data-num="01"><span class="badge blue">Brain Game</span><h4>2048</h4><p>45 seconds. Highest score wins. If tied, highest tile wins.</p><div class="round-meta"><span class="badge">45 sec</span><span class="badge">Highest score</span></div><div class="round-actions"><button class="tiny-btn setRound" data-round="Round One: 2048. You have 45 seconds to prove your brain and your thumbs are connected. Begin." data-time="45">Load Round</button><button class="tiny-btn scoreA">A +1</button><button class="tiny-btn scoreB">B +1</button></div></div>
+        <div class="card round-card" data-num="02"><span class="badge blue">Chaos Game</span><h4>Beach Buggy Racing 2</h4><p>One short race. Best finish or fastest time wins. Tesla stays parked.</p><div class="round-meta"><span class="badge">1 race</span><span class="badge">Best finish</span></div><div class="round-actions"><button class="tiny-btn setRound" data-round="Round Two: Beach Buggy Racing 2. One race. Best finish wins. The Tesla is parked. Only your ego is allowed to crash." data-time="60">Load Round</button><button class="tiny-btn scoreA">A +1</button><button class="tiny-btn scoreB">B +1</button></div></div>
+        <div class="card round-card" data-num="03"><span class="badge blue">Survival Game</span><h4>Sky Force Reloaded</h4><p>One attempt. Highest score or longest survival wins. Final round energy.</p><div class="round-meta"><span class="badge">1 attempt</span><span class="badge">Survive</span></div><div class="round-actions"><button class="tiny-btn setRound" data-round="Final Round: Sky Force Reloaded. Survive as long as possible. Highest score wins. House Players, prepare for chaos." data-time="90">Load Round</button><button class="tiny-btn scoreA">A +1</button><button class="tiny-btn scoreB">B +1</button></div></div>
+      </div>
+      <div class="section grid two">
+        <div class="timer-wrap"><div class="eyebrow">Round Timer</div><div class="timer" id="timer">00:45</div><div class="timer-controls"><button data-set="45">45s</button><button data-set="60">60s</button><button data-set="90">90s</button><button class="primary" id="startTimer">Start</button><button id="pauseTimer">Pause</button><button id="resetTimer">Reset</button></div></div>
+        <div class="card"><h4>Round Notes</h4><textarea id="roundNotes" placeholder="Drop notes while filming: best reactions, crashes, funny quotes, retakes needed..."></textarea><p class="small">Saved in this browser automatically.</p></div>
+      </div>
+    </section>
+
+    <section class="tab" id="host">
+      <div class="section-head"><div><div class="eyebrow">Hermes as unseen host</div><h3>Host Script Console</h3><p class="sub">Click lines during filming or copy them for voiceover.</p></div><span class="badge blue">Big Brother energy</span></div>
+      <div class="grid two">
+        <div class="script-box"><div class="small mono" id="scriptLabel">INTRO</div><div class="script-text" id="scriptText">Welcome to Parked & Playing. Two players have entered a parked Tesla. One will win. One will confess.</div><div class="script-actions"><button class="btn primary" id="nextLine">Next Line</button><button class="btn" id="copyLine">Copy Line</button><button class="btn" id="confessionLine">Confession Mode</button><span class="copy-note" id="copyNote">Copied.</span></div></div>
+        <div class="grid">
+          <div class="card"><h4>Hermes Host Rules</h4><p>Voice: calm, mysterious, slightly shady, funny, and in control. Never over-explain. Let the players react.</p></div>
+          <div class="card"><h4>Roast Bank</h4><p id="roastText">The House has detected reckless confidence.</p><div class="round-actions"><button class="tiny-btn" id="newRoast">New Roast</button><button class="tiny-btn" id="copyRoast">Copy Roast</button></div></div>
+          <div class="card"><h4>Required Safety Line</h4><p>For the record, the vehicle is fully parked. No driving. No excuses. Only games.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab" id="production">
+      <div class="section-head"><div><div class="eyebrow">Oversee the shoot</div><h3>Production Checklist</h3><p class="sub">Track safety, shots, audio, and post-production moments.</p></div><span class="badge" id="progressText">0% complete</span></div>
+      <div class="grid two">
+        <div class="card"><h4>Safety + Setup</h4><div class="progress-bar"><span id="progressFill"></span></div><div class="checklist" id="checklist">
+          <div class="check"><input type="checkbox"><label>Tesla is fully parked before Arcade opens.</label></div>
+          <div class="check"><input type="checkbox"><label>Film 2-second proof clip of Arcade game menu.</label></div>
+          <div class="check"><input type="checkbox"><label>Verify 2048, Beach Buggy Racing 2, and Sky Force Reloaded.</label></div>
+          <div class="check"><input type="checkbox"><label>Lav mics or phone audio recording tested.</label></div>
+          <div class="check"><input type="checkbox"><label>Dashboard two-shot framed and screen glare controlled.</label></div>
+          <div class="check"><input type="checkbox"><label>Loser confession seat framed.</label></div>
+        </div></div>
+        <div class="card"><h4>Shot List</h4><div class="grid" id="shotList">
+          <div class="shot"><strong>Exterior parked Tesla</strong><span>Establishing</span></div>
+          <div class="shot"><strong>Players enter the house</strong><span>Intro</span></div>
+          <div class="shot"><strong>Arcade menu close-up</strong><span>Verification</span></div>
+          <div class="shot"><strong>Timer + score overlays</strong><span>Rounds</span></div>
+          <div class="shot"><strong>Reaction close-ups</strong><span>Comedy</span></div>
+          <div class="shot"><strong>Confession seat</strong><span>Finale</span></div>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="tab" id="content">
+      <div class="section-head"><div><div class="eyebrow">All content together</div><h3>Content Hub</h3><p class="sub">Turn the episode into titles, captions, shorts, and platform posts.</p></div><button class="btn primary" id="generatePack">Generate Copy Pack</button></div>
+      <div class="grid three">
+        <div class="card platform-card"><div class="platform-icon">YT</div><div><h4>YouTube Episode</h4><p>Title: We Turned a Tesla Into a Game Show<br>Runtime: 3–4 minutes<br>CTA: who enters next?</p></div></div>
+        <div class="card platform-card"><div class="platform-icon">60</div><div><h4>Short-Form Cut</h4><p>Hook: Big Brother... but in a Tesla.<br>Payoff: loser confession.<br>Vertical, captions heavy.</p></div></div>
+        <div class="card platform-card"><div class="platform-icon">IG</div><div><h4>Reels / TikTok</h4><p>Lead with the funniest fail, then jump to score reveal and confession.</p></div></div>
+      </div>
+      <div class="section grid two">
+        <div class="card"><h4>Copy Pack Generator</h4><div class="field"><label>Guest / Player Names</label><input type="text" id="names" value="Player A vs Player B"></div><div class="field" style="margin-top:12px"><label>Best Moment</label><input type="text" id="moment" value="Beach Buggy crash and loser confession"></div></div>
+        <div class="output" id="copyOutput">Click “Generate Copy Pack” to create titles, captions, and hooks.</div>
+      </div>
+    </section>
+
+    <section class="tab" id="exports">
+      <div class="section-head"><div><div class="eyebrow">Export kit</div><h3>Everything in one place</h3><p class="sub">Open the PDF, save the platform, and keep production organized.</p></div></div>
+      <div class="grid two">
+        <div class="card"><h4>Files</h4><p style="margin-bottom:14px">Short Big Brother-style PDF: /Users/user/Tesla_Big_Brother_Arcade_Show_Short_Format.pdf</p><p>Interactive creator platform: /Users/user/tesla-arcade-creator-platform/index.html</p></div>
+        <div class="card"><h4>Production Timeline</h4><div class="timeline"><div class="timeline-item"><div class="timeline-time">PREP</div><div><b>Verify games</b><p>Open Arcade while parked and confirm titles.</p></div></div><div class="timeline-item"><div class="timeline-time">FILM</div><div><b>Run 3 rounds</b><p>Use the timer, scoreboard, and Hermes host lines.</p></div></div><div class="timeline-item"><div class="timeline-time">POST</div><div><b>Cut YouTube + Short</b><p>Start with fail, show rounds, reveal winner, end on confession.</p></div></div></div></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <span class="badge blue">HOUSE MODE</span>
+    <h3>Tesla Arcade House is live.</h3>
+    <div class="host-line">House Players, the car is parked. The competition is not.</div>
+    <p>Use this mode as your control-room opening. Record Hermes as the unseen host, then cut to players reacting inside the Tesla.</p>
+    <button class="btn primary" id="closeModal">Begin Episode</button>
+  </div>
+</div>
+
+<script>
+const $ = (q, root=document) => root.querySelector(q);
+const $$ = (q, root=document) => [...root.querySelectorAll(q)];
+let scores = JSON.parse(localStorage.getItem('ta_scores')||'{"a":0,"b":0}');
+let timerSeconds = Number(localStorage.getItem('ta_timer')||45), remaining = timerSeconds, interval=null;
+const scriptLines = [
+  ['INTRO','Welcome to Parked & Playing. Two players have entered a parked Tesla. One will win. One will confess.'],
+  ['SAFETY','For the record, the vehicle is fully parked. No driving. No excuses. Only games.'],
+  ['GAME CHECK','House Players, do you know 2048, Beach Buggy Racing 2, Mahjong, Sudoku, or Sky Force Reloaded? Answer carefully. Confidence will be used against you.'],
+  ['RULES','This is best two out of three. Win a round, earn a point. Lose the game, enter the confession seat.'],
+  ['ROUND 1','Round One: 2048. You have 45 seconds to prove your brain and your thumbs are connected. Begin.'],
+  ['ROUND 2','Round Two: Beach Buggy Racing 2. One race. Best finish wins. The Tesla is parked. Only your ego is allowed to crash.'],
+  ['ROUND 3','Final Round: Sky Force Reloaded. Survive as long as possible. Highest score wins. House Players, prepare for chaos.'],
+  ['WINNER','The Tesla Arcade House has reviewed the footage. The winner is _____. The loser must now report to the confession seat.'],
+  ['CONFESSION','Look into the camera and repeat after me: I got cooked by Tesla Arcade, and I will respect the touchscreen.'],
+  ['OUTRO','This has been Parked & Playing. Comment who should enter the Tesla Arcade House next. The car is parked. The competition is not.']
+];
+const roasts = ['The House has detected reckless confidence.','That was not strategy. That was panic.','Confidence has left the vehicle.','The touchscreen is currently winning.','That move had no witnesses and no defense.','The tiles are begging for leadership.','You dodged everything except failure.','The House recommends breathing.','That corner was personal.','You are playing like the car owes you money.'];
+let scriptIndex = Number(localStorage.getItem('ta_scriptIndex')||0);
+function saveScores(){localStorage.setItem('ta_scores',JSON.stringify(scores));}
+function updateScores(){ $$('.scoreAVal').forEach(e=>e.textContent=scores.a); $$('.scoreBVal').forEach(e=>e.textContent=scores.b); }
+function format(t){return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`}
+function updateTimer(){ $('#timer').textContent=format(remaining); localStorage.setItem('ta_timer', timerSeconds); }
+function setLine(i){scriptIndex=(i+scriptLines.length)%scriptLines.length; localStorage.setItem('ta_scriptIndex',scriptIndex); $('#scriptLabel').textContent=scriptLines[scriptIndex][0]; $('#scriptText').textContent=scriptLines[scriptIndex][1]; $('#liveHostLine').textContent=scriptLines[scriptIndex][1];}
+function navTo(id){ $$('.tab').forEach(t=>t.classList.toggle('active',t.id===id)); $$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id)); window.scrollTo({top:0,behavior:'smooth'}); }
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('.nav-btn'); if(b) navTo(b.dataset.tab)});
+$$('[data-jump]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.jump)));
+$('#bigBrotherBtn').onclick=()=>$('#modal').classList.add('show'); $('#closeModal').onclick=()=>$('#modal').classList.remove('show');
+function addScore(who){scores[who]++; saveScores(); updateScores(); if(scores.a>=2||scores.b>=2){$('#liveHostLine').textContent = scores.a>scores.b ? 'Player A has control of the house.' : 'Player B has control of the house.'}}
+$$('.scoreA').forEach(b=>b.onclick=()=>addScore('a')); $$('.scoreB').forEach(b=>b.onclick=()=>addScore('b'));
+$('#resetAll').onclick=()=>{ if(confirm('Reset scoreboard, timer, checklist, notes, and script position?')){localStorage.clear(); location.reload();} };
+$$('[data-set]').forEach(b=>b.onclick=()=>{timerSeconds=Number(b.dataset.set); remaining=timerSeconds; updateTimer();});
+$$('.setRound').forEach(b=>b.onclick=()=>{ $('#liveHostLine').textContent=b.dataset.round; timerSeconds=Number(b.dataset.time); remaining=timerSeconds; updateTimer(); navTo('rounds'); });
+$('#startTimer').onclick=()=>{clearInterval(interval); interval=setInterval(()=>{remaining=Math.max(0,remaining-1); updateTimer(); if(remaining===0){clearInterval(interval); $('#liveHostLine').textContent='Time. Hands off the screen. The House is reviewing the score.'}},1000)};
+$('#pauseTimer').onclick=()=>clearInterval(interval); $('#resetTimer').onclick=()=>{clearInterval(interval); remaining=timerSeconds; updateTimer();};
+$('#nextLine').onclick=()=>setLine(scriptIndex+1); $('#confessionLine').onclick=()=>setLine(8);
+async function copyText(txt){try{await navigator.clipboard.writeText(txt); $('#copyNote').classList.add('show'); setTimeout(()=>$('#copyNote').classList.remove('show'),900)}catch(e){alert(txt)}}
+$('#copyLine').onclick=()=>copyText($('#scriptText').textContent); $('#copyRoast').onclick=()=>copyText($('#roastText').textContent);
+$('#newRoast').onclick=()=>{$('#roastText').textContent=roasts[Math.floor(Math.random()*roasts.length)];};
+function updateChecks(){const checks=$$('#checklist input'); const done=checks.filter(c=>c.checked).length; const pct=Math.round(done/checks.length*100); $('#progressFill').style.width=pct+'%'; $('#progressText').textContent=pct+'% complete'; checks.forEach(c=>c.closest('.check').classList.toggle('done',c.checked)); localStorage.setItem('ta_checks',JSON.stringify(checks.map(c=>c.checked)));}
+$$('#checklist input').forEach((c,i)=>c.addEventListener('change',updateChecks));
+const savedChecks=JSON.parse(localStorage.getItem('ta_checks')||'[]'); $$('#checklist input').forEach((c,i)=>c.checked=!!savedChecks[i]); updateChecks();
+$('#roundNotes').value=localStorage.getItem('ta_notes')||''; $('#roundNotes').addEventListener('input',e=>localStorage.setItem('ta_notes',e.target.value));
+$('#generatePack').onclick=()=>{const names=$('#names').value||'Two players'; const moment=$('#moment').value||'the final confession'; $('#copyOutput').textContent=`TITLE OPTIONS\n1. Big Brother... But Inside a Tesla\n2. We Turned a Tesla Into a Game Show\n3. ${names} Entered the Tesla Arcade House\n\nSHORT HOOK\nTwo players entered a parked Tesla. Hermes became Big Brother. One had to confess.\n\nCAPTION\n${names} entered the Tesla Arcade House for three quick Arcade challenges: 2048, Beach Buggy Racing 2, and Sky Force Reloaded. Best moment: ${moment}. Loser had to say: “I got cooked by Tesla Arcade.”\n\nCTA\nWho should enter the Tesla Arcade House next?\n\nHASHTAGS\n#TeslaArcade #ParkedAndPlaying #TeslaGames #GamingChallenge #BlackCreators #TechCreator #YouTubeShorts`; };
+// Inject score values into scoreboard section dynamically
+const scoreUI = document.createElement('div'); scoreUI.className='section grid two'; scoreUI.innerHTML=`<div class="player"><span class="badge blue">Player A</span><input type="text" value="Player A" aria-label="Player A name"><div class="score scoreAVal">0</div><div class="score-actions"><button class="win" onclick="scores.a++; saveScores(); updateScores();">+ Point</button><button class="lose" onclick="scores.a=Math.max(0,scores.a-1); saveScores(); updateScores();">- Point</button></div></div><div class="player"><span class="badge blue">Player B</span><input type="text" value="Player B" aria-label="Player B name"><div class="score scoreBVal">0</div><div class="score-actions"><button class="win" onclick="scores.b++; saveScores(); updateScores();">+ Point</button><button class="lose" onclick="scores.b=Math.max(0,scores.b-1); saveScores(); updateScores();">- Point</button></div></div>`;
+$('#rounds .section-head').after(scoreUI);
+updateScores(); updateTimer(); setLine(scriptIndex);
+</script>
+</body>
+</html>

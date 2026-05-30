@@ -1,0 +1,44 @@
+{
+  "name": "lumina-client-portal",
+  "version": "1.0.0",
+  "description": "Luxury photography client portal",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "mkdir -p dist/css dist/js && npm run build:css && npm run build:js && npm run copy",
+    "build:css": "postcss src/css/main.css -o dist/css/main.css",
+    "build:js": "esbuild src/js/*.js --bundle --outdir=dist/js --minify",
+    "copy": "cp src/*.html dist/ 2>/dev/null || true; cp -r src/assets dist/ 2>/dev/null || true",
+    "dev": "netlify dev",
+    "start": "node server.js",
+    "start:static": "npx serve dist -l 8888",
+    "lint": "eslint netlify/functions src/js",
+    "fauna-setup": "node scripts/fauna-setup.js",
+    "fauna-seed": "node scripts/fauna-seed.js"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.4.0",
+    "archiver": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.0",
+    "cookie": "^0.6.0",
+    "faunadb": "^4.8.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.7",
+    "sharp": "^0.32.6",
+    "stripe": "^14.5.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "dotenv": "^16.6.1",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.55.0",
+    "netlify-cli": "^17.10.1",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.3.6"
+  }
+}

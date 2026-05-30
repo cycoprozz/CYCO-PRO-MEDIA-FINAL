@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | LUMINA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Cormorant Garamond', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: { gold: { 400: '#d4af37', 500: '#c5a028', 600: '#b8941f' }, dark: { 900: '#0a0a0a', 800: '#1a1a1a', 700: '#2a2a2a' } }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="antialiased">
+  <div class="grain"></div>
+  <div id="toast-container"></div>
+
+  <div id="loading-screen" class="fixed inset-0 z-50 bg-dark-900 flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="font-serif text-4xl mb-4 animate-pulse">LUMINA</h1>
+      <div class="w-48 h-1 bg-dark-800 rounded-full overflow-hidden">
+        <div class="h-full bg-gold-400 w-1/3 animate-pulse"></div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-8">
+        <a href="/" class="font-serif text-2xl tracking-tight hover:text-gold-400 transition-colors">LUMINA</a>
+        <span id="gallery-title-nav" class="hidden md:block text-sm text-gray-400 border-l border-white/20 pl-8"></span>
+      </div>
+      <div class="flex items-center gap-6">
+        <button onclick="app.toggleView('grid')" class="nav-btn text-sm uppercase tracking-wider hover:text-gold-400 hidden md:block" id="btn-grid">Grid</button>
+        <button onclick="app.toggleView('slideshow')" class="nav-btn text-sm uppercase tracking-wider text-gold-400 hidden md:block" id="btn-slideshow">Slideshow</button>
+        <button onclick="app.toggleWowMode()" class="nav-btn text-sm uppercase tracking-wider hover:text-gold-400 hidden md:flex items-center gap-2">
+          <span>Wow Mode</span>
+          <span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
+        </button>
+        <div class="w-px h-4 bg-white/20 hidden md:block"></div>
+        <button onclick="app.toggleFavoritesView()" class="text-sm uppercase tracking-wider hover:text-gold-400 flex items-center gap-2" id="fav-btn">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <span id="fav-count">0</span>
+        </button>
+        <button onclick="app.downloadSelected()" class="px-4 py-2 bg-white text-black text-xs uppercase tracking-wider hover:bg-gold-400 transition-colors disabled:opacity-50" id="download-btn" disabled>Download</button>
+        <button onclick="app.logout()" class="text-xs text-gray-500 hover:text-white uppercase tracking-wider">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-24 min-h-screen">
+    <header class="max-w-7xl mx-auto px-6 mb-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <p class="text-gold-400 text-sm uppercase tracking-[0.2em] mb-2" id="gallery-category">Loading...</p>
+          <h1 class="font-serif text-5xl md:text-6xl font-light mb-4" id="gallery-title">Loading...</h1>
+          <p class="text-gray-400" id="gallery-meta">...</p>
+        </div>
+        <div class="flex gap-4">
+          <button onclick="app.shareGallery()" class="px-6 py-3 border border-white/20 hover:border-gold-400 hover:text-gold-400 transition-all text-sm uppercase tracking-wider">Share</button>
+        </div>
+      </div>
+      <div class="mt-8">
+        <div class="w-full bg-dark-800 h-1 rounded-full overflow-hidden mb-2">
+          <div id="selection-progress" class="h-full bg-gold-400 transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-gray-500 uppercase tracking-wider">
+          <span id="selected-text">0 selected</span>
+          <span id="expiry-text">Loading...</span>
+        </div>
+      </div>
+    </header>
+
+    <div id="grid-view" class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="photo-grid"></div>
+    </div>
+  </main>
+
+  <div id="slideshow-view" class="fixed inset-0 z-30 bg-black hidden">
+    <div class="relative w-full h-full" id="slideshow-container"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent z-40">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="text-sm text-gray-400"><span id="current-slide">1</span> / <span id="total-slides">0</span></div>
+        <div class="flex gap-6">
+          <button onclick="app.toggleFavoriteCurrent()" class="hover:scale-110 transition-transform" id="slideshow-heart">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          </button>
+          <button onclick="app.closeSlideshow()" class="hover:text-gold-400 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button onclick="app.changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 p-4 hover:bg-white/10 transition-colors rounded-full">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button onclick="app.changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 p-4 hover:bg-white/10 transition-colors rounded-full">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+
+  <div id="wow-mode" class="fixed inset-0 z-50 bg-dark-900/98 hidden overflow-y-auto">
+    <div class="min-h-screen p-6 md:p-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-start mb-12">
+          <div>
+            <h2 class="font-serif text-4xl md:text-5xl mb-2">Wow Mode</h2>
+            <p class="text-gray-400">See your selections in stunning real-world contexts</p>
+          </div>
+          <button onclick="app.toggleWowMode()" class="p-2 hover:bg-white/10 rounded-full transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12" id="wow-templates"></div>
+        <div class="bg-dark-800 rounded-lg p-6 border border-white/5">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <h3 class="font-serif text-xl mb-1">Generate Mockups</h3>
+              <p class="text-gray-400 text-sm"><span id="wow-count">0</span> images selected</p>
+            </div>
+            <button onclick="app.generateWowBatch()" class="px-8 py-3 bg-gold-400 text-black font-medium uppercase tracking-wider hover:bg-gold-500 transition-colors disabled:opacity-50" id="wow-generate-btn" disabled>Generate All</button>
+          </div>
+          <div id="wow-progress" class="hidden mt-6">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-gray-400">Processing...</span>
+              <span class="text-gold-400" id="wow-progress-text">0/0</span>
+            </div>
+            <div class="w-full bg-dark-900 h-2 rounded-full overflow-hidden">
+              <div id="wow-progress-bar" class="h-full bg-gold-400 transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="fixed inset-0 z-40 bg-black/95 hidden flex items-center justify-center p-4" onclick="app.closeLightbox(event)">
+    <img id="lightbox-img" src="" class="max-w-full max-h-full object-contain select-none" onclick="event.stopPropagation()" alt="">
+    <button onclick="app.closeLightbox()" class="absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full transition-colors">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+      <button onclick="app.toggleFavoriteLightbox()" class="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors" id="lightbox-heart">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+      </button>
+      <button onclick="app.downloadCurrent()" class="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const app = {
+      data: null,
+      currentSlide: 0,
+      showingFavorites: false,
+      lightboxId: null,
+
+      async init() {
+        const pathParts = window.location.pathname.replace(/^\/gallery\/?/, '').split('/');
+        const galleryId = decodeURIComponent(pathParts[0] || '');
+        if (!galleryId) {
+          window.location.href = '/';
+          return;
+        }
+        try {
+          const response = await fetch('/api/gallery-get/' + encodeURIComponent(galleryId), { credentials: 'include' });
+          if (!response.ok) throw new Error('Failed to load gallery');
+          this.data = await response.json();
+          this.render();
+          document.getElementById('loading-screen').classList.add('hidden');
+        } catch (e) {
+          console.error('Init error:', e);
+          window.location.href = '/?error=load_failed';
+        }
+      },
+
+      render() {
+        const { gallery, favorites } = this.data;
+        document.getElementById('gallery-category').textContent = gallery.category || '';
+        document.getElementById('gallery-title').textContent = gallery.title || 'Gallery';
+        document.getElementById('gallery-meta').textContent = [gallery.date, gallery.location, (gallery.images && gallery.images.length) + ' images'].filter(Boolean).join(' • ');
+        document.getElementById('gallery-title-nav').textContent = gallery.title || '';
+        document.getElementById('expiry-text').textContent = gallery.expiresAt ? 'Expires ' + new Date(gallery.expiresAt).toLocaleDateString() : '';
+        this.data.favorites = favorites || [];
+        this.renderGrid();
+        this.updateUI();
+      },
+
+      renderGrid() {
+        const grid = document.getElementById('photo-grid');
+        const images = this.showingFavorites
+          ? (this.data.gallery.images || []).filter(function(img) { return (this.data.favorites || []).includes(img.id); }.bind(this))
+          : (this.data.gallery.images || []);
+
+        if (images.length === 0) {
+          grid.innerHTML = '<div class="col-span-full text-center py-24"><p class="text-gray-500 text-lg mb-4">No favorites yet</p><button onclick="app.toggleFavoritesView()" class="text-gold-400 hover:underline">Show all images</button></div>';
+          return;
+        }
+
+        const self = this;
+        grid.innerHTML = images.map(function(img, idx) {
+          const isFav = (self.data.favorites || []).includes(img.id);
+          const originalIdx = (self.data.gallery.images || []).indexOf(img);
+          const url = img.url || '';
+          const thumb = url + (url.indexOf('?') !== -1 ? '&' : '?') + 'w=50&q=10';
+          const full = url + (url.indexOf('?') !== -1 ? '&' : '?') + 'w=800&q=80';
+          return '<div class="group relative aspect-[3/4] overflow-hidden bg-dark-800 cursor-pointer">' +
+            '<img src="' + thumb + '" data-src="' + full + '" class="lazy-image w-full h-full object-cover transition-all duration-700 group-hover:scale-110" loading="lazy" onclick="app.openSlideshow(' + originalIdx + ')" onload="this.classList.add(\'loaded\'); this.src=this.dataset.src">' +
+            '<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>' +
+            '<button onclick="app.toggleFavorite(\'' + (img.id || '').replace(/'/g, "\\'") + '\', event)" class="absolute top-4 right-4 p-2 rounded-full bg-black/50 backdrop-blur-sm hover:scale-110 transition-transform ' + (isFav ? '!bg-red-500/80' : 'opacity-0 group-hover:opacity-100') + '">' +
+            '<svg class="w-5 h-5 ' + (isFav ? 'text-white fill-current' : 'text-white') + '" fill="' + (isFav ? 'currentColor' : 'none') + '" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>' +
+            '<div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform"><p class="font-serif text-lg text-white mb-1">' + (img.title || '') + '</p><p class="text-xs text-gray-300">' + (img.meta || '') + '</p></div>' +
+            (isFav ? '<div class="absolute top-4 left-4 w-2 h-2 bg-gold-400 rounded-full"></div>' : '') +
+            '</div>';
+        }).join('');
+      },
+
+      async toggleFavorite(id, event, save) {
+        if (save === undefined) save = true;
+        if (event) {
+          event.stopPropagation();
+          event.currentTarget.classList.add('heart-active');
+          setTimeout(function() { event.currentTarget.classList.remove('heart-active'); }, 800);
+        }
+        const idx = (this.data.favorites || []).indexOf(id);
+        const action = idx > -1 ? 'remove' : 'add';
+        if (action === 'add' && (this.data.favorites || []).length >= 50) {
+          this.showToast('Maximum 50 favorites allowed', 'error');
+          return;
+        }
+        if (action === 'add') this.data.favorites.push(id);
+        else this.data.favorites.splice(idx, 1);
+        if (save) {
+          try {
+            await fetch('/api/favorites-save', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ imageId: id, action, galleryId: this.data.gallery.id }),
+              credentials: 'include'
+            });
+            this.showToast(action === 'add' ? 'Added to favorites' : 'Removed from favorites');
+          } catch (e) {
+            if (action === 'add') this.data.favorites = this.data.favorites.filter(function(f) { return f !== id; });
+            else this.data.favorites.push(id);
+            this.showToast('Failed to save', 'error');
+            return;
+          }
+        }
+        this.updateUI();
+        if (this.showingFavorites) this.renderGrid();
+      },
+
+      updateUI() {
+        const count = (this.data.favorites || []).length;
+        document.getElementById('fav-count').textContent = count;
+        document.getElementById('selected-text').textContent = count + ' selected';
+        document.getElementById('wow-count').textContent = count;
+        document.getElementById('selection-progress').style.width = (count / 50) * 100 + '%';
+        document.getElementById('download-btn').disabled = count === 0;
+        document.getElementById('wow-generate-btn').disabled = count === 0;
+      },
+
+      toggleView() {},
+      toggleFavoritesView() {
+        this.showingFavorites = !this.showingFavorites;
+        document.getElementById('fav-btn').classList.toggle('text-gold-400', this.showingFavorites);
+        this.renderGrid();
+      },
+
+      openSlideshow(index) {
+        this.currentSlide = index;
+        const container = document.getElementById('slideshow-container');
+        const images = this.data.gallery.images || [];
+        container.innerHTML = '';
+        images.forEach(function(img, i) {
+          const slide = document.createElement('div');
+          slide.className = 'slide absolute inset-0 ' + (i === index ? 'active opacity-100' : 'opacity-0');
+          const u = (img.url || '') + ((img.url || '').indexOf('?') !== -1 ? '&' : '?') + 'w=1920&q=85';
+          slide.innerHTML = '<img src="' + u + '" class="w-full h-full object-contain bg-black" loading="' + (i === index ? 'eager' : 'lazy') + '" alt="">';
+          container.appendChild(slide);
+        });
+        document.getElementById('total-slides').textContent = images.length;
+        document.getElementById('slideshow-view').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        this.updateSlideshowHeart();
+      },
+
+      closeSlideshow() {
+        document.getElementById('slideshow-view').classList.add('hidden');
+        document.body.style.overflow = '';
+      },
+
+      changeSlide(dir) {
+        const images = this.data.gallery.images || [];
+        this.currentSlide = (this.currentSlide + dir + images.length) % images.length;
+        document.querySelectorAll('#slideshow-container .slide').forEach(function(slide, i) {
+          slide.classList.toggle('active', i === app.currentSlide);
+          slide.classList.toggle('opacity-100', i === app.currentSlide);
+          slide.classList.toggle('opacity-0', i !== app.currentSlide);
+        });
+        document.getElementById('current-slide').textContent = this.currentSlide + 1;
+        this.updateSlideshowHeart();
+      },
+
+      updateSlideshowHeart() {
+        const images = this.data.gallery.images || [];
+        const img = images[this.currentSlide];
+        const isFav = img && (this.data.favorites || []).includes(img.id);
+        const btn = document.getElementById('slideshow-heart');
+        btn.classList.toggle('text-red-500', isFav);
+        btn.querySelector('svg').setAttribute('fill', isFav ? 'currentColor' : 'none');
+      },
+
+      toggleFavoriteCurrent() {
+        const images = this.data.gallery.images || [];
+        const img = images[this.currentSlide];
+        if (img) this.toggleFavorite(img.id, null);
+        this.updateSlideshowHeart();
+      },
+
+      toggleWowMode() {
+        const modal = document.getElementById('wow-mode');
+        const hidden = modal.classList.contains('hidden');
+        if (hidden) {
+          this.renderWowTemplates();
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        } else {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      },
+
+      renderWowTemplates() {
+        const container = document.getElementById('wow-templates');
+        const images = this.data.gallery.images || [];
+        const preview = images.find(function(i) { return (app.data.favorites || []).includes(i.id); }) || images[0];
+        const templates = [
+          { id: 'billboard', name: 'Times Square Billboard', desc: '1920×1080' },
+          { id: 'magazine', name: 'Editorial Spread', desc: 'Vogue-style' },
+          { id: 'gallery', name: 'Museum Gallery', desc: 'MoMA-style' },
+          { id: 'penthouse', name: 'Luxury Interior', desc: 'Park Avenue' }
+        ];
+        container.innerHTML = templates.map(function(t) {
+          const u = (preview && preview.url) ? preview.url + '?w=600&q=80' : '';
+          return '<div class="group cursor-pointer" onclick="app.selectWowTemplate(\'' + t.id + '\')"><div class="relative bg-dark-800 rounded-lg overflow-hidden border border-white/10 hover:border-gold-400"><div class="aspect-[16/9] relative"><img src="' + u + '" class="w-full h-full object-cover opacity-60 group-hover:opacity-80"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><div class="absolute bottom-6 left-6"><p class="text-gold-400 text-xs uppercase tracking-widest mb-1">' + t.desc + '</p><h3 class="font-serif text-2xl">' + t.name + '</h3></div></div></div></div>';
+        }).join('');
+      },
+
+      selectWowTemplate() {},
+      async generateWowBatch() {
+        const btn = document.getElementById('wow-generate-btn');
+        const progress = document.getElementById('wow-progress');
+        const bar = document.getElementById('wow-progress-bar');
+        const text = document.getElementById('wow-progress-text');
+        btn.disabled = true;
+        progress.classList.remove('hidden');
+        const favs = this.data.favorites || [];
+        for (var i = 0; i < favs.length; i++) {
+          text.textContent = (i + 1) + '/' + favs.length;
+          bar.style.width = ((i + 1) / favs.length) * 100 + '%';
+          try {
+            await fetch('/api/wow-generate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ imageId: favs[i], template: 'billboard' }),
+              credentials: 'include'
+            });
+          } catch (e) {}
+          await new Promise(function(r) { setTimeout(r, 200); });
+        }
+        this.showToast('Mockups generated');
+        btn.disabled = false;
+      },
+
+      async downloadSelected() {
+        const favs = this.data.favorites || [];
+        if (favs.length === 0) return;
+        this.showToast('Preparing download...');
+        try {
+          const res = await fetch('/api/download-zip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ imageIds: favs, galleryId: this.data.gallery.id, quality: 'web' }),
+            credentials: 'include'
+          });
+          if (!res.ok) throw new Error('Download failed');
+          const blob = await res.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'lumina-' + (this.data.gallery.title || 'gallery').replace(/\s+/g, '-').toLowerCase() + '.zip';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+          this.showToast('Download started');
+        } catch (e) {
+          this.showToast('Download failed', 'error');
+        }
+      },
+
+      shareGallery() {
+        fetch('/api/share-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ galleryId: this.data.gallery.id }),
+          credentials: 'include'
+        }).then(function(r) { return r.json(); }).then(function(data) {
+          if (data.shareUrl) {
+            navigator.clipboard.writeText(data.shareUrl).then(function() { app.showToast('Share link copied'); }).catch(function() { app.showToast(data.shareUrl); });
+          } else app.showToast('Share failed', 'error');
+        }).catch(function() { app.showToast('Share failed', 'error'); });
+      },
+
+      showToast(message, type) {
+        type = type || 'success';
+        var toast = document.createElement('div');
+        toast.className = 'toast ' + (type === 'error' ? 'border-red-500' : 'border-gold-400');
+        toast.textContent = message;
+        document.getElementById('toast-container').appendChild(toast);
+        requestAnimationFrame(function() { toast.classList.add('show'); });
+        setTimeout(function() {
+          toast.classList.remove('show');
+          setTimeout(function() { toast.remove(); }, 300);
+        }, 3000);
+      },
+
+      logout() {
+        fetch('/api/logout', { method: 'POST', credentials: 'include' }).then(function() { window.location.href = '/'; }).catch(function() { window.location.href = '/'; });
+      },
+
+      closeLightbox() {},
+      toggleFavoriteLightbox() {},
+      downloadCurrent() {}
+    };
+
+    document.addEventListener('DOMContentLoaded', function() { app.init(); });
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('slideshow-view').classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') app.changeSlide(-1);
+        if (e.key === 'ArrowRight') app.changeSlide(1);
+        if (e.key === 'Escape') app.closeSlideshow();
+      }
+    });
+  </script>
+</body>
+</html>

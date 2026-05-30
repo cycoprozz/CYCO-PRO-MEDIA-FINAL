@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nebula Runner 3D</title>
+<style>
+  :root {
+    --cyan: #5ef6ff;
+    --pink: #ff4fd8;
+    --gold: #ffd166;
+    --green: #7dff9f;
+    --danger: #ff3b5c;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 55%, #132449 0%, #080d1c 48%, #02030a 100%);
+    color: white;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    user-select: none;
+  }
+  canvas { display: block; width: 100vw; height: 100vh; cursor: crosshair; }
+  #hud {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(94,246,255,.06), transparent 20%, transparent 80%, rgba(255,79,216,.06)),
+      radial-gradient(circle at center, transparent 46%, rgba(2,3,10,.25) 100%);
+  }
+  .panel {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    padding: 14px 16px;
+    border: 1px solid rgba(94,246,255,.26);
+    border-radius: 18px;
+    background: rgba(3, 8, 20, .52);
+    box-shadow: 0 0 35px rgba(94,246,255,.11), inset 0 0 24px rgba(94,246,255,.04);
+    backdrop-filter: blur(12px);
+    letter-spacing: .02em;
+  }
+  .title { font-weight: 900; font-size: 15px; color: var(--cyan); text-transform: uppercase; }
+  .row { display: flex; gap: 16px; margin-top: 7px; font-size: 13px; opacity: .92; }
+  .value { color: var(--gold); font-weight: 800; }
+  #center {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+  .card {
+    max-width: 660px;
+    margin: 20px;
+    padding: 30px 34px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(4,10,28,.84), rgba(12, 24, 54, .62));
+    border: 1px solid rgba(94,246,255,.34);
+    box-shadow: 0 24px 90px rgba(0,0,0,.5), 0 0 80px rgba(94,246,255,.16), inset 0 0 40px rgba(255,255,255,.04);
+    backdrop-filter: blur(14px);
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: clamp(42px, 7vw, 78px);
+    line-height: .9;
+    letter-spacing: -.07em;
+    text-transform: uppercase;
+    text-shadow: 0 0 26px rgba(94,246,255,.45), 0 0 60px rgba(255,79,216,.22);
+  }
+  .sub { margin: 0 auto 20px; color: rgba(255,255,255,.78); font-size: 16px; max-width: 560px; }
+  .keys { display: grid; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 10px; margin: 20px 0; text-align: left; }
+  .key { border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.05); border-radius: 14px; padding: 10px 12px; font-size: 14px; }
+  kbd { color: #07111e; background: var(--cyan); border-radius: 6px; padding: 2px 7px; font-weight: 900; margin-right: 6px; box-shadow: 0 0 16px rgba(94,246,255,.35); }
+  .start { color: var(--green); font-weight: 900; text-transform: uppercase; margin-top: 12px; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; transform: scale(.985); } }
+  #damage {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    border: 0 solid rgba(255, 40, 80, 0);
+    transition: border-width .08s, border-color .08s;
+  }
+  #reticle {
+    position: fixed;
+    left: 50%; top: 50%; width: 38px; height: 38px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1px solid rgba(94,246,255,.55);
+    box-shadow: 0 0 20px rgba(94,246,255,.35);
+  }
+  #reticle:before, #reticle:after { content:""; position:absolute; background: rgba(94,246,255,.75); }
+  #reticle:before { width: 58px; height: 1px; left: -10px; top: 18px; }
+  #reticle:after { width: 1px; height: 58px; left: 18px; top: -10px; }
+  @media (max-width: 640px) {
+    .keys { grid-template-columns: 1fr; }
+    .panel { font-size: 12px; right: 12px; left: 12px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="hud"></div>
+<div id="damage"></div>
+<div id="reticle"></div>
+<div class="panel">
+  <div class="title">Nebula Runner 3D</div>
+  <div class="row"><span>Score <span id="score" class="value">0</span></span><span>Wave <span id="wave" class="value">1</span></span><span>Speed <span id="speed" class="value">1.0x</span></span></div>
+  <div class="row"><span>Hull <span id="hull" class="value">100</span>%</span><span>Blasters <span id="charge" class="value">READY</span></span></div>
+</div>
+<div id="center">
+  <div id="menu" class="card">
+    <h1>Nebula<br/>Runner</h1>
+    <p class="sub">A fast 3D spaceship survival run through an asteroid field. Dodge debris, shoot targets, collect energy cores, and push deeper into the neon corridor.</p>
+    <div class="keys">
+      <div class="key"><kbd>WASD</kbd> or <kbd>Arrows</kbd> steer ship</div>
+      <div class="key"><kbd>Space</kbd> fire blasters</div>
+      <div class="key"><kbd>Shift</kbd> boost forward</div>
+      <div class="key"><kbd>P</kbd> pause / resume</div>
+    </div>
+    <div class="start">Press Enter to Launch</div>
+  </div>
+</div>
+<script>
+(() => {
+  'use strict';
+
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const ui = {
+    score: document.getElementById('score'),
+    wave: document.getElementById('wave'),
+    speed: document.getElementById('speed'),
+    hull: document.getElementById('hull'),
+    charge: document.getElementById('charge'),
+    menu: document.getElementById('menu'),
+    center: document.getElementById('center'),
+    damage: document.getElementById('damage')
+  };
+
+  let W = 0, H = 0, CX = 0, CY = 0, DPR = 1;
+  const FOV = 520;
+  const keys = new Set();
+  let state = 'menu';
+  let last = performance.now();
+  let shake = 0;
+  let flash = 0;
+
+  const ship = { x: 0, y: 0, vx: 0, vy: 0, hull: 100, cooldown: 0 };
+  const world = { speed: 24, score: 0, wave: 1, time: 0, spawn: 0, coreSpawn: 4, bestDepth: 0 };
+  const stars = [];
+  const asteroids = [];
+  const bolts = [];
+  const particles = [];
+  const cores = [];
+
+  function resize() {
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight; CX = W / 2; CY = H / 2;
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    seedStars();
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function project(x, y, z) {
+    const scale = FOV / Math.max(1, z);
+    return { x: CX + (x - ship.x * 0.18) * scale, y: CY + (y - ship.y * 0.18) * scale, s: scale };
+  }
+
+  function seedStars() {
+    stars.length = 0;
+    const count = Math.floor(Math.min(620, Math.max(260, W * H / 3500)));
+    for (let i = 0; i < count; i++) stars.push({ x: rand(-1100, 1100), y: rand(-650, 650), z: rand(30, 1600), r: rand(.4, 1.9), hue: rand(180, 285) });
+  }
+
+  function reset() {
+    ship.x = ship.y = ship.vx = ship.vy = 0; ship.hull = 100; ship.cooldown = 0;
+    world.speed = 24; world.score = 0; world.wave = 1; world.time = 0; world.spawn = .5; world.coreSpawn = 4;
+    asteroids.length = bolts.length = particles.length = cores.length = 0;
+    shake = 0; flash = 0;
+    ui.menu.innerHTML = '<h1>Nebula<br/>Runner</h1><p class="sub">Mission live. Survive the corridor, destroy asteroids, collect energy cores.</p><div class="start">Game Running</div>';
+    ui.center.style.display = 'none';
+    state = 'play';
+  }
+
+  function spawnAsteroid() {
+    const ring = Math.random() < .25 ? rand(520, 760) : rand(120, 620);
+    const a = rand(0, Math.PI * 2);
+    asteroids.push({
+      x: Math.cos(a) * ring + rand(-120, 120),
+      y: Math.sin(a) * ring * .72 + rand(-90, 90),
+      z: rand(1050, 1600),
+      r: rand(28, 76) * (1 + world.wave * .025),
+      rx: rand(0, Math.PI), ry: rand(0, Math.PI), spin: rand(-2.2, 2.2),
+      hp: 1 + Math.floor(world.wave / 3), hue: rand(15, 48)
+    });
+  }
+
+  function spawnCore() {
+    const a = rand(0, Math.PI * 2), ring = rand(90, 470);
+    cores.push({ x: Math.cos(a) * ring, y: Math.sin(a) * ring * .65, z: 1350, r: 22, pulse: rand(0, 10) });
+  }
+
+  function fire() {
+    if (ship.cooldown > 0) return;
+    ship.cooldown = .16;
+    bolts.push({ x: ship.x - 32, y: ship.y + 16, z: 70, life: 1.25 });
+    bolts.push({ x: ship.x + 32, y: ship.y + 16, z: 70, life: 1.25 });
+    for (let i = 0; i < 8; i++) particles.push({ x: ship.x + rand(-25,25), y: ship.y + rand(-10,20), z: 75, vx: rand(-45,45), vy: rand(-25,25), vz: rand(80,180), life: rand(.15,.32), hue: rand(180,205) });
+  }
+
+  function hitShip(power) {
+    ship.hull = Math.max(0, ship.hull - power);
+    shake = .45; flash = .35;
+    ui.damage.style.borderWidth = '18px';
+    ui.damage.style.borderColor = 'rgba(255, 40, 80, .72)';
+    setTimeout(() => { ui.damage.style.borderWidth = '0'; ui.damage.style.borderColor = 'rgba(255, 40, 80, 0)'; }, 90);
+    if (ship.hull <= 0) gameOver();
+  }
+
+  function gameOver() {
+    state = 'over';
+    ui.center.style.display = 'grid';
+    ui.menu.innerHTML = `<h1>Ship<br/>Lost</h1><p class="sub">Final score: <b>${Math.floor(world.score)}</b><br/>Wave reached: <b>${world.wave}</b></p><div class="keys"><div class="key"><kbd>Enter</kbd> restart mission</div><div class="key"><kbd>Space</kbd> also restarts</div></div><div class="start">Launch Again</div>`;
+  }
+
+  function update(dt) {
+    if (state !== 'play') return;
+    world.time += dt;
+    world.score += dt * (10 + world.speed * .55);
+    world.wave = 1 + Math.floor(world.score / 650);
+    const boosting = keys.has('ShiftLeft') || keys.has('ShiftRight');
+    const targetSpeed = 24 + world.wave * 2.8 + (boosting ? 18 : 0);
+    world.speed += (targetSpeed - world.speed) * Math.min(1, dt * 1.8);
+
+    let ax = 0, ay = 0;
+    if (keys.has('KeyA') || keys.has('ArrowLeft')) ax -= 1;
+    if (keys.has('KeyD') || keys.has('ArrowRight')) ax += 1;
+    if (keys.has('KeyW') || keys.has('ArrowUp')) ay -= 1;
+    if (keys.has('KeyS') || keys.has('ArrowDown')) ay += 1;
+    ship.vx += ax * 1450 * dt; ship.vy += ay * 1050 * dt;
+    ship.vx *= Math.pow(.0008, dt); ship.vy *= Math.pow(.0008, dt);
+    ship.x = clamp(ship.x + ship.vx * dt, -520, 520);
+    ship.y = clamp(ship.y + ship.vy * dt, -310, 310);
+    if (ship.x === -520 || ship.x === 520) ship.vx *= -.25;
+    if (ship.y === -310 || ship.y === 310) ship.vy *= -.25;
+    ship.cooldown = Math.max(0, ship.cooldown - dt);
+    if (keys.has('Space')) fire();
+
+    world.spawn -= dt;
+    if (world.spawn <= 0) { spawnAsteroid(); world.spawn = Math.max(.18, .92 - world.wave * .045); }
+    world.coreSpawn -= dt;
+    if (world.coreSpawn <= 0) { spawnCore(); world.coreSpawn = rand(5, 8.5); }
+
+    for (const s of stars) { s.z -= world.speed * dt * (1.8 + s.r * .2); if (s.z < 8) { s.x = rand(-1100, 1100); s.y = rand(-650, 650); s.z = rand(1300, 1700); } }
+    for (const a of asteroids) { a.z -= world.speed * dt * 3.2; a.rx += a.spin * dt; a.ry += a.spin * .7 * dt; }
+    for (const c of cores) { c.z -= world.speed * dt * 3.1; c.pulse += dt * 7; }
+    for (const b of bolts) { b.z += 980 * dt; b.life -= dt; }
+    for (const p of particles) { p.x += p.vx * dt; p.y += p.vy * dt; p.z += (p.vz - world.speed * 2) * dt; p.life -= dt; }
+
+    // Bolt to asteroid collisions in world-space corridor.
+    for (let bi = bolts.length - 1; bi >= 0; bi--) {
+      const b = bolts[bi];
+      for (let ai = asteroids.length - 1; ai >= 0; ai--) {
+        const a = asteroids[ai];
+        if (Math.abs(a.z - b.z) < 75) {
+          const dx = a.x - b.x, dy = a.y - b.y;
+          if (dx * dx + dy * dy < (a.r + 18) * (a.r + 18)) {
+            bolts.splice(bi, 1); a.hp--;
+            explode(a.x, a.y, a.z, a.hp <= 0 ? 34 : 12, a.hp <= 0 ? 35 : 22);
+            if (a.hp <= 0) { asteroids.splice(ai, 1); world.score += 120 + world.wave * 8; }
+            break;
+          }
+        }
+      }
+    }
+
+    for (let ai = asteroids.length - 1; ai >= 0; ai--) {
+      const a = asteroids[ai];
+      if (a.z < 38) {
+        const dx = a.x - ship.x, dy = a.y - ship.y;
+        if (dx * dx + dy * dy < (a.r + 58) * (a.r + 58)) hitShip(Math.ceil(14 + a.r * .13));
+        asteroids.splice(ai, 1);
+      } else if (a.z > 1900) asteroids.splice(ai, 1);
+    }
+
+    for (let ci = cores.length - 1; ci >= 0; ci--) {
+      const c = cores[ci];
+      if (c.z < 42) {
+        const dx = c.x - ship.x, dy = c.y - ship.y;
+        if (dx * dx + dy * dy < 120 * 120) { ship.hull = Math.min(100, ship.hull + 16); world.score += 260; explode(c.x, c.y, c.z, 30, 150); }
+        cores.splice(ci, 1);
+      }
+    }
+
+    cleanup(bolts); cleanup(particles); cleanup(asteroids); cleanup(cores);
+    shake = Math.max(0, shake - dt * 1.8); flash = Math.max(0, flash - dt * 1.6);
+    ui.score.textContent = Math.floor(world.score);
+    ui.wave.textContent = world.wave;
+    ui.speed.textContent = (world.speed / 24).toFixed(1) + 'x';
+    ui.hull.textContent = Math.ceil(ship.hull);
+    ui.charge.textContent = ship.cooldown <= 0 ? 'READY' : 'CHARGING';
+  }
+
+  function cleanup(arr) {
+    for (let i = arr.length - 1; i >= 0; i--) if (arr[i].life <= 0 || arr[i].z < -80 || arr[i].z > 2200) arr.splice(i, 1);
+  }
+
+  function explode(x, y, z, n, hue) {
+    shake = Math.max(shake, .18);
+    for (let i = 0; i < n; i++) particles.push({ x, y, z, vx: rand(-240,240), vy: rand(-190,190), vz: rand(-220,280), life: rand(.35,.9), hue: hue + rand(-12, 22) });
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(CX, CY, 20, CX, CY, Math.max(W, H) * .7);
+    g.addColorStop(0, '#10265a'); g.addColorStop(.42, '#081229'); g.addColorStop(1, '#01030b');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    ctx.save(); ctx.globalAlpha = .22; ctx.strokeStyle = '#5ef6ff'; ctx.lineWidth = 1;
+    for (let i = 0; i < 9; i++) {
+      const z = 250 + i * 150 - (world.time * world.speed * 2.1 % 150);
+      const p1 = project(-610, -360, z), p2 = project(610, -360, z), p3 = project(610, 360, z), p4 = project(-610, 360, z);
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawStars() {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const s of stars) {
+      const p = project(s.x, s.y, s.z);
+      const tail = Math.min(28, (1 / Math.max(.04, p.s)) * .025 + world.speed * .2);
+      ctx.strokeStyle = `hsla(${s.hue}, 100%, ${70 + s.r * 8}%, ${Math.min(.9, p.s * 1.5)})`;
+      ctx.lineWidth = Math.max(.4, s.r * p.s * 2.2);
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + (p.x - CX) * .006 * tail, p.y + (p.y - CY) * .006 * tail); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawAsteroid(a) {
+    const p = project(a.x, a.y, a.z), r = Math.max(2, a.r * p.s);
+    if (p.x < -r || p.x > W + r || p.y < -r || p.y > H + r) return;
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(a.rx * .7); ctx.globalAlpha = clamp(1.25 - a.z / 1800, .16, 1);
+    const grad = ctx.createRadialGradient(-r * .25, -r * .25, r * .1, 0, 0, r * 1.2);
+    grad.addColorStop(0, `hsl(${a.hue}, 80%, 68%)`); grad.addColorStop(.55, `hsl(${a.hue + 8}, 55%, 32%)`); grad.addColorStop(1, 'rgba(12, 7, 15, .95)');
+    ctx.fillStyle = grad; ctx.strokeStyle = `hsla(${a.hue + 20}, 100%, 78%, .5)`; ctx.lineWidth = Math.max(1, r * .035);
+    ctx.beginPath();
+    const n = 11;
+    for (let i = 0; i <= n; i++) {
+      const t = i / n * Math.PI * 2;
+      const rr = r * (.78 + .25 * Math.sin(i * 2.31 + a.ry) + .12 * Math.cos(i * 5.7));
+      const x = Math.cos(t) * rr, y = Math.sin(t) * rr;
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.globalAlpha *= .45; ctx.strokeStyle = '#fff';
+    for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(rand(-r*.25,r*.25), rand(-r*.2,r*.2), r * rand(.08,.18), 0, Math.PI*2); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function drawCore(c) {
+    const p = project(c.x, c.y, c.z), r = c.r * p.s * (1 + Math.sin(c.pulse) * .18);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(p.x, p.y); ctx.rotate(c.pulse * .4);
+    ctx.strokeStyle = 'rgba(125,255,159,.85)'; ctx.lineWidth = Math.max(1, r * .08); ctx.shadowBlur = 26; ctx.shadowColor = '#7dff9f';
+    ctx.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; const x = Math.cos(a) * r, y = Math.sin(a) * r; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.closePath(); ctx.stroke();
+    ctx.fillStyle = 'rgba(125,255,159,.35)'; ctx.fill(); ctx.restore();
+  }
+
+  function drawBolts() {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const b of bolts) {
+      const p = project(b.x, b.y, b.z), p2 = project(b.x, b.y, b.z - 90);
+      ctx.strokeStyle = `rgba(94,246,255,${clamp(b.life,0,1)})`; ctx.lineWidth = Math.max(2, 7 * p.s); ctx.shadowBlur = 18; ctx.shadowColor = '#5ef6ff';
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const p0 of particles) {
+      const p = project(p0.x, p0.y, p0.z), r = Math.max(.7, 8 * p.s * p0.life);
+      ctx.fillStyle = `hsla(${p0.hue}, 100%, 65%, ${clamp(p0.life * 1.4,0,1)})`; ctx.shadowBlur = 12; ctx.shadowColor = ctx.fillStyle;
+      ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawShip() {
+    ctx.save(); ctx.translate(CX + ship.x * .22, CY + 210 + ship.y * .18); ctx.rotate(ship.vx * .00008);
+    ctx.globalCompositeOperation = 'lighter';
+    // Engine flames
+    const flame = 32 + Math.sin(world.time * 28) * 10 + world.speed * .5;
+    ctx.fillStyle = 'rgba(94,246,255,.35)'; ctx.beginPath(); ctx.moveTo(-30, 38); ctx.lineTo(0, 38 + flame); ctx.lineTo(30, 38); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = 'rgba(255,79,216,.28)'; ctx.beginPath(); ctx.moveTo(-17, 36); ctx.lineTo(0, 34 + flame * .75); ctx.lineTo(17, 36); ctx.closePath(); ctx.fill();
+    // Hull
+    const hull = ctx.createLinearGradient(0, -62, 0, 54); hull.addColorStop(0, '#effcff'); hull.addColorStop(.35, '#5ef6ff'); hull.addColorStop(1, '#122d6a');
+    ctx.fillStyle = hull; ctx.strokeStyle = 'rgba(255,255,255,.74)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, -70); ctx.lineTo(52, 42); ctx.lineTo(17, 28); ctx.lineTo(0, 58); ctx.lineTo(-17, 28); ctx.lineTo(-52, 42); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.beginPath(); ctx.ellipse(0, -23, 13, 22, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  function render() {
+    ctx.save();
+    if (shake > 0) ctx.translate(rand(-8,8) * shake, rand(-8,8) * shake);
+    drawBackground(); drawStars();
+    const depthSorted = [...asteroids, ...cores.map(c => ({...c, core:true}))].sort((a,b) => b.z - a.z);
+    for (const obj of depthSorted) obj.core ? drawCore(obj) : drawAsteroid(obj);
+    drawBolts(); drawParticles(); drawShip();
+    if (flash > 0) { ctx.fillStyle = `rgba(255,40,80,${flash * .18})`; ctx.fillRect(0,0,W,H); }
+    ctx.restore();
+  }
+
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    update(dt); render();
+    requestAnimationFrame(loop);
+  }
+
+  addEventListener('keydown', e => {
+    keys.add(e.code);
+    if (['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+    if ((state === 'menu' || state === 'over') && (e.code === 'Enter' || e.code === 'Space')) reset();
+    else if (state === 'play' && e.code === 'KeyP') { state = 'pause'; ui.center.style.display = 'grid'; ui.menu.innerHTML = '<h1>Paused</h1><p class="sub">Press P to resume the mission.</p>'; }
+    else if (state === 'pause' && e.code === 'KeyP') { state = 'play'; ui.center.style.display = 'none'; last = performance.now(); }
+  });
+  addEventListener('keyup', e => keys.delete(e.code));
+  addEventListener('resize', resize);
+  addEventListener('blur', () => keys.clear());
+
+  resize(); requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
