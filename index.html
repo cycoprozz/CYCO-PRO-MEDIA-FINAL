@@ -539,8 +539,15 @@ a:hover { color: var(--magenta); }
 .portfolio-card.web-card .portfolio-media {
   background: linear-gradient(135deg, #0a0a15 0%, #12122a 40%, #0a0a15 100%);
   display: flex; align-items: center; justify-content: center;
-  position: relative;
 }
+.expand-btn {
+  position: absolute; top: 8px; right: 8px; z-index: 10;
+  background: rgba(0,0,0,0.5); color: var(--cyan); border: 1px solid var(--cyan-dim);
+  border-radius: 6px; width: 28px; height: 28px; cursor: pointer;
+  font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.expand-btn:hover { background: var(--cyan); color: #000; }
 .web-grid-preview {
   display: grid; grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr); gap: 4px;
@@ -948,9 +955,14 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
           <iframe src="https://theo-jones.joffre-fab.workers.dev" 
                   style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:1;z-index:2;"
-                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin" class="cf-iframe"></iframe>
+                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin allow-forms" class="cf-iframe"></iframe>
           <iframe style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:0;z-index:1;"
-                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin" class="cf-iframe"></iframe>
+                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin allow-forms" class="cf-iframe"></iframe>
+          <button class="expand-btn" onclick="event.stopPropagation();var c=document.getElementById('web-projects-carousel'),s=c.style;s.position=s.position==='fixed'?'':'fixed';s.inset=s.position==='fixed'?'10px':'';s.zIndex=s.position==='fixed'?'9999':'';s.background=s.position==='fixed'?'#0A0A0F':'';this.textContent=s.position==='fixed'?'✕':'⛶';var fs=c.querySelectorAll('iframe');fs.forEach(function(f){f.style.transform=s.position==='fixed'?'scale(1)':'scale(0.35)';f.style.width=s.position==='fixed'?'100%':'285%';f.style.height=s.position==='fixed'?'100%':'285%';f.style.transformOrigin='0 0';});" aria-label="Expand card" title="Expand">⛶</button>
+          <div class="portfolio-nav-btns" style="position:absolute;bottom:50%;left:0;right:0;display:flex;justify-content:space-between;padding:0 8px;z-index:5;pointer-events:none;">
+            <button class="expand-nav-btn" id="wp-prev" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">◂</button>
+            <button class="expand-nav-btn" id="wp-next" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">▸</button>
+          </div>
         </div>
         <div class="portfolio-info">
           <h3>Web Projects</h3>
@@ -1671,6 +1683,32 @@ a:hover { color: var(--magenta); }
     carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
     
     startCarousel();
+    
+    // Wire expand nav arrows
+    document.getElementById('wp-prev').addEventListener('click', function(e) {
+      e.stopPropagation(); cUserPaused = true;
+      cIndex = (cIndex - 1 + webProjects.length) % webProjects.length;
+      var next = cActive === 0 ? 1 : 0;
+      cIframes[next].src = webProjects[cIndex].url;
+      cIframes[next].onload = function() {
+        cIframes[next].style.opacity = '1'; cIframes[next].style.zIndex = '2';
+        cIframes[cActive].style.opacity = '0'; cIframes[cActive].style.zIndex = '1';
+        cActive = next; carouselLabel.textContent = webProjects[cIndex].label;
+        cIframes[next].onload = null;
+      };
+    });
+    document.getElementById('wp-next').addEventListener('click', function(e) {
+      e.stopPropagation(); cUserPaused = true;
+      cIndex = (cIndex + 1) % webProjects.length;
+      var next = cActive === 0 ? 1 : 0;
+      cIframes[next].src = webProjects[cIndex].url;
+      cIframes[next].onload = function() {
+        cIframes[next].style.opacity = '1'; cIframes[next].style.zIndex = '2';
+        cIframes[cActive].style.opacity = '0'; cIframes[cActive].style.zIndex = '1';
+        cActive = next; carouselLabel.textContent = webProjects[cIndex].label;
+        cIframes[next].onload = null;
+      };
+    });
     
     // Left/right swipe for mobile
     var touchStartX = 0;
