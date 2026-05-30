@@ -548,6 +548,12 @@ a:hover { color: var(--magenta); }
   transition: all 0.2s;
 }
 .expand-btn:hover { background: var(--cyan); color: #000; }
+#web-projects-carousel.expanded {
+  position: fixed !important; inset: 10px !important; z-index: 9999 !important;
+  background: #0A0A0F; border-radius: 12px; border: 1px solid var(--cyan-dim);
+}
+#web-projects-carousel.expanded .portfolio-nav-btns { display: flex !important; }
+.portfolio-nav-btns { display: none; }
 .web-grid-preview {
   display: grid; grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr); gap: 4px;
@@ -958,7 +964,7 @@ a:hover { color: var(--magenta); }
                   loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin allow-forms" class="cf-iframe"></iframe>
           <iframe style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:0;z-index:1;"
                   loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin allow-forms" class="cf-iframe"></iframe>
-          <button class="expand-btn" onclick="event.stopPropagation();var c=document.getElementById('web-projects-carousel'),s=c.style;s.position=s.position==='fixed'?'':'fixed';s.inset=s.position==='fixed'?'10px':'';s.zIndex=s.position==='fixed'?'9999':'';s.background=s.position==='fixed'?'#0A0A0F':'';this.textContent=s.position==='fixed'?'✕':'⛶';var fs=c.querySelectorAll('iframe');fs.forEach(function(f){f.style.transform=s.position==='fixed'?'scale(1)':'scale(0.35)';f.style.width=s.position==='fixed'?'100%':'285%';f.style.height=s.position==='fixed'?'100%':'285%';f.style.transformOrigin='0 0';});" aria-label="Expand card" title="Expand">⛶</button>
+          <button class="expand-btn" id="expand-btn" onclick="var c=document.getElementById('web-projects-carousel');var isFull=c.classList.toggle('expanded');this.textContent=isFull?'✕':'⛶';var fs=c.querySelectorAll('iframe');fs.forEach(function(f){f.style.transform=isFull?'scale(1)':'scale(0.35)';f.style.width=isFull?'100%':'285%';f.style.height=isFull?'100%':'285%';});" aria-label="Expand card" title="Expand">⛶</button>
           <div class="portfolio-nav-btns" style="position:absolute;bottom:50%;left:0;right:0;display:flex;justify-content:space-between;padding:0 8px;z-index:5;pointer-events:none;">
             <button class="expand-nav-btn" id="wp-prev" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">◂</button>
             <button class="expand-nav-btn" id="wp-next" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">▸</button>
