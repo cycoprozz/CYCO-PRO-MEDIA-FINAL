@@ -927,7 +927,6 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" id="video-card-media">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-1.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
-                 poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-1.jpg"
                  aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
           <div class="play-overlay" id="video-play-overlay">
             <button class="play-btn" aria-label="Play video">
@@ -1666,8 +1665,38 @@ a:hover { color: var(--magenta); }
 
   // Image fade transition style
   var styleEl = document.createElement('style');
-  styleEl.textContent = '.portfolio-card .slide-img, .about-slideshow .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; width: 100% !important; height: 100% !important; }';
+  styleEl.textContent = '.portfolio-card .slide-img, .about-slideshow .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; width: 100% !important; height: 100% !important; cursor: pointer; }';
   document.head.appendChild(styleEl);
+
+  // --- Lightbox: click any portfolio image to expand ---
+  var lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.style.cssText = 'display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);cursor:pointer;align-items:center;justify-content:center;';
+  lb.innerHTML = '<img id="lightbox-img" style="max-width:95vw;max-height:95vh;object-fit:contain;" alt=""><span id="lightbox-close" style="position:absolute;top:20px;right:30px;color:#fff;font-size:36px;cursor:pointer;">✕</span>';
+  document.body.appendChild(lb);
+  var lbImg = document.getElementById('lightbox-img');
+  var lbClose = document.getElementById('lightbox-close');
+  
+  function openLightbox(src) {
+    lbImg.src = src;
+    lb.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  lb.addEventListener('click', closeLightbox);
+  lbClose.addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
+  lbImg.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // Attach click to all portfolio/About slide images
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    if (target.tagName === 'IMG' && (target.closest('.portfolio-card') || target.closest('.about-slideshow')) && target.src && !target.closest('#lightbox')) {
+      openLightbox(target.src);
+    }
+  });
 
   // --- Commercial Video Slideshow ---
   var commVideo = document.querySelector('[data-video-slideshow="comm"]');
