@@ -930,10 +930,13 @@ a:hover { color: var(--magenta); }
         </div>
       </div>
 
-      <div class="portfolio-card reveal reveal-delay-3">
+      <div class="portfolio-card reveal reveal-delay-3" data-slideshow="realestate" data-count="6">
         <div class="portfolio-media">
-          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
-               alt="Real estate photography by CYCO PRO MEDIA" loading="lazy">
+          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/realestate/realestate-1.jpg"
+               alt="Real estate photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
+          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
+          <div class="slide-indicators" aria-hidden="true"></div>
         </div>
         <div class="portfolio-info">
           <h3>Real Estate</h3>
@@ -1488,6 +1491,8 @@ a:hover { color: var(--magenta); }
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-' + i + '.jpg');
       } else if (prefix === 'wedding') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-' + i + '.jpg');
+      } else if (prefix === 'realestate') {
+        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/realestate/realestate-' + i + '.jpg');
       }
     }
 
