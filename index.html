@@ -828,17 +828,17 @@ a:hover { color: var(--magenta); }
     </p>
     <div class="portfolio-grid">
 
-      <div class="portfolio-card reveal" data-slideshow="cyco" data-count="6">
+      <div class="portfolio-card reveal gallery-card" data-gallery-slideshow="editorial" data-count="3">
         <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/cyco-pro-1.jpg"
-               alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
+          <img src="https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/377/46377844/homepage/smallres/homepage.jpg?rs=133969113164962363"
+               alt="CyCo Pro: Stories in Frames" loading="lazy" class="slide-img gallery-slide">
+          <button class="portfolio-nav-btn prev" aria-label="Previous gallery">◂</button>
+          <button class="portfolio-nav-btn next" aria-label="Next gallery">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
         </div>
         <div class="portfolio-info">
           <h3>Editorial Portraits</h3>
-          <span class="portfolio-tag">Photography</span>
+          <span class="portfolio-tag">3 Galleries · Pic-Time</span>
         </div>
       </div>
 
@@ -1476,6 +1476,77 @@ a:hover { color: var(--magenta); }
 
     slideshows[prefix] = { goTo: goTo, current: current };
   });
+
+  // --- Gallery Slideshow (Pic-Time albums) ---
+  var galleryImages = [
+    {
+      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/377/46377844/homepage/smallres/homepage.jpg?rs=133969113164962363',
+      url: 'https://cycopro.pic-time.com/-portfolio6831/gallery?inviteptoken2=AAAAAAoAAABCEsBkRY8nYp1tqascrjVs2w%2C%2C',
+      label: 'Stories in Frames'
+    },
+    {
+      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/360/46360376/homepage/smallres/homepage.jpg?rs=133966343480116186',
+      url: 'https://cycopro.pic-time.com/-sii/gallery?inviteptoken2=AAAAAP0AAAB7Car6_VfNwa9s2yqq0PeoOA%2C%2C',
+      label: 'SII'
+    },
+    {
+      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/428/46428334/homepage/homepage.jpg?rs=133969939061910222',
+      url: 'https://cycopro.pic-time.com/-tyrone3006/gallery?inviteptoken2=AAAAACgBAAAeO2GG4FGrYWEhkGEIfJx60Q%2C%2C',
+      label: 'Tyrone 3006'
+    }
+  ];
+
+  var galleryCard = document.querySelector('[data-gallery-slideshow]');
+  if (galleryCard) {
+    var gImg = galleryCard.querySelector('.gallery-slide');
+    var gIndicators = galleryCard.querySelector('.slide-indicators');
+    var gPrev = galleryCard.querySelector('.portfolio-nav-btn.prev');
+    var gNext = galleryCard.querySelector('.portfolio-nav-btn.next');
+    var gCurrent = 0;
+
+    // Build dots
+    for (var g = 0; g < 3; g++) {
+      var gDot = document.createElement('button');
+      gDot.className = 'slide-dot' + (g === 0 ? ' active' : '');
+      gDot.setAttribute('aria-label', galleryImages[g].label);
+      gDot.addEventListener('click', (function(idx) {
+        return function() { goToGallery(idx); };
+      })(g));
+      gIndicators.appendChild(gDot);
+    }
+    var gDots = gIndicators.querySelectorAll('.slide-dot');
+
+    function goToGallery(idx) {
+      gCurrent = idx;
+      gImg.style.opacity = '0';
+      setTimeout(function() {
+        gImg.src = galleryImages[gCurrent].thumb;
+        gImg.style.opacity = '1';
+      }, 150);
+      gDots.forEach(function(dd, di) {
+        dd.classList.toggle('active', di === gCurrent);
+      });
+    }
+
+    gPrev.addEventListener('click', function() {
+      goToGallery((gCurrent - 1 + 3) % 3);
+    });
+    gNext.addEventListener('click', function() {
+      goToGallery((gCurrent + 1) % 3);
+    });
+
+    // Click card → open gallery
+    galleryCard.style.cursor = 'pointer';
+    galleryCard.addEventListener('click', function(e) {
+      if (e.target.closest('.portfolio-nav-btn, .slide-dot')) return;
+      window.open(galleryImages[gCurrent].url, '_blank');
+    });
+
+    // Auto-advance
+    setInterval(function() {
+      if (!document.hidden) goToGallery((gCurrent + 1) % 3);
+    }, 5000);
+  }
 
   // Image fade transition style
   var styleEl = document.createElement('style');
