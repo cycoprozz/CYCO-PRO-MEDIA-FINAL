@@ -868,7 +868,22 @@ a:hover { color: var(--magenta); }
           <h3>Event Coverage</h3>
           <span class="portfolio-tag">Event Photography</span>
         </div>
-      </div>
+        </div>
+
+        <div class="portfolio-card video-card reveal reveal-delay-3" data-event-video-card>
+        <div class="portfolio-media" style="cursor:pointer;" onclick="var v=this.querySelector('video');v.paused?v.play():v.pause();this.querySelector('.play-overlay').style.display=v.paused?'flex':'none';">
+          <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-video.mp4"
+                 preload="metadata" muted playsinline loop class="slide-img"
+                 aria-label="Event coverage video reel"></video>
+          <div class="play-overlay" style="display:flex;">
+            <button class="play-btn" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Event Video</h3>
+          <span class="portfolio-tag">🎥 Video Reel</span>
+        </div>
+        </div>
 
       <div class="portfolio-card video-card reveal reveal-delay-3">
         <div class="portfolio-media" id="video-card-media">
