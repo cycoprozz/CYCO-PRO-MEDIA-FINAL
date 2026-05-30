@@ -143,6 +143,15 @@ a:hover { color: var(--magenta); }
   filter: drop-shadow(0 0 12px rgba(0,240,255,0.4)) drop-shadow(0 0 24px rgba(184,176,208,0.3));
   animation: logo-glow 3s ease-in-out infinite alternate;
 }
+.nav-logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-shadow: 0 0 20px rgba(0,240,255,0.3);
+  white-space: nowrap;
+}
 .nav-logo-tagline {
   font-family: var(--font-mono);
   font-size: 0.55rem;
@@ -747,6 +756,7 @@ a:hover { color: var(--magenta); }
 @media (max-width: 768px) {
   :root { --nav-height: 60px; }
   .nav-logo-img { height: 72px !important; }
+  .nav-logo-text { display: none; }
   .nav-location-badge { display: none; }
   .nav-inner { justify-content: center; }
   .nav-logo { margin: 0 auto; }
@@ -790,6 +800,7 @@ a:hover { color: var(--magenta); }
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="CYCO PRO MEDIA Home">
       <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img">
+      <span class="nav-logo-text">CYCO PRO MEDIA</span>
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
