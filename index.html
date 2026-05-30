@@ -929,14 +929,14 @@ a:hover { color: var(--magenta); }
       </div>
 
       <div class="portfolio-card web-card reveal reveal-delay-3">
-        <div class="portfolio-media" style="position:relative;overflow:hidden;">
+        <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
           <iframe src="https://theo-jones.joffre-fab.workers.dev" 
                   style="width:100%;height:100%;border:none;position:absolute;inset:0;transform:scale(0.35);transform-origin:0 0;width:285%;height:285%;"
-                  loading="lazy" title="Theo Jones — Beauty, Health &amp; Wellness" sandbox="allow-scripts allow-same-origin"></iframe>
+                  loading="lazy" title="Web project preview" sandbox="allow-scripts allow-same-origin"></iframe>
         </div>
         <div class="portfolio-info">
           <h3>Web Projects</h3>
-          <span class="portfolio-tag">Theo Jones · Beauty &amp; Wellness</span>
+          <span class="portfolio-tag" id="web-projects-label">Theo Jones · Beauty &amp; Wellness</span>
         </div>
       </div>
 
@@ -1585,6 +1585,34 @@ a:hover { color: var(--magenta); }
   var styleEl = document.createElement('style');
   styleEl.textContent = '.portfolio-card .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; }';
   document.head.appendChild(styleEl);
+})();
+
+// --- Web Projects Carousel ---
+(function() {
+  var webProjects = [
+    { url: 'https://theo-jones.joffre-fab.workers.dev', label: 'Theo Jones · Beauty & Wellness' },
+    { url: 'https://cycopromedia.com', label: 'CYCO PRO MEDIA · Creative Agency' },
+    { url: 'https://cyco-pro-media-final.pages.dev', label: 'CYCO PRO · Cloudflare Edition' }
+  ];
+  
+  var carouselContainer = document.getElementById('web-projects-carousel');
+  var carouselLabel = document.getElementById('web-projects-label');
+  if (carouselContainer && carouselLabel) {
+    var cIframe = carouselContainer.querySelector('iframe');
+    var cIndex = 0;
+    setInterval(function() {
+      if (!document.hidden) {
+        cIndex = (cIndex + 1) % webProjects.length;
+        cIframe.style.opacity = '0';
+        setTimeout(function() {
+          cIframe.src = webProjects[cIndex].url;
+          carouselLabel.textContent = webProjects[cIndex].label;
+          cIframe.style.opacity = '1';
+        }, 300);
+      }
+    }, 8000);
+    cIframe.style.transition = 'opacity 0.3s ease';
+  }
 })();
 
 /* ==================== VIDEO PLAYER ==================== */
