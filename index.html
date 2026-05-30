@@ -1497,6 +1497,14 @@ a:hover { color: var(--magenta); }
       }
     }
 
+    // Shuffle images for editorial and event cards
+    if (prefix === 'editorial' || prefix === 'event') {
+      for (var si = images.length - 1; si > 0; si--) {
+        var sj = Math.floor(Math.random() * (si + 1));
+        var tmp = images[si]; images[si] = images[sj]; images[sj] = tmp;
+      }
+    }
+
     // Build dot indicators
     for (var d = 0; d < count; d++) {
       var dot = document.createElement('button');
