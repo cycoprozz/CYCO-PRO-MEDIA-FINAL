@@ -1590,7 +1590,15 @@ a:hover { color: var(--magenta); }
 // --- Web Projects Carousel ---
 (function() {
   var webProjects = [
-    { url: 'https://theo-jones.joffre-fab.workers.dev', label: 'Theo Jones · Beauty & Wellness' }
+    { url: 'https://theo-jones.joffre-fab.workers.dev', label: 'Theo Jones · Beauty & Wellness' },
+    { url: 'https://cyco-ambassador.pages.dev', label: 'Ambassador · Limo Service' },
+    { url: 'https://cyco-self-building-game.pages.dev', label: 'Self-Building Game' },
+    { url: 'https://cyco-lumina-portal.pages.dev', label: 'Lumina Portal' },
+    { url: 'https://cyco-hermes-agentic-os.pages.dev', label: 'Hermes Agentic OS' },
+    { url: 'https://cyco-tesla-arcade.pages.dev', label: 'Tesla Arcade Creator' },
+    { url: 'https://cyco-spaceship-game.pages.dev', label: 'Spaceship Game' },
+    { url: 'https://cyco-obsidian-wellness.pages.dev', label: 'Obsidian Wellness' },
+    { url: 'https://cyco-deicing-app.pages.dev', label: 'Deicing App' }
   ];
   
   var carouselContainer = document.getElementById('web-projects-carousel');
@@ -1598,9 +1606,45 @@ a:hover { color: var(--magenta); }
   if (carouselContainer && carouselLabel) {
     var cIframe = carouselContainer.querySelector('iframe');
     var cIndex = 0;
-    setInterval(function() {
-      if (!document.hidden) {
-        cIndex = (cIndex + 1) % webProjects.length;
+    var cInterval;
+    var cUserPaused = false;
+    
+    function startCarousel() {
+      cInterval = setInterval(function() {
+        if (!cUserPaused && !document.hidden) {
+          cIndex = (cIndex + 1) % webProjects.length;
+          cIframe.style.opacity = '0';
+          setTimeout(function() {
+            cIframe.src = webProjects[cIndex].url;
+            carouselLabel.textContent = webProjects[cIndex].label;
+            cIframe.style.opacity = '1';
+          }, 300);
+        }
+      }, 6000);
+    }
+    
+    function stopCarousel() {
+      clearInterval(cInterval);
+    }
+    
+    // Touch/hover pauses the carousel so user can scroll in the iframe
+    carouselContainer.addEventListener('mouseenter', function() { cUserPaused = true; });
+    carouselContainer.addEventListener('mouseleave', function() { cUserPaused = false; });
+    carouselContainer.addEventListener('touchstart', function() { cUserPaused = true; }, {passive: true});
+    carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
+    
+    cIframe.style.transition = 'opacity 0.3s ease';
+    startCarousel();
+    
+    // Left/right swipe for mobile
+    var touchStartX = 0;
+    carouselContainer.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
+    carouselContainer.addEventListener('touchend', function(e) {
+      var diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        cUserPaused = false;
+        if (diff > 0) cIndex = (cIndex + 1) % webProjects.length;
+        else cIndex = (cIndex - 1 + webProjects.length) % webProjects.length;
         cIframe.style.opacity = '0';
         setTimeout(function() {
           cIframe.src = webProjects[cIndex].url;
@@ -1608,8 +1652,7 @@ a:hover { color: var(--magenta); }
           cIframe.style.opacity = '1';
         }, 300);
       }
-    }, 8000);
-    cIframe.style.transition = 'opacity 0.3s ease';
+    });
   }
 })();
 
