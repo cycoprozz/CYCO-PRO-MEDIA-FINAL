@@ -887,7 +887,21 @@ a:hover { color: var(--magenta); }
         </div>
         </div>
 
-      <div class="portfolio-card video-card reveal reveal-delay-3">
+        <div class="portfolio-card reveal reveal-delay-3" data-slideshow="wedding" data-count="4">
+          <div class="portfolio-media">
+            <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-1.jpg"
+                 alt="Wedding photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+            <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
+            <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
+            <div class="slide-indicators" aria-hidden="true"></div>
+          </div>
+          <div class="portfolio-info">
+            <h3>Wedding</h3>
+            <span class="portfolio-tag">Wedding Photography</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card video-card reveal reveal-delay-3">
         <div class="portfolio-media" id="video-card-media">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial-video.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
@@ -1456,6 +1470,8 @@ a:hover { color: var(--magenta); }
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-' + i + '.jpg');
       } else if (prefix === 'art') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-' + i + '.jpg');
+      } else if (prefix === 'wedding') {
+        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-' + i + '.jpg');
       }
     }
 
