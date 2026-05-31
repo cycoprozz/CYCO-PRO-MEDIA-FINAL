@@ -748,11 +748,133 @@ a:hover { color: var(--magenta); }
 .back-to-top.visible { opacity: 1; pointer-events: auto; }
 .back-to-top:hover { background: var(--cyan); color: var(--bg-deep); }
 
+/* ==================== WEB DEV PROCESS ==================== */
+.process-timeline {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 50px;
+}
+.process-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  padding: 32px 24px; text-align: center;
+  position: relative;
+  transition: all var(--transition-smooth);
+}
+.process-step::before {
+  content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+  padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 50%, rgba(0,240,255,0.08));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.process-step:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,240,255,0.06);
+}
+.process-number {
+  font-family: var(--font-heading);
+  font-size: 3rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--cyan), var(--magenta));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1; margin-bottom: 12px;
+}
+.process-step h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem; font-weight: 600;
+  color: var(--white); margin-bottom: 8px;
+}
+.process-step p {
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.6;
+}
+.process-step .process-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  background: var(--cyan-dim);
+  border: 1px solid rgba(0,240,255,0.2);
+  color: var(--cyan);
+}
+.process-co-value {
+  margin-top: 48px; padding: 32px 40px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(0,240,255,0.03), rgba(184,176,208,0.05));
+  border: 1px solid var(--border-subtle);
+  position: relative;
+}
+.process-co-value::before {
+  content: '"'; position: absolute; top: -20px; left: 24px;
+  font-family: var(--font-heading);
+  font-size: 5rem; color: var(--cyan);
+  opacity: 0.3; line-height: 1;
+}
+.process-co-value p {
+  font-family: var(--font-heading);
+  font-size: 1.3rem; font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.7; max-width: 700px;
+}
+.process-co-value p strong { color: var(--cyan); font-style: normal; }
+
+/* Web dev pricing cards */
+.web-pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 32px;
+}
+.web-pricing-card {
+  text-align: center; padding: 36px 28px;
+}
+.web-pricing-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem; color: var(--white); margin-bottom: 8px;
+}
+.web-pricing-card .web-price {
+  font-family: var(--font-heading);
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--cyan); margin: 12px 0 4px;
+}
+.web-pricing-card .web-price-small {
+  font-size: 0.85rem; color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.web-pricing-features {
+  list-style: none; text-align: left; margin-bottom: 24px;
+}
+.web-pricing-features li {
+  padding: 7px 0; font-size: 0.85rem; color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; gap: 8px;
+}
+.web-pricing-features li::before {
+  content: '▸'; color: var(--green); font-size: 0.65rem;
+  flex-shrink: 0;
+}
+.web-pricing-card.featured {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 50px rgba(0,240,255,0.06);
+  position: relative;
+}
+.web-pricing-card.featured::after {
+  content: 'BEST VALUE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--cyan); color: var(--bg-deep);
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.14em; padding: 5px 16px; border-radius: 20px;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .process-timeline { grid-template-columns: repeat(2, 1fr); }
+  .web-pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
 }
 @media (max-width: 768px) {
   :root { --nav-height: 60px; }
@@ -781,6 +903,7 @@ a:hover { color: var(--magenta); }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .section { padding: 60px 20px; }
   .section-inner { padding: 0; }
+  .process-timeline { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
 }
 @media (max-width: 480px) {
   .hero-ctas { flex-direction: column; }
@@ -810,6 +933,7 @@ a:hover { color: var(--magenta); }
     <ul class="nav-links" id="nav-links" role="menubar">
       <li role="none"><a href="#home" role="menuitem">Home</a></li>
       <li role="none"><a href="#services" role="menuitem">Services</a></li>
+      <li role="none"><a href="#web-development" role="menuitem">Web</a></li>
       <li role="none"><a href="#about" role="menuitem">About</a></li>
       <li role="none"><a href="#pricing" role="menuitem">Pricing</a></li>
       <li role="none"><a href="#portfolio" role="menuitem">Portfolio</a></li>
@@ -999,6 +1123,128 @@ a:hover { color: var(--magenta); }
     <div style="margin-top: 32px;" class="reveal">
       <a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" class="btn btn-outline">
         View Full Portfolio ↗
+      </a>
+    </div>
+    <div style="margin-top: 16px; text-align: center;" class="reveal reveal-delay-1">
+      <a href="#web-development" class="btn btn-primary" style="font-size: 1.05rem; padding: 16px 40px;">
+        Start Your Web Project ▸
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WEB DEVELOPMENT ==================== -->
+<section class="section" id="web-development">
+  <div class="section-inner center">
+    <span class="section-label reveal">Web Development</span>
+    <h2 class="section-title reveal reveal-delay-1">
+      Your Website, <span class="accent">Built on Co-Value</span>
+    </h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      We don't just build websites — we build partnerships. Every project starts with understanding <em>your</em> goals, <em>your</em> customers, and <em>your</em> vision. Our process is transparent, collaborative, and designed to deliver real business results.
+    </p>
+
+    <!-- === Process Timeline === -->
+    <div class="process-timeline">
+      <div class="process-step reveal">
+        <div class="process-icon" aria-hidden="true">💬</div>
+        <div class="process-number">01</div>
+        <h3>Consultation</h3>
+        <p>Free discovery call. We talk goals, audience, must-haves. No pitch — just listening. You walk away with clarity, even if we're not a fit.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-icon" aria-hidden="true">🔍</div>
+        <div class="process-number">02</div>
+        <h3>Deep Understanding</h3>
+        <p>We dive into your business — competitors, customers, content needs. Every question we ask shapes a strategy that's uniquely yours.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-icon" aria-hidden="true">📋</div>
+        <div class="process-number">03</div>
+        <h3>Proposal &amp; Plan</h3>
+        <p>Custom quote, sitemap, timeline, and milestones. You see exactly what you're getting, when, and for how much — before a dollar is spent.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-icon" aria-hidden="true">🎨</div>
+        <div class="process-number">04</div>
+        <h3>Design &amp; Prototype</h3>
+        <p>Mockups and wireframes aligned with your brand. You review, we refine. Nothing moves to code until you're excited about the direction.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-icon" aria-hidden="true">⚡</div>
+        <div class="process-number">05</div>
+        <h3>Build &amp; Test</h3>
+        <p>Clean, fast, mobile-responsive code. Regular check-ins so you see progress. Cross-browser tested. SEO-ready. Forms working. No surprises.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-icon" aria-hidden="true">🚀</div>
+        <div class="process-number">06</div>
+        <h3>Launch &amp; Support</h3>
+        <p>Domain connected. SSL active. Analytics verified. Training session so you own your site. 30 days of post-launch support included.</p>
+      </div>
+    </div>
+
+    <!-- === Co-Value Statement === -->
+    <div class="process-co-value reveal">
+      <p>"We believe in <strong>business co-value</strong> — your success is our success. Every project is a collaboration, not a transaction. We ask hard questions, propose honest solutions, and never bill for something you don't need. Your website isn't just a project to us — it's your storefront, your salesperson, your first impression. We treat it that way."</p>
+    </div>
+
+    <!-- === Web Dev Pricing === -->
+    <div style="margin-top: 60px;">
+      <span class="section-label reveal" style="margin-top: 0;">Pricing</span>
+      <h2 class="section-title reveal reveal-delay-1" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+        Transparent <span class="accent">Web Packages</span>
+      </h2>
+      <div class="web-pricing-grid">
+        <div class="glass-card web-pricing-card reveal">
+          <h3>Landing Page</h3>
+          <div class="web-price">$750</div>
+          <p class="web-price-small">One-time</p>
+          <ul class="web-pricing-features">
+            <li>Single-page design</li>
+            <li>Mobile-responsive</li>
+            <li>Contact/lead form</li>
+            <li>Basic SEO setup</li>
+            <li>Domain connection</li>
+            <li>1 revision round</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+        <div class="glass-card web-pricing-card featured reveal reveal-delay-1">
+          <h3>Business Site</h3>
+          <div class="web-price">$3,500</div>
+          <p class="web-price-small">One-time</p>
+          <ul class="web-pricing-features">
+            <li>6–12 custom pages</li>
+            <li>Portfolio/gallery + filtering</li>
+            <li>Booking or inquiry forms</li>
+            <li>Advanced SEO (schema, sitemap)</li>
+            <li>Speed + security optimization</li>
+            <li>Training + 30-day support</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Start Project</a>
+        </div>
+        <div class="glass-card web-pricing-card reveal reveal-delay-2">
+          <h3>Maintenance</h3>
+          <div class="web-price">$150<span style="font-size:1rem;">/mo</span></div>
+          <p class="web-price-small">Monthly retainer</p>
+          <ul class="web-pricing-features">
+            <li>Content updates</li>
+            <li>Plugin/security patches</li>
+            <li>Uptime monitoring</li>
+            <li>Monthly backups</li>
+            <li>Performance reports</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- === Bottom CTA === -->
+    <div style="margin-top: 48px;" class="reveal">
+      <a href="#contact" class="btn btn-primary" style="font-size: 1.05rem; padding: 16px 44px;">
+        Book Your Free Consultation ▸
       </a>
     </div>
   </div>
@@ -1273,7 +1519,7 @@ a:hover { color: var(--magenta); }
       <ul>
         <li><a href="#services">Photography</a></li>
         <li><a href="#services">Videography</a></li>
-        <li><a href="#services">Web Development</a></li>
+        <li><a href="#web-development">Web Development</a></li>
         <li><a href="#services">Content Creation</a></li>
       </ul>
     </div>
