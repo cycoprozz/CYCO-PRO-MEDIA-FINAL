@@ -868,6 +868,41 @@ a:hover { color: var(--magenta); }
   letter-spacing: 0.14em; padding: 5px 16px; border-radius: 20px;
 }
 
+/* Web dev capability grid */
+.capability-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-top: 40px;
+}
+.capability-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 20px 18px;
+  display: flex; align-items: flex-start; gap: 14px;
+  transition: all var(--transition-fast);
+}
+.capability-item:hover {
+  border-color: rgba(0,240,255,0.2);
+  background: rgba(0,240,255,0.03);
+}
+.capability-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  background: var(--cyan-dim);
+  border: 1px solid rgba(0,240,255,0.15);
+  color: var(--cyan);
+}
+.capability-text h4 {
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--white); margin-bottom: 3px;
+}
+.capability-text p {
+  font-size: 0.78rem; color: var(--text-muted);
+  line-height: 1.5;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -875,6 +910,7 @@ a:hover { color: var(--magenta); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .process-timeline { grid-template-columns: repeat(2, 1fr); }
   .web-pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .capability-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   :root { --nav-height: 60px; }
@@ -904,6 +940,7 @@ a:hover { color: var(--magenta); }
   .section { padding: 60px 20px; }
   .section-inner { padding: 0; }
   .process-timeline { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .capability-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
 }
 @media (max-width: 480px) {
   .hero-ctas { flex-direction: column; }
@@ -1237,6 +1274,100 @@ a:hover { color: var(--magenta); }
             <li>Priority support</li>
           </ul>
           <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- === Capabilities === -->
+    <div style="margin-top: 48px;">
+      <span class="section-label reveal" style="margin-top: 0;">Everything We Do</span>
+      <h2 class="section-title reveal reveal-delay-1" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem);">
+        Full-Stack <span class="accent">Capabilities</span>
+      </h2>
+      <div class="capability-grid">
+        <div class="capability-item reveal">
+          <div class="capability-icon" aria-hidden="true">🏪</div>
+          <div class="capability-text">
+            <h4>Local Creation</h4>
+            <p>Google Business Profile, local SEO, maps integration — get found by nearby customers.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal">
+          <div class="capability-icon" aria-hidden="true">🎨</div>
+          <div class="capability-text">
+            <h4>Graphic Design</h4>
+            <p>Logos, brand identity, marketing collateral, social templates — cohesive visuals across every touchpoint.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal">
+          <div class="capability-icon" aria-hidden="true">📄</div>
+          <div class="capability-text">
+            <h4>Landing Page</h4>
+            <p>High-conversion single-page designs with clear CTAs, lead capture forms, and fast load times.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-1">
+          <div class="capability-icon" aria-hidden="true">🖥️</div>
+          <div class="capability-text">
+            <h4>Web UI</h4>
+            <p>Interface design, user experience, interactive prototypes — modern, responsive, accessible.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-1">
+          <div class="capability-icon" aria-hidden="true">🔤</div>
+          <div class="capability-text">
+            <h4>Font / Typography</h4>
+            <p>Custom type selection, brand typography systems, variable fonts — the voice of your brand.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-1">
+          <div class="capability-icon" aria-hidden="true">🤖</div>
+          <div class="capability-text">
+            <h4>Workflow AI Infrastructure</h4>
+            <p>AI agents, automation pipelines, voice assistants — custom AI systems that run your operations.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-2">
+          <div class="capability-icon" aria-hidden="true">📊</div>
+          <div class="capability-text">
+            <h4>Big Query / Analytics</h4>
+            <p>Data warehousing, SQL analytics, dashboards, custom reporting — turn data into decisions.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-2">
+          <div class="capability-icon" aria-hidden="true">🔍</div>
+          <div class="capability-text">
+            <h4>Search Market Analysis</h4>
+            <p>SEO research, keyword strategy, competitor gap analysis, search intent mapping.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-2">
+          <div class="capability-icon" aria-hidden="true">📋</div>
+          <div class="capability-text">
+            <h4>Business Plan</h4>
+            <p>Market positioning, financial modeling, go-to-market strategy — a roadmap built on data.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-3">
+          <div class="capability-icon" aria-hidden="true">🚀</div>
+          <div class="capability-text">
+            <h4>Business Creation</h4>
+            <p>Full launch package: brand identity + website + operations + marketing — ready to go live.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-3">
+          <div class="capability-icon" aria-hidden="true">⚙️</div>
+          <div class="capability-text">
+            <h4>Custom Tooling</h4>
+            <p>Internal dashboards, booking systems, client portals, API integrations — whatever your workflow needs.</p>
+          </div>
+        </div>
+        <div class="capability-item reveal reveal-delay-3">
+          <div class="capability-icon" aria-hidden="true">💡</div>
+          <div class="capability-text">
+            <h4>Consulting &amp; Strategy</h4>
+            <p>Tech stack advisory, digital transformation, creative direction — strategic guidance at any stage.</p>
+          </div>
         </div>
       </div>
     </div>
