@@ -605,6 +605,7 @@ a:hover { color: var(--magenta); }
 .pricing-card.featured {
   border-color: var(--border-glow);
   position: relative;
+  overflow: visible;
   box-shadow: 0 0 50px rgba(0,240,255,0.08);
 }
 .pricing-card.featured::after {
@@ -860,6 +861,7 @@ a:hover { color: var(--magenta); }
   border-color: var(--border-glow);
   box-shadow: 0 0 50px rgba(0,240,255,0.06);
   position: relative;
+  overflow: visible;
 }
 .web-pricing-card.featured::after {
   content: 'BEST VALUE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -1580,6 +1582,24 @@ a:hover { color: var(--magenta); }
               <option value="Content Creation">Content Creation</option>
               <option value="Other">Other / Multiple</option>
             </select>
+            <select id="web-service" name="web_service" style="display:none; margin-top: 12px;" aria-label="Web Development service type">
+              <option value="">Select type of web project...</option>
+              <option value="Landing Page">Landing Page</option>
+              <option value="Business Website">Business Website</option>
+              <option value="Web UI / Interface Design">Web UI / Interface Design</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Typography / Font">Typography / Font</option>
+              <option value="Local Business Setup">Local Business Setup</option>
+              <option value="SEO / Search Market Analysis">SEO / Search Market Analysis</option>
+              <option value="Workflow AI Infrastructure">Workflow AI Infrastructure</option>
+              <option value="Big Query / Analytics">Big Query / Analytics</option>
+              <option value="Business Plan / Strategy">Business Plan / Strategy</option>
+              <option value="Business Creation (Full Launch)">Business Creation (Full Launch)</option>
+              <option value="Custom Tooling">Custom Tooling</option>
+              <option value="Maintenance / Retainer">Maintenance / Retainer</option>
+              <option value="Consulting">Consulting</option>
+              <option value="Other Web Project">Other Web Project</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="message">Tell Us About Your Project</label>
@@ -2262,6 +2282,33 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     }
   });
 });
+
+/* ==================== WEB SERVICE SUB-SELECT ==================== */
+(function() {
+  var serviceSelect = document.getElementById('service');
+  var webServiceSelect = document.getElementById('web-service');
+  if (!serviceSelect || !webServiceSelect) return;
+  serviceSelect.addEventListener('change', function() {
+    if (this.value === 'Web Development') {
+      webServiceSelect.style.display = 'block';
+      webServiceSelect.style.width = '100%';
+      webServiceSelect.style.padding = '14px 18px';
+      webServiceSelect.style.background = 'rgba(255,255,255,0.03)';
+      webServiceSelect.style.border = '1px solid rgba(255,255,255,0.08)';
+      webServiceSelect.style.borderRadius = '10px';
+      webServiceSelect.style.color = 'var(--text-primary)';
+      webServiceSelect.style.fontFamily = 'var(--font-body)';
+      webServiceSelect.style.fontSize = '0.95rem';
+      webServiceSelect.style.outline = 'none';
+      webServiceSelect.style.cursor = 'pointer';
+      webServiceSelect.style.appearance = 'none';
+      webServiceSelect.setAttribute('required', '');
+    } else {
+      webServiceSelect.style.display = 'none';
+      webServiceSelect.removeAttribute('required');
+    }
+  });
+})();
 
 /* ==================== FORM SUBMISSION (Netlify + Zapier fallback) ==================== */
 (function() {
