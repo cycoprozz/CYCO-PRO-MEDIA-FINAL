@@ -2183,106 +2183,119 @@ a:hover { color: var(--magenta); }
   
   var carouselContainer = document.getElementById('web-projects-carousel');
   var carouselLabel = document.getElementById('web-projects-label');
-  if (carouselContainer && carouselLabel) {
-    var cIframes = carouselContainer.querySelectorAll('.cf-iframe');
-    var cActive = 0; // which iframe is visible (0 or 1)
-    var cIndex = 0;
-    var cInterval;
-    var cUserPaused = false;
-    
-    function startCarousel() {
-      cInterval = setInterval(function() {
-        if (!cUserPaused && !document.hidden) {
-          cIndex = (cIndex + 1) % webProjects.length;
-          var next = cActive === 0 ? 1 : 0;
-          // Preload next project in hidden iframe
-          cIframes[next].src = webProjects[cIndex].url;
-          cIframes[next].onload = function() {
-            // Crossfade: show next, hide current
-            cIframes[next].style.opacity = '1';
-            cIframes[next].style.zIndex = '2';
-            cIframes[cActive].style.opacity = '0';
-            cIframes[cActive].style.zIndex = '1';
-            cActive = next;
-            carouselLabel.textContent = webProjects[cIndex].label;
-            cIframes[next].onload = null;
-          };
-        }
-      }, 6000);
-    }
-    
-    function stopCarousel() {
-      clearInterval(cInterval);
-    }
-    
-    // Touch/hover pauses the carousel so user can scroll in the iframe
-    carouselContainer.addEventListener('mouseenter', function() { cUserPaused = true; });
-    carouselContainer.addEventListener('mouseleave', function() { cUserPaused = false; });
-    carouselContainer.addEventListener('touchstart', function() { cUserPaused = true; }, {passive: true});
-    carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
-    
-    startCarousel();
-    
-    // Hide cover image once first iframe loads — with delay so it's visible
-    cIframes[0].onload = function() {
-      var cover = document.getElementById('web-cover-img');
-      if (cover) { 
-        setTimeout(function() { 
-          cover.style.opacity = '0'; 
-          setTimeout(function() { cover.style.display = 'none'; }, 500); 
-        }, 1500);
-      }
-    };
-    
-    // Wire expand nav arrows
-    document.getElementById('wp-prev').addEventListener('click', function(e) {
-      e.stopPropagation(); cUserPaused = true;
-      cIndex = (cIndex - 1 + webProjects.length) % webProjects.length;
-      var next = cActive === 0 ? 1 : 0;
-      cIframes[next].src = webProjects[cIndex].url;
-      cIframes[next].onload = function() {
-        cIframes[next].style.opacity = '1'; cIframes[next].style.zIndex = '2';
-        cIframes[cActive].style.opacity = '0'; cIframes[cActive].style.zIndex = '1';
-        cActive = next; carouselLabel.textContent = webProjects[cIndex].label;
-        cIframes[next].onload = null;
-      };
-    });
-    document.getElementById('wp-next').addEventListener('click', function(e) {
-      e.stopPropagation(); cUserPaused = true;
-      cIndex = (cIndex + 1) % webProjects.length;
-      var next = cActive === 0 ? 1 : 0;
-      cIframes[next].src = webProjects[cIndex].url;
-      cIframes[next].onload = function() {
-        cIframes[next].style.opacity = '1'; cIframes[next].style.zIndex = '2';
-        cIframes[cActive].style.opacity = '0'; cIframes[cActive].style.zIndex = '1';
-        cActive = next; carouselLabel.textContent = webProjects[cIndex].label;
-        cIframes[next].onload = null;
-      };
-    });
-    
-    // Left/right swipe for mobile
-    var touchStartX = 0;
-    carouselContainer.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
-    carouselContainer.addEventListener('touchend', function(e) {
-      var diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) {
-        cUserPaused = false;
-        if (diff > 0) cIndex = (cIndex + 1) % webProjects.length;
-        else cIndex = (cIndex - 1 + webProjects.length) % webProjects.length;
-        var next = cActive === 0 ? 1 : 0;
-        cIframes[next].src = webProjects[cIndex].url;
-        cIframes[next].onload = function() {
-          cIframes[next].style.opacity = '1';
-          cIframes[next].style.zIndex = '2';
-          cIframes[cActive].style.opacity = '0';
-          cIframes[cActive].style.zIndex = '1';
-          cActive = next;
-          carouselLabel.textContent = webProjects[cIndex].label;
-          cIframes[next].onload = null;
-        };
-      }
-    });
+  if (!carouselContainer || !carouselLabel) return;
+
+  var cIframes = carouselContainer.querySelectorAll('.cf-iframe');
+  var cActive = 0;   // which iframe slot is visible (0 or 1)
+  var cIndex = 0;    // which project in webProjects is showing
+  var cInterval;
+  var cTimer;         // safety timeout per transition
+  var cUserPaused = false;
+
+  // --- Build dot indicators ---
+  var dotsContainer = document.createElement('div');
+  dotsContainer.className = 'carousel-dots';
+  dotsContainer.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:6;';
+  webProjects.forEach(function(p, i) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot';
+    dot.setAttribute('aria-label', p.label);
+    dot.style.cssText = 'width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.5);background:' + (i === 0 ? '#fff' : 'transparent') + ';cursor:pointer;transition:all 0.3s ease;padding:0;';
+    dot.addEventListener('click', (function(idx) {
+      return function(e) { e.stopPropagation(); cUserPaused = true; goToProject(idx); };
+    })(i));
+    dotsContainer.appendChild(dot);
+  });
+  carouselContainer.appendChild(dotsContainer);
+
+  function updateDots() {
+    var dots = dotsContainer.querySelectorAll('.carousel-dot');
+    dots.forEach(function(d, i) { d.style.background = i === cIndex ? '#fff' : 'transparent'; });
   }
+
+  function goToProject(targetIdx) {
+    cIndex = targetIdx;
+    var next = cActive === 0 ? 1 : 0;
+    var iframe = cIframes[next];
+    carouselLabel.textContent = webProjects[cIndex].label;
+    updateDots();
+
+    // Load target into hidden iframe
+    iframe.src = webProjects[cIndex].url;
+
+    // Safety timeout: if onload never fires, crossfade anyway after 8s
+    clearTimeout(cTimer);
+    var done = false;
+    function crossfade() {
+      if (done) return; done = true;
+      iframe.style.opacity = '1';
+      iframe.style.zIndex = '2';
+      cIframes[cActive].style.opacity = '0';
+      cIframes[cActive].style.zIndex = '1';
+      cActive = next;
+      iframe.onload = null;
+    }
+    iframe.onload = crossfade;
+    cTimer = setTimeout(crossfade, 8000);
+  }
+
+  function startCarousel() {
+    cInterval = setInterval(function() {
+      if (!cUserPaused && !document.hidden) {
+        goToProject((cIndex + 1) % webProjects.length);
+      }
+    }, 6000);
+  }
+
+  // --- Cover image fade (robust: check if iframe already loaded) ---
+  function fadeCover() {
+    var cover = document.getElementById('web-cover-img');
+    if (!cover) return;
+    setTimeout(function() {
+      cover.style.opacity = '0';
+      setTimeout(function() { cover.style.display = 'none'; }, 500);
+    }, 1500);
+  }
+
+  // If first iframe already loaded (or loads later), fade cover
+  if (cIframes[0].contentDocument && cIframes[0].contentDocument.readyState === 'complete') {
+    fadeCover();
+  }
+  cIframes[0].addEventListener('load', fadeCover);
+  // Safety: fade cover after 4s no matter what
+  setTimeout(function() {
+    var cover = document.getElementById('web-cover-img');
+    if (cover && cover.style.opacity !== '0') fadeCover();
+  }, 4000);
+
+  // Touch/hover pauses
+  carouselContainer.addEventListener('mouseenter', function() { cUserPaused = true; });
+  carouselContainer.addEventListener('mouseleave', function() { cUserPaused = false; });
+  carouselContainer.addEventListener('touchstart', function() { cUserPaused = true; }, {passive: true});
+  carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
+
+  startCarousel();
+
+  // --- Nav arrows ---
+  document.getElementById('wp-prev').addEventListener('click', function(e) {
+    e.stopPropagation(); cUserPaused = true;
+    goToProject((cIndex - 1 + webProjects.length) % webProjects.length);
+  });
+  document.getElementById('wp-next').addEventListener('click', function(e) {
+    e.stopPropagation(); cUserPaused = true;
+    goToProject((cIndex + 1) % webProjects.length);
+  });
+
+  // --- Swipe ---
+  var touchStartX = 0;
+  carouselContainer.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
+  carouselContainer.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      cUserPaused = false;
+      goToProject(diff > 0 ? (cIndex + 1) % webProjects.length : (cIndex - 1 + webProjects.length) % webProjects.length);
+    }
+  });
 })();
 
 /* ==================== VIDEO PLAYER ==================== */
