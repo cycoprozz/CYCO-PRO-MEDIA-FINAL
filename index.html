@@ -557,23 +557,9 @@ a:hover { color: var(--magenta); }
 .portfolio-card.web-card .portfolio-media {
   background: linear-gradient(135deg, #0a0a15 0%, #12122a 40%, #0a0a15 100%);
   display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
 }
-.web-project-pill {
-  display: inline-block; font-family: var(--font-mono);
-  font-size: 0.68rem; color: var(--silver);
-  background: rgba(184, 176, 208, 0.08);
-  border: 1px solid rgba(184, 176, 208, 0.15);
-  border-radius: 20px; padding: 4px 14px;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  white-space: nowrap;
-}
-.web-project-pill:hover {
-  background: rgba(0, 240, 255, 0.12);
-  border-color: var(--cyan);
-  color: var(--cyan);
-  text-decoration: none;
-}
+.portfolio-card.web-card:hover .web-project-visit { opacity: 1; }
 .expand-btn {
   position: absolute; top: 8px; right: 8px; z-index: 10;
   background: rgba(0,0,0,0.5); color: var(--cyan); border: 1px solid var(--cyan-dim);
@@ -1161,13 +1147,15 @@ a:hover { color: var(--magenta); }
         </div>
       </div>
 
-      <div class="portfolio-card web-card reveal reveal-delay-3" data-slideshow="web-projects" data-count="5">
-        <div class="portfolio-media">
+      <div class="portfolio-card web-card reveal reveal-delay-3" data-slideshow="web-projects" data-count="5"
+           data-project-urls='["https://theo-jones.joffre-fab.workers.dev","https://cyco-ambassador.pages.dev","https://cyco-self-building-game.pages.dev","https://cyco-tesla-arcade.pages.dev","https://cyco-spaceship-game.pages.dev"]'>
+        <div class="portfolio-media" id="web-projects-media">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-projects/web-projects-1.jpg"
                alt="Web development projects by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators"></div>
+          <div class="web-project-visit" style="position:absolute;top:8px;left:8px;z-index:10;background:rgba(0,240,255,0.15);color:var(--cyan);border:1px solid rgba(0,240,255,0.4);border-radius:6px;padding:4px 12px;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.05em;opacity:0;transition:opacity 0.3s ease;pointer-events:none;">VISIT SITE ↗</div>
         </div>
         <div class="portfolio-info">
           <h3>Web Projects</h3>
@@ -2163,6 +2151,16 @@ a:hover { color: var(--magenta); }
   document.addEventListener('click', function(e) {
     var target = e.target;
     if (target.tagName === 'IMG' && (target.closest('.portfolio-card') || target.closest('.about-slideshow')) && target.src && !target.closest('#lightbox')) {
+      // Web projects card: open project site instead of lightbox
+      var wpCard = target.closest('[data-project-urls]');
+      if (wpCard) {
+        var urls = JSON.parse(wpCard.getAttribute('data-project-urls'));
+        var dots = wpCard.querySelectorAll('.slide-dot');
+        var idx = 0;
+        dots.forEach(function(d, i) { if (d.classList.contains('active')) idx = i; });
+        if (urls[idx]) window.open(urls[idx], '_blank');
+        return;
+      }
       openLightbox(target.src);
     }
   });
