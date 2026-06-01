@@ -962,7 +962,7 @@ a:hover { color: var(--magenta); }
 <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="CYCO PRO MEDIA Home">
-      <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img">
+      <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img" loading="lazy">
       <span class="nav-logo-text">CYCO PRO MEDIA</span>
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -1017,7 +1017,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card reveal" data-docker-slideshow="editorial" data-count="43" data-docker-base="https://holes-schema-myrtle-tale.trycloudflare.com/editorial">
         <div class="portfolio-media">
           <img src="https://holes-schema-myrtle-tale.trycloudflare.com/editorial/editorial-1.jpg"
-               alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+               alt="Editorial portrait photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
@@ -1031,7 +1031,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card reveal reveal-delay-1" data-slideshow="brand" data-count="8">
         <div class="portfolio-media">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-1.jpg"
-               alt="Brand campaign photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+               alt="Brand campaign photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
@@ -1045,7 +1045,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card reveal reveal-delay-2" data-slideshow="event" data-count="13">
         <div class="portfolio-media">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
-               alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+               alt="Event coverage photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
@@ -1060,7 +1060,7 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" style="cursor:pointer;" onclick="var v=this.querySelector('video');v.paused?v.play():v.pause();this.querySelector('.play-overlay').style.display=v.paused?'flex':'none';">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-video.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
-                 poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
+                  poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
                  aria-label="Event coverage video reel"></video>
           <button class="unmute-btn" onclick="var v=this.parentElement.querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊';" style="position:absolute;bottom:40px;right:8px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:4px;width:28px;height:28px;cursor:pointer;font-size:14px;">🔇</button>
           <div class="play-overlay" style="display:flex;">
@@ -1076,7 +1076,7 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-card reveal reveal-delay-3" data-slideshow="wedding" data-count="4">
           <div class="portfolio-media">
             <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-1.jpg"
-                 alt="Wedding photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+                 alt="Wedding photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
             <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
             <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
             <div class="slide-indicators" aria-hidden="true"></div>
@@ -1091,7 +1091,7 @@ a:hover { color: var(--magenta); }
         <div class="portfolio-media" id="video-card-media">
           <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-1.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
-                 poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/cover.jpg"
+                  poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/cover.jpg"
                  aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
           <button class="unmute-btn" onclick="var v=this.parentElement.querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊';" style="position:absolute;bottom:40px;right:8px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:4px;width:28px;height:28px;cursor:pointer;font-size:14px;">🔇</button>
           <div class="play-overlay" id="video-play-overlay">
@@ -1111,7 +1111,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card reveal reveal-delay-3" data-slideshow="realestate" data-count="6">
         <div class="portfolio-media">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/realestate/realestate-1.jpg"
-               alt="Real estate photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+               alt="Real estate photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
@@ -1125,7 +1125,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card reveal reveal-delay-3" data-slideshow="art" data-count="14">
         <div class="portfolio-media">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-1.jpg"
-               alt="Art photography by CYCO PRO MEDIA" loading="lazy" class="slide-img">
+               alt="Art photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
           <div class="slide-indicators" aria-hidden="true"></div>
@@ -1139,7 +1139,7 @@ a:hover { color: var(--magenta); }
       <div class="portfolio-card web-card reveal reveal-delay-3">
         <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-cover.jpg"
-               alt="Web development projects by CYCO PRO MEDIA" class="slide-img"
+               alt="Web development projects by CYCO PRO MEDIA" class="slide-img" loading="lazy"
                id="web-cover-img" style="position:absolute;inset:0;z-index:3;object-fit:cover;transition:opacity 0.5s ease;">
           <iframe src="https://theo-jones.joffre-fab.workers.dev" 
                   style="position:absolute;inset:0;width:285%;height:285%;border:none;transform:scale(0.35);transform-origin:0 0;transition:opacity 0.5s ease;opacity:1;z-index:2;"
@@ -1463,7 +1463,7 @@ a:hover { color: var(--magenta); }
       <div class="about-image-wrapper reveal reveal-delay-2">
         <div class="about-image-placeholder about-slideshow" data-slideshow="about" data-count="4">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/about/about-1.jpg"
-               alt="About CYCO PRO MEDIA" loading="lazy" class="slide-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+               alt="About CYCO PRO MEDIA" class="slide-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <button class="portfolio-nav-btn prev" aria-label="Previous image" style="position:absolute;left:8px;top:50%;z-index:3;">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image" style="position:absolute;right:8px;top:50%;z-index:3;">▸</button>
           <div class="slide-indicators" aria-hidden="true" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:3;"></div>
@@ -1696,7 +1696,7 @@ a:hover { color: var(--magenta); }
 <footer class="footer" role="contentinfo">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" style="height:56px;width:auto;"></a>
+      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" loading="lazy" style="height:56px;width:auto;"></a>
       <p>Creative Media &amp; Web Solutions. Photography, videography, web development, and content creation — crafted in Atlanta, delivered worldwide.</p>
     </div>
     <div class="footer-col">
