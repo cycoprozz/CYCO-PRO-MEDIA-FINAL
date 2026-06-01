@@ -558,6 +558,22 @@ a:hover { color: var(--magenta); }
   background: linear-gradient(135deg, #0a0a15 0%, #12122a 40%, #0a0a15 100%);
   display: flex; align-items: center; justify-content: center;
 }
+.web-project-pill {
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 0.68rem; color: var(--silver);
+  background: rgba(184, 176, 208, 0.08);
+  border: 1px solid rgba(184, 176, 208, 0.15);
+  border-radius: 20px; padding: 4px 14px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.web-project-pill:hover {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  text-decoration: none;
+}
 .expand-btn {
   position: absolute; top: 8px; right: 8px; z-index: 10;
   background: rgba(0,0,0,0.5); color: var(--cyan); border: 1px solid var(--cyan-dim);
@@ -1146,24 +1162,25 @@ a:hover { color: var(--magenta); }
       </div>
 
       <div class="portfolio-card web-card reveal reveal-delay-3">
-        <div class="portfolio-media" style="position:relative;overflow:hidden;" id="web-projects-carousel">
+        <div class="portfolio-media" style="position:relative;overflow:hidden;">
           <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-cover.jpg"
                alt="Web development projects by CYCO PRO MEDIA" class="slide-img" loading="lazy"
-               id="web-cover-img" style="position:absolute;inset:0;z-index:3;object-fit:cover;transition:opacity 0.5s ease;">
-          <iframe src="https://theo-jones.joffre-fab.workers.dev" 
-                  style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:2;"
-                  loading="lazy" title="Web project preview" class="cf-iframe"></iframe>
-          <iframe style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1;"
-                  loading="lazy" title="Web project preview" class="cf-iframe"></iframe>
-          <button class="expand-btn" onclick="var iframes=document.querySelectorAll('#web-projects-carousel .cf-iframe');var active=iframes[0].style.zIndex==='2'?iframes[0]:iframes[1];window.open(active.src,'_blank');" aria-label="Open in new tab" title="Open in new tab">↗</button>
-          <div class="portfolio-nav-btns" style="position:absolute;bottom:50%;left:0;right:0;display:flex;justify-content:space-between;padding:0 8px;z-index:5;pointer-events:none;">
-            <button class="expand-nav-btn" id="wp-prev" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">◂</button>
-            <button class="expand-nav-btn" id="wp-next" onclick="event.stopPropagation();" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">▸</button>
+               style="width:100%;height:100%;object-fit:cover;">
+          <div class="web-projects-overlay" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,0.95) 0%,rgba(10,10,15,0.5) 50%,transparent 100%);display:flex;align-items:flex-end;padding:20px;">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);letter-spacing:0.1em;background:rgba(0,240,255,0.1);padding:4px 10px;border-radius:4px;">LIVE SITES</span>
+            </div>
           </div>
         </div>
         <div class="portfolio-info">
           <h3>Web Projects</h3>
-          <span class="portfolio-tag" id="web-projects-label">Theo Jones · Beauty &amp; Wellness</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <a href="https://theo-jones.joffre-fab.workers.dev" target="_blank" rel="noopener" class="web-project-pill">Theo Jones</a>
+            <a href="https://cyco-ambassador.pages.dev" target="_blank" rel="noopener" class="web-project-pill">Ambassador Limo</a>
+            <a href="https://cyco-self-building-game.pages.dev" target="_blank" rel="noopener" class="web-project-pill">Self-Building Game</a>
+            <a href="https://cyco-tesla-arcade.pages.dev" target="_blank" rel="noopener" class="web-project-pill">Tesla Arcade</a>
+            <a href="https://cyco-spaceship-game.pages.dev" target="_blank" rel="noopener" class="web-project-pill">Spaceship Game</a>
+          </div>
         </div>
       </div>
 
@@ -2169,144 +2186,6 @@ a:hover { color: var(--magenta); }
       if (wasPlaying) commVideo.play();
     });
   }
-})();
-
-// --- Web Projects Carousel ---
-(function() {
-  var webProjects = [
-    { url: 'https://theo-jones.joffre-fab.workers.dev', label: 'Theo Jones · Beauty & Wellness' },
-    { url: 'https://cyco-ambassador.pages.dev', label: 'Ambassador · Limo Service' },
-    { url: 'https://cyco-self-building-game.pages.dev', label: 'Self-Building Game' },
-    { url: 'https://cyco-tesla-arcade.pages.dev', label: 'Tesla Arcade Creator' },
-    { url: 'https://cyco-spaceship-game.pages.dev', label: 'Spaceship Game' }
-  ];
-  
-  var carouselContainer = document.getElementById('web-projects-carousel');
-  var carouselLabel = document.getElementById('web-projects-label');
-  if (!carouselContainer || !carouselLabel) return;
-
-  var cIframes = carouselContainer.querySelectorAll('.cf-iframe');
-  var cActive = 0;   // which iframe slot is visible (0 or 1)
-  var cIndex = 0;    // which project in webProjects is showing
-  var cInterval;
-  var cSwitching = false; // guard against double-clicks
-  var cUserPaused = false;
-
-  // --- Build dot indicators ---
-  var dotsContainer = document.createElement('div');
-  dotsContainer.className = 'carousel-dots';
-  dotsContainer.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:6;';
-  webProjects.forEach(function(p, i) {
-    var dot = document.createElement('button');
-    dot.className = 'carousel-dot';
-    dot.setAttribute('aria-label', p.label);
-    dot.style.cssText = 'width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.5);background:' + (i === 0 ? '#fff' : 'transparent') + ';cursor:pointer;transition:background 0.3s ease;padding:0;';
-    dot.addEventListener('click', (function(idx) {
-      return function(e) { e.stopPropagation(); cUserPaused = true; goToProject(idx); };
-    })(i));
-    dotsContainer.appendChild(dot);
-  });
-  carouselContainer.appendChild(dotsContainer);
-
-  // --- Loading spinner ---
-  var spinner = document.createElement('div');
-  spinner.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border:3px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;z-index:5;display:none;animation:wp-spin 0.8s linear infinite;';
-  carouselContainer.appendChild(spinner);
-
-  // Inject spinner keyframe if not present
-  if (!document.getElementById('wp-spin-style')) {
-    var style = document.createElement('style');
-    style.id = 'wp-spin-style';
-    style.textContent = '@keyframes wp-spin{to{transform:translate(-50%,-50%) rotate(360deg);}}';
-    document.head.appendChild(style);
-  }
-
-  function updateDots() {
-    var dots = dotsContainer.querySelectorAll('.carousel-dot');
-    dots.forEach(function(d, i) { d.style.background = i === cIndex ? '#fff' : 'transparent'; });
-  }
-
-  function showSpinner() { spinner.style.display = 'block'; }
-  function hideSpinner() { spinner.style.display = 'none'; }
-
-  function goToProject(targetIdx) {
-    if (cSwitching) return; // ignore if already switching
-    if (targetIdx === cIndex) return; // already on this project
-    cSwitching = true;
-    cIndex = targetIdx;
-    var next = cActive === 0 ? 1 : 0;
-    var iframe = cIframes[next];
-
-    carouselLabel.textContent = webProjects[cIndex].label;
-    updateDots();
-    showSpinner();
-
-    // Load target into hidden iframe — swap instantly on load
-    iframe.src = webProjects[cIndex].url;
-    iframe.onload = function() {
-      // Instant swap: new iframe to front, old to back
-      iframe.style.zIndex = '2';
-      cIframes[cActive].style.zIndex = '1';
-      cActive = next;
-      cSwitching = false;
-      hideSpinner();
-      iframe.onload = null;
-    };
-  }
-
-  function startCarousel() {
-    cInterval = setInterval(function() {
-      if (!cUserPaused && !document.hidden && !cSwitching) {
-        goToProject((cIndex + 1) % webProjects.length);
-      }
-    }, 6000);
-  }
-
-  // --- Cover image fade — instant on first iframe load ---
-  function hideCover() {
-    var cover = document.getElementById('web-cover-img');
-    if (!cover) return;
-    cover.style.opacity = '0';
-    setTimeout(function() { cover.style.display = 'none'; }, 400);
-  }
-  if (cIframes[0].contentDocument && cIframes[0].contentDocument.readyState === 'complete') {
-    hideCover();
-  }
-  cIframes[0].addEventListener('load', hideCover);
-  // Fallback: hide cover after 2s no matter what
-  setTimeout(function() {
-    var cover = document.getElementById('web-cover-img');
-    if (cover && cover.style.opacity !== '0') hideCover();
-  }, 2000);
-
-  // Touch/hover pauses
-  carouselContainer.addEventListener('mouseenter', function() { cUserPaused = true; });
-  carouselContainer.addEventListener('mouseleave', function() { cUserPaused = false; });
-  carouselContainer.addEventListener('touchstart', function() { cUserPaused = true; }, {passive: true});
-  carouselContainer.addEventListener('touchend', function() { setTimeout(function() { cUserPaused = false; }, 5000); });
-
-  startCarousel();
-
-  // --- Nav arrows ---
-  document.getElementById('wp-prev').addEventListener('click', function(e) {
-    e.stopPropagation(); cUserPaused = true;
-    goToProject((cIndex - 1 + webProjects.length) % webProjects.length);
-  });
-  document.getElementById('wp-next').addEventListener('click', function(e) {
-    e.stopPropagation(); cUserPaused = true;
-    goToProject((cIndex + 1) % webProjects.length);
-  });
-
-  // --- Swipe ---
-  var touchStartX = 0;
-  carouselContainer.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
-  carouselContainer.addEventListener('touchend', function(e) {
-    var diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      cUserPaused = false;
-      goToProject(diff > 0 ? (cIndex + 1) % webProjects.length : (cIndex - 1 + webProjects.length) % webProjects.length);
-    }
-  });
 })();
 
 /* ==================== VIDEO PLAYER ==================== */
