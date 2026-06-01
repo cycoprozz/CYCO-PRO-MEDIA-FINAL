@@ -1069,7 +1069,7 @@ a:hover { color: var(--magenta); }
 
         <div class="portfolio-card video-card reveal reveal-delay-3" data-event-video-card>
         <div class="portfolio-media" style="cursor:pointer;" onclick="var v=this.querySelector('video');v.paused?v.play():v.pause();this.querySelector('.play-overlay').style.display=v.paused?'flex':'none';">
-          <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-video.mp4"
+          <video src="/images/portfolio/event/event-video.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
                   poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
                  aria-label="Event coverage video reel"></video>
@@ -1100,7 +1100,7 @@ a:hover { color: var(--magenta); }
 
         <div class="portfolio-card video-card reveal reveal-delay-3">
         <div class="portfolio-media" id="video-card-media">
-          <video src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-1.mp4"
+          <video src="/images/portfolio/commercial/comm-1.mp4"
                  preload="metadata" muted playsinline loop class="slide-img"
                   poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/cover.jpg"
                  aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
@@ -2169,7 +2169,7 @@ a:hover { color: var(--magenta); }
   var commVideo = document.querySelector('[data-video-slideshow="comm"]');
   if (commVideo) {
     var vCount = parseInt(commVideo.getAttribute('data-video-count'), 10);
-    var vBase = 'https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/comm-';
+    var vBase = '/images/portfolio/commercial/comm-';
     var vCurrent = 0;
     var vPoster = commVideo.getAttribute('poster');
     
