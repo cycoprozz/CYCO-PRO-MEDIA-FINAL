@@ -296,6 +296,14 @@ a:hover { color: var(--magenta); }
 }
 .hero h1 .glow-cyan { color: var(--cyan); text-shadow: 0 0 40px rgba(0,240,255,0.4); }
 .hero h1 .glow-magenta { color: var(--magenta); text-shadow: 0 0 40px rgba(255,0,170,0.4); }
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 600; font-style: italic;
+  color: var(--magenta);
+  text-shadow: 0 0 30px rgba(184, 176, 208, 0.35);
+  margin-bottom: 16px; letter-spacing: 0.01em;
+}
 .hero-subtitle {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: var(--text-secondary);
@@ -992,10 +1000,11 @@ a:hover { color: var(--magenta); }
       Creative Media<br>
       <span class="glow-cyan">&amp;</span> <span class="glow-magenta">Web Solutions</span>
     </h1>
-    <p class="hero-subtitle reveal reveal-delay-2">
+    <p class="hero-tagline reveal reveal-delay-2">"Imitation is not innovation."</p>
+    <p class="hero-subtitle reveal reveal-delay-3">
       Transforming brands through cinematic visuals, cutting-edge web experiences, and strategic content that demands attention.
     </p>
-    <div class="hero-ctas reveal reveal-delay-3">
+    <div class="hero-ctas reveal reveal-delay-4">
       <a href="#portfolio" class="btn btn-primary">View Our Work ▸</a>
       <a href="#contact" class="btn btn-outline">Book Your Consultation</a>
     </div>
