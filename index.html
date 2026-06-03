@@ -1028,9 +1028,9 @@ a:hover { color: var(--magenta); }
     </p>
     <div class="portfolio-grid">
 
-      <div class="portfolio-card reveal" data-docker-slideshow="editorial" data-count="43" data-docker-base="https://ddr-obj-mike-curriculum.trycloudflare.com/editorial">
+      <div class="portfolio-card reveal" data-slideshow="editorial" data-count="43">
         <div class="portfolio-media">
-          <img src="https://ddr-obj-mike-curriculum.trycloudflare.com/editorial/editorial-1.jpg"
+          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/editorial/editorial-1.jpg"
                alt="Editorial portrait photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
           <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
           <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
@@ -1942,6 +1942,8 @@ a:hover { color: var(--magenta); }
     for (var i = 1; i <= count; i++) {
       if (prefix === 'brand') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-' + i + '.jpg');
+      } else if (prefix === 'editorial') {
+        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/editorial/editorial-' + i + '.jpg');
       } else if (prefix === 'elle') {
         images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/elle-' + i + '.jpg');
       } else if (prefix === 'cyco') {
