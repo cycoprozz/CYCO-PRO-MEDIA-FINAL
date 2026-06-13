@@ -46,2281 +46,507 @@
 }
 </script>
 
-<style>
-/* ==================== CSS CUSTOM PROPERTIES ==================== */
-:root {
-  --bg-deep: #0A0A0F;
-  --bg-card: rgba(10, 10, 20, 0.65);
-  --bg-card-hover: rgba(15, 15, 30, 0.8);
-  --cyan: #00F0FF;
-  --cyan-dim: rgba(0, 240, 255, 0.15);
-  --magenta: #B8B0D0;
-  --magenta-dim: rgba(184, 176, 208, 0.12);
-  --silver: #D8D8E8;
-  --silver-dim: rgba(216, 216, 232, 0.1);
-  --silver-glow: rgba(200, 196, 220, 0.4);
-  --metallic: linear-gradient(135deg, #C8C0D8 0%, #E0DCE8 30%, #B8B0CC 60%, #D8D4E4 100%);
-  --green: #00FF88;
-  --green-dim: rgba(0, 255, 136, 0.1);
-  --white: #F0F0F5;
-  --text-primary: #E0E0EA;
-  --text-secondary: #9999AA;
-  --text-muted: #666680;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(0, 240, 255, 0.3);
-  --glass-blur: 18px;
-  --radius: 18px;
-  --radius-sm: 10px;
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --font-heading: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-  --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  --nav-height: 72px;
-}
-
-/* ==================== RESET & BASE ==================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-height);
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-body);
-  background: var(--bg-deep);
-  color: var(--text-primary);
-  line-height: 1.7;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-::selection { background: var(--cyan); color: var(--bg-deep); }
-
-img, video { max-width: 100%; display: block; }
-a { color: var(--cyan); text-decoration: none; transition: color var(--transition-fast); }
-a:hover { color: var(--magenta); }
-
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-}
-
-/* ==================== CANVAS HERO BACKGROUND ==================== */
-#hero-canvas {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none;
-}
-
-/* ==================== NAVIGATION ==================== */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: var(--nav-height);
-  background: rgba(10, 10, 15, 0.75);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex; align-items: center;
-  transition: background var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-.nav.scrolled { background: rgba(10, 10, 15, 0.92); box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
-
-.nav-inner {
-  max-width: 1280px; width: 100%; margin: 0 auto;
-  padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
-}
-
-.nav-logo {
-  font-family: var(--font-heading);
-  font-size: 1.6rem; font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--white);
-  display: flex; align-items: center; gap: 10px;
-}
-.nav-logo-img {
-  height: 80px; width: auto; display: block;
-  filter: drop-shadow(0 0 16px rgba(184,176,208,0.7)) drop-shadow(0 0 36px rgba(184,176,208,0.5)) drop-shadow(0 0 60px rgba(184,176,208,0.25));
-  animation: logo-glow 2s ease-in-out infinite alternate;
-}
-.nav-logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--magenta);
-  text-shadow: 0 0 16px var(--magenta), 0 0 32px var(--magenta);
-  white-space: nowrap;
-}
-.nav-logo-tagline {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  color: var(--text-secondary);
-  margin-top: 2px;
-  text-transform: uppercase;
-  opacity: 0.6;
-}
-.nav-location-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  color: var(--silver);
-  opacity: 0.75;
-  white-space: nowrap;
-  padding: 4px 12px;
-  border: 1px solid var(--silver-dim);
-  border-radius: 20px;
-  background: rgba(216, 216, 232, 0.05);
-  margin-left: auto;
-  margin-right: 12px;
-}
-@keyframes logo-glow {
-  0% { filter: drop-shadow(0 0 10px rgba(184,176,208,0.4)) drop-shadow(0 0 25px rgba(184,176,208,0.25)); }
-  50% { filter: drop-shadow(0 0 22px rgba(184,176,208,0.9)) drop-shadow(0 0 48px rgba(184,176,208,0.6)) drop-shadow(0 0 80px rgba(184,176,208,0.3)); }
-  100% { filter: drop-shadow(0 0 10px rgba(184,176,208,0.4)) drop-shadow(0 0 25px rgba(184,176,208,0.25)); }
-}
-.nav-logo-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--silver) 0%, var(--magenta) 100%);
-  box-shadow: 0 0 14px var(--silver-glow), 0 0 28px var(--magenta-dim);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan); }
-  50% { box-shadow: 0 0 22px var(--cyan), 0 0 44px var(--cyan); }
-}
-
-.nav-links {
-  display: flex; align-items: center; gap: 6px; list-style: none;
-}
-.nav-links a {
-  color: var(--text-secondary); padding: 8px 16px; border-radius: 8px;
-  font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em;
-  transition: all var(--transition-fast);
-}
-.nav-links a:hover, .nav-links a:focus-visible {
-  color: var(--cyan); background: var(--cyan-dim);
-}
-.nav-links a.nav-cta {
-  background: var(--cyan); color: var(--bg-deep); font-weight: 700;
-  padding: 8px 20px; border-radius: 8px;
-}
-.nav-links a.nav-cta:hover { background: var(--magenta); color: #fff; }
-
-.nav-toggle {
-  display: none; background: none; border: none; cursor: pointer;
-  padding: 8px; color: var(--text-primary);
-}
-.nav-toggle svg { width: 26px; height: 26px; }
-
-/* ==================== SECTIONS ==================== */
-.section {
-  position: relative; z-index: 1;
-  padding: 100px 32px;
-}
-.section-inner {
-  max-width: 1200px; margin: 0 auto;
-}
-
-.section-label {
-  display: inline-block; font-family: var(--font-mono);
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--cyan);
-  margin-bottom: 16px;
-  padding: 6px 14px; border-radius: 20px;
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  background: var(--cyan-dim);
-}
-
-.section-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  font-weight: 700; color: var(--white);
-  line-height: 1.15; margin-bottom: 20px;
-  letter-spacing: -0.01em;
-}
-.section-title .accent { color: var(--cyan); }
-.section-title .accent-magenta { color: var(--magenta); }
-
-.section-subtitle {
-  font-size: 1.1rem; color: var(--text-secondary);
-  max-width: 600px; line-height: 1.7;
-}
-
-.center { text-align: center; }
-.center .section-subtitle { margin: 0 auto 50px; }
-
-/* ==================== REVEAL ANIMATION ==================== */
-.reveal {
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-
-/* ==================== HERO ==================== */
-.hero {
-  min-height: 100vh; display: flex; align-items: center;
-  padding: calc(var(--nav-height) + 40px) 32px 80px;
-  position: relative; z-index: 1;
-}
-.hero-inner {
-  max-width: 1200px; margin: 0 auto; width: 100%;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--cyan); letter-spacing: 0.12em;
-  border: 1px solid rgba(0, 240, 255, 0.3);
-  border-radius: 30px; padding: 8px 20px; margin-bottom: 28px;
-  background: rgba(0, 240, 255, 0.05);
-}
-.hero-badge-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-.hero h1 {
-  font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  font-weight: 700; color: var(--white);
-  line-height: 1.05; letter-spacing: -0.02em;
-  margin-bottom: 20px;
-  max-width: 800px;
-}
-.hero h1 .glow-cyan { color: var(--cyan); text-shadow: 0 0 40px rgba(0,240,255,0.4); }
-.hero h1 .glow-magenta { color: var(--magenta); text-shadow: 0 0 40px rgba(255,0,170,0.4); }
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 3vw, 1.75rem);
-  font-weight: 600; font-style: italic;
-  color: var(--magenta);
-  text-shadow: 0 0 30px rgba(184, 176, 208, 0.35);
-  margin-bottom: 16px; letter-spacing: 0.01em;
-}
-.hero-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
-  max-width: 520px; margin-bottom: 36px;
-  line-height: 1.6;
-}
-.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px; border-radius: 10px;
-  font-family: var(--font-body); font-weight: 600;
-  font-size: 0.95rem; letter-spacing: 0.02em;
-  cursor: pointer; border: none;
-  transition: all var(--transition-smooth);
-  text-decoration: none;
-}
-.btn-primary {
-  background: var(--cyan); color: var(--bg-deep);
-  box-shadow: 0 0 30px rgba(0,240,255,0.3);
-}
-.btn-primary:hover { background: #00ddff; box-shadow: 0 0 50px rgba(0,240,255,0.5); transform: translateY(-2px); color: var(--bg-deep); }
-.btn-outline {
-  background: transparent; color: var(--white);
-  border: 1.5px solid rgba(255,255,255,0.2);
-}
-.btn-outline:hover { border-color: var(--cyan); background: var(--cyan-dim); color: var(--cyan); transform: translateY(-2px); }
-
-/* ==================== GLASS CARD ==================== */
-.glass-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  padding: 32px;
-  transition: all var(--transition-smooth);
-  position: relative; overflow: hidden;
-}
-.glass-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: var(--radius);
-  padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 50%, rgba(0,240,255,0.1));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  pointer-events: none;
-}
-.glass-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-glow);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
-              0 0 40px rgba(0, 240, 255, 0.08);
-}
-
-/* ==================== STATS BAR ==================== */
-.stats-bar {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
-  background: rgba(10, 10, 20, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.stats-inner {
-  max-width: 1200px; margin: 0 auto; padding: 40px 32px;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 20px; text-align: center;
-}
-.stat-item { padding: 12px; }
-.stat-number {
-  font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 700; color: var(--cyan);
-  line-height: 1.1;
-}
-.stat-label {
-  font-size: 0.85rem; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  margin-top: 6px;
-}
-
-/* ==================== SERVICES GRID ==================== */
-.services-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 24px; margin-top: 50px;
-}
-.service-card {
-  text-align: center;
-  padding: 36px 24px;
-}
-.service-icon {
-  width: 60px; height: 60px; border-radius: 16px;
-  margin: 0 auto 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem;
-}
-.service-icon.cyan { background: rgba(0,240,255,0.1); color: var(--cyan); border: 1px solid rgba(0,240,255,0.2); }
-.service-icon.magenta { background: rgba(255,0,170,0.1); color: var(--magenta); border: 1px solid rgba(255,0,170,0.2); }
-.service-icon.green { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.2); }
-.service-icon.white { background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.1); }
-
-.service-card h3 {
-  font-family: var(--font-heading);
-  font-size: 1.3rem; font-weight: 600;
-  color: var(--white); margin-bottom: 10px;
-}
-.service-card p {
-  font-size: 0.9rem; color: var(--text-secondary);
-  line-height: 1.6; margin-bottom: 16px;
-}
-.service-price {
-  font-family: var(--font-mono);
-  font-size: 1.1rem; font-weight: 700;
-  color: var(--cyan);
-}
-
-/* ==================== ABOUT ==================== */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-  align-items: center; margin-top: 50px;
-}
-.about-image-wrapper {
-  position: relative; border-radius: var(--radius); overflow: hidden;
-}
-.about-image-placeholder {
-  aspect-ratio: 4/5; background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #0d0d1a 100%);
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-subtle);
-}
-.about-image-placeholder .monogram {
-  font-family: var(--font-heading);
-  font-size: 5rem; font-weight: 700;
-  background: linear-gradient(135deg, var(--cyan), var(--magenta));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.about-floating-badge {
-  position: absolute; bottom: 20px; right: -10px;
-  background: rgba(10,10,20,0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-glow);
-  border-radius: 12px; padding: 16px 20px;
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--cyan);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.about-content h3 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem; color: var(--white); margin-bottom: 16px;
-}
-.about-content p {
-  color: var(--text-secondary); margin-bottom: 14px;
-  font-size: 0.95rem; line-height: 1.8;
-}
-.about-mission {
-  margin-top: 24px; padding: 20px 24px;
-  border-left: 3px solid var(--cyan);
-  background: var(--cyan-dim);
-  border-radius: 0 10px 10px 0;
-  font-style: italic; color: var(--text-primary);
-}
-
-/* ==================== PORTFOLIO ==================== */
-.portfolio-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 24px; margin-top: 50px;
-}
-.portfolio-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: all var(--transition-smooth);
-  position: relative;
-}
-.portfolio-card:hover {
-  border-color: var(--border-glow);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,240,255,0.06);
-}
-.portfolio-media {
-  position: relative; overflow: hidden;
-  aspect-ratio: 16/10; background: #080812;
-}
-.portfolio-media img, .portfolio-media video, .about-slideshow .slide-img {
-  width: 100%; height: 100%; object-fit: contain;
-  background: #0A0A0F;
-  transition: transform 0.6s cubic-bezier(0.22,0.61,0.36,1);
-}
-.portfolio-card:hover .portfolio-media img,
-.portfolio-card:hover .portfolio-media video {
-  transform: scale(1.05);
-}
-.portfolio-media .slide-indicators {
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 2;
-}
-.slide-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  transition: all var(--transition-fast);
-  cursor: pointer; border: none;
-}
-.slide-dot.active { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
-.portfolio-nav-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  z-index: 2; background: rgba(10,10,20,0.7);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: var(--white); width: 36px; height: 36px; border-radius: 50%;
-  cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition-fast);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-.portfolio-nav-btn:hover { background: var(--cyan); color: var(--bg-deep); border-color: var(--cyan); }
-.portfolio-nav-btn.prev { left: 10px; }
-.portfolio-nav-btn.next { right: 10px; }
-
-.portfolio-info {
-  padding: 22px 24px;
-}
-.portfolio-info h3 {
-  font-family: var(--font-heading);
-  font-size: 1.25rem; font-weight: 600;
-  color: var(--white); margin-bottom: 6px;
-}
-.portfolio-info .portfolio-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--cyan);
-}
-.portfolio-card.video-card .play-overlay {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.35); z-index: 2; cursor: pointer;
-  transition: background var(--transition-fast);
-}
-.portfolio-card.video-card .play-overlay:hover { background: rgba(0,0,0,0.2); }
-.play-btn {
-  width: 60px; height: 60px; border-radius: 50%;
-  background: rgba(0,240,255,0.2);
-  border: 2px solid var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition-smooth);
-  box-shadow: 0 0 30px rgba(0,240,255,0.3);
-}
-.play-btn:hover { background: var(--cyan); box-shadow: 0 0 50px rgba(0,240,255,0.6); }
-.play-btn svg { width: 22px; height: 22px; fill: var(--cyan); }
-.play-btn:hover svg { fill: var(--bg-deep); }
-.portfolio-card.web-card .portfolio-media {
-  background: linear-gradient(135deg, #0a0a15 0%, #12122a 40%, #0a0a15 100%);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
-.portfolio-card.web-card:hover .web-project-visit { opacity: 1; }
-.expand-btn {
-  position: absolute; top: 8px; right: 8px; z-index: 10;
-  background: rgba(0,0,0,0.5); color: var(--cyan); border: 1px solid var(--cyan-dim);
-  border-radius: 6px; width: 28px; height: 28px; cursor: pointer;
-  font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.expand-btn:hover { background: var(--cyan); color: #000; }
-.portfolio-nav-btns { display: none; }
-.web-grid-preview {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr); gap: 4px;
-  padding: 20px; width: 80%; height: 70%;
-}
-.web-grid-preview div {
-  border-radius: 4px; background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(0,240,255,0.08);
-}
-.web-grid-preview div:nth-child(1) { background: rgba(0,240,255,0.08); grid-column: span 2; }
-.web-grid-preview div:nth-child(4) { background: rgba(255,0,170,0.06); grid-column: span 2; }
-
-/* ==================== PRICING ==================== */
-.pricing-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px; margin-top: 50px;
-}
-.pricing-card {
-  text-align: center; padding: 40px 28px;
-}
-.pricing-card h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem; color: var(--white); margin-bottom: 8px;
-}
-.pricing-card .price {
-  font-family: var(--font-heading);
-  font-size: 2.8rem; font-weight: 700;
-  color: var(--cyan); margin: 16px 0 8px;
-}
-.pricing-card .price-desc {
-  font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;
-}
-.pricing-features {
-  list-style: none; text-align: left; margin-bottom: 28px;
-}
-.pricing-features li {
-  padding: 8px 0; font-size: 0.9rem; color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex; align-items: center; gap: 10px;
-}
-.pricing-features li::before {
-  content: '▸'; color: var(--green); font-size: 0.7rem;
-}
-.pricing-card.featured {
-  border-color: var(--border-glow);
-  position: relative;
-  overflow: visible;
-  box-shadow: 0 0 50px rgba(0,240,255,0.08);
-}
-.pricing-card.featured::after {
-  content: 'POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--cyan); color: var(--bg-deep);
-  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.14em; padding: 5px 16px; border-radius: 20px;
-}
-.pricing-card .btn { width: 100%; justify-content: center; }
-
-/* ==================== CONTACT ==================== */
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; margin-top: 50px;
-}
-.contact-form .form-group {
-  margin-bottom: 20px;
-}
-.contact-form label {
-  display: block; font-size: 0.8rem; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--text-secondary); margin-bottom: 8px;
-}
-.contact-form input, .contact-form select, .contact-form textarea {
-  width: 100%; padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px; color: var(--text-primary);
-  font-family: var(--font-body); font-size: 0.95rem;
-  transition: all var(--transition-fast);
-  outline: none;
-}
-.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 20px rgba(0,240,255,0.1);
-  background: rgba(255,255,255,0.05);
-}
-.contact-form textarea { resize: vertical; min-height: 130px; }
-.contact-form select { appearance: none; cursor: pointer; }
-.contact-form select option { background: #111; color: #fff; }
-.contact-form .btn { width: 100%; justify-content: center; margin-top: 8px; }
-.contact-info { display: flex; flex-direction: column; gap: 24px; }
-.contact-info-item {
-  display: flex; gap: 16px; align-items: flex-start;
-  padding: 20px; border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border-subtle);
-  transition: all var(--transition-fast);
-}
-.contact-info-item:hover { border-color: var(--border-glow); }
-.contact-icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  background: var(--cyan-dim); color: var(--cyan);
-  font-size: 1.1rem;
-}
-.contact-info-text h4 {
-  font-size: 0.85rem; color: var(--white); margin-bottom: 4px;
-}
-.contact-info-text p, .contact-info-text a {
-  font-size: 0.9rem; color: var(--text-secondary);
-}
-.contact-socials {
-  display: flex; gap: 12px; margin-top: 8px;
-}
-.contact-socials a {
-  width: 44px; height: 44px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  transition: all var(--transition-fast);
-  font-size: 1.1rem;
-}
-.contact-socials a:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-
-/* ==================== FOOTER ==================== */
-.footer {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border-subtle);
-  background: rgba(10,10,15,0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 60px 32px 32px;
-}
-.footer-grid {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 40px; margin-bottom: 40px;
-}
-.footer-brand h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem; color: var(--white); margin-bottom: 10px;
-}
-.footer-brand h3 span { color: var(--cyan); }
-.footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-.footer-col h4 {
-  font-size: 0.75rem; text-transform: uppercase;
-  letter-spacing: 0.1em; color: var(--text-muted);
-  margin-bottom: 16px;
-}
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 10px; }
-.footer-col ul li a {
-  color: var(--text-secondary); font-size: 0.9rem;
-  transition: color var(--transition-fast);
-}
-.footer-col ul li a:hover { color: var(--cyan); }
-.payment-badges {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
-}
-.payment-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem; letter-spacing: 0.06em;
-  padding: 6px 12px; border-radius: 6px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  color: var(--text-muted);
-}
-.footer-bottom {
-  max-width: 1200px; margin: 0 auto;
-  padding-top: 24px; border-top: 1px solid var(--border-subtle);
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 12px;
-  font-size: 0.8rem; color: var(--text-muted);
-}
-
-/* ==================== BACK TO TOP ==================== */
-.back-to-top {
-  position: fixed; bottom: 30px; right: 30px; z-index: 999;
-  width: 44px; height: 44px; border-radius: 12px;
-  background: rgba(0,240,255,0.15);
-  border: 1px solid rgba(0,240,255,0.25);
-  color: var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; pointer-events: none;
-  transition: all var(--transition-smooth);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.back-to-top.visible { opacity: 1; pointer-events: auto; }
-.back-to-top:hover { background: var(--cyan); color: var(--bg-deep); }
-
-/* ==================== WEB DEV PROCESS ==================== */
-.process-timeline {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px; margin-top: 50px;
-}
-.process-step {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  padding: 32px 24px; text-align: center;
-  position: relative;
-  transition: all var(--transition-smooth);
-}
-.process-step::before {
-  content: ''; position: absolute; inset: 0; border-radius: var(--radius);
-  padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 50%, rgba(0,240,255,0.08));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  pointer-events: none;
-}
-.process-step:hover {
-  border-color: var(--border-glow);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,240,255,0.06);
-}
-.process-number {
-  font-family: var(--font-heading);
-  font-size: 3rem; font-weight: 700;
-  background: linear-gradient(135deg, var(--cyan), var(--magenta));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1; margin-bottom: 12px;
-}
-.process-step h3 {
-  font-family: var(--font-heading);
-  font-size: 1.25rem; font-weight: 600;
-  color: var(--white); margin-bottom: 8px;
-}
-.process-step p {
-  font-size: 0.9rem; color: var(--text-secondary);
-  line-height: 1.6;
-}
-.process-step .process-icon {
-  width: 48px; height: 48px; border-radius: 14px;
-  margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
-  background: var(--cyan-dim);
-  border: 1px solid rgba(0,240,255,0.2);
-  color: var(--cyan);
-}
-.process-co-value {
-  margin-top: 48px; padding: 32px 40px;
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, rgba(0,240,255,0.03), rgba(184,176,208,0.05));
-  border: 1px solid var(--border-subtle);
-  position: relative;
-}
-.process-co-value::before {
-  content: '"'; position: absolute; top: -20px; left: 24px;
-  font-family: var(--font-heading);
-  font-size: 5rem; color: var(--cyan);
-  opacity: 0.3; line-height: 1;
-}
-.process-co-value p {
-  font-family: var(--font-heading);
-  font-size: 1.3rem; font-style: italic;
-  color: var(--text-primary);
-  line-height: 1.7; max-width: 700px;
-}
-.process-co-value p strong { color: var(--cyan); font-style: normal; }
-
-/* Web dev pricing cards */
-.web-pricing-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px; margin-top: 32px;
-}
-.web-pricing-card {
-  text-align: center; padding: 36px 28px;
-}
-.web-pricing-card h3 {
-  font-family: var(--font-heading);
-  font-size: 1.4rem; color: var(--white); margin-bottom: 8px;
-}
-.web-pricing-card .web-price {
-  font-family: var(--font-heading);
-  font-size: 2.4rem; font-weight: 700;
-  color: var(--cyan); margin: 12px 0 4px;
-}
-.web-pricing-card .web-price-small {
-  font-size: 0.85rem; color: var(--text-muted);
-  margin-bottom: 16px;
-}
-.web-pricing-features {
-  list-style: none; text-align: left; margin-bottom: 24px;
-}
-.web-pricing-features li {
-  padding: 7px 0; font-size: 0.85rem; color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex; align-items: center; gap: 8px;
-}
-.web-pricing-features li::before {
-  content: '▸'; color: var(--green); font-size: 0.65rem;
-  flex-shrink: 0;
-}
-.web-pricing-card.featured {
-  border-color: var(--border-glow);
-  box-shadow: 0 0 50px rgba(0,240,255,0.06);
-  position: relative;
-  overflow: visible;
-}
-.web-pricing-card.featured::after {
-  content: 'BEST VALUE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--cyan); color: var(--bg-deep);
-  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.14em; padding: 5px 16px; border-radius: 20px;
-}
-
-/* Web dev capability grid */
-.capability-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 16px; margin-top: 40px;
-}
-.capability-item {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 20px 18px;
-  display: flex; align-items: flex-start; gap: 14px;
-  transition: all var(--transition-fast);
-}
-.capability-item:hover {
-  border-color: rgba(0,240,255,0.2);
-  background: rgba(0,240,255,0.03);
-}
-.capability-icon {
-  width: 38px; height: 38px; border-radius: 10px;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem;
-  background: var(--cyan-dim);
-  border: 1px solid rgba(0,240,255,0.15);
-  color: var(--cyan);
-}
-.capability-text h4 {
-  font-size: 0.9rem; font-weight: 600;
-  color: var(--white); margin-bottom: 3px;
-}
-.capability-text p {
-  font-size: 0.78rem; color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 1024px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .process-timeline { grid-template-columns: repeat(2, 1fr); }
-  .web-pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .capability-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  :root { --nav-height: 60px; }
-  .nav-logo { flex-direction: column; gap: 0; }
-  .nav-logo-img { height: 88px !important; }
-  .nav-location-badge { display: none; }
-  .nav-inner { justify-content: center; }
-  .nav-logo { margin: 0 auto; }
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex; flex-direction: column; position: absolute;
-    top: var(--nav-height); left: 0; right: 0;
-    background: rgba(10,10,15,0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 20px 32px; gap: 4px;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-  .nav-links a { padding: 12px 16px; display: block; border-radius: 8px; }
-  .nav-toggle { display: block; }
-  .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .services-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .section { padding: 60px 20px; }
-  .section-inner { padding: 0; }
-  .process-timeline { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .capability-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-}
-@media (max-width: 480px) {
-  .hero-ctas { flex-direction: column; }
-  .hero-ctas .btn { width: 100%; justify-content: center; }
-  .hero-badge { font-size: 0.65rem; padding: 6px 14px; }
-  .stats-inner { gap: 10px; padding: 24px 16px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
-}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css?v=7">
 </head>
 <body>
 
-<canvas id="hero-canvas" aria-hidden="true"></canvas>
-
-<!-- ==================== NAVIGATION ==================== -->
-<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="#home" class="nav-logo" aria-label="CYCO PRO MEDIA Home">
-      <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="nav-logo-img" loading="lazy">
-      <span class="nav-logo-text">CYCO PRO MEDIA</span>
-    </a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-    </button>
-    <div class="nav-location-badge" aria-label="Location">📍 ATL · 🌐 Worldwide</div>
-    <ul class="nav-links" id="nav-links" role="menubar">
-      <li role="none"><a href="#home" role="menuitem">Home</a></li>
-      <li role="none"><a href="#services" role="menuitem">Services</a></li>
-      <li role="none"><a href="#web-development" role="menuitem">Web</a></li>
-      <li role="none"><a href="#about" role="menuitem">About</a></li>
-      <li role="none"><a href="#pricing" role="menuitem">Pricing</a></li>
-      <li role="none"><a href="#portfolio" role="menuitem">Portfolio</a></li>
-      <li role="none"><a href="#contact" role="menuitem" class="nav-cta">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <div class="hero-badge reveal">
-      <span class="hero-badge-dot" aria-hidden="true"></span>
-      ATLANTA, GA — AVAILABLE WORLDWIDE
-    </div>
-    <h1 class="reveal reveal-delay-1">
-      Creative Media<br>
-      <span class="glow-cyan">&amp;</span> <span class="glow-magenta">Web Solutions</span>
-    </h1>
-    <p class="hero-tagline reveal reveal-delay-2">"Imitation is not innovation."</p>
-    <p class="hero-subtitle reveal reveal-delay-3">
-      Transforming brands through cinematic visuals, cutting-edge web experiences, and strategic content that demands attention.
-    </p>
-    <div class="hero-ctas reveal reveal-delay-4">
-      <a href="#portfolio" class="btn btn-primary">View Our Work ▸</a>
-      <a href="#contact" class="btn btn-outline">Book Your Consultation</a>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== PORTFOLIO ==================== -->
-<section class="section" id="portfolio">
-  <div class="section-inner center">
-    <span class="section-label reveal">Portfolio</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      Featured <span class="accent">Work</span>
-    </h2>
-    <p class="section-subtitle reveal reveal-delay-2">
-      A curated selection of recent projects showcasing the range and quality of our creative output.
-    </p>
-    <div class="portfolio-grid">
-
-      <div class="portfolio-card reveal" data-slideshow="editorial" data-count="43">
-        <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/editorial/editorial-1.jpg"
-               alt="Editorial portrait photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators" aria-hidden="true"></div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Editorial Portraits</h3>
-          <span class="portfolio-tag">Photography</span>
-        </div>
-      </div>
-
-      <div class="portfolio-card reveal reveal-delay-1" data-slideshow="brand" data-count="8">
-        <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-1.jpg"
-               alt="Brand campaign photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators" aria-hidden="true"></div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Brand Campaigns</h3>
-          <span class="portfolio-tag">Commercial Photography</span>
-        </div>
-      </div>
-
-      <div class="portfolio-card reveal reveal-delay-2" data-slideshow="event" data-count="13">
-        <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
-               alt="Event coverage photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators" aria-hidden="true"></div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Event Coverage</h3>
-          <span class="portfolio-tag">Event Photography</span>
-        </div>
-        </div>
-
-        <div class="portfolio-card video-card reveal reveal-delay-3" data-event-video-card>
-        <div class="portfolio-media" style="cursor:pointer;" onclick="var v=this.querySelector('video');v.paused?v.play():v.pause();this.querySelector('.play-overlay').style.display=v.paused?'flex':'none';">
-          <video src="/images/portfolio/event/event-video.mp4"
-                 preload="metadata" muted playsinline loop class="slide-img"
-                  poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-1.jpg"
-                 aria-label="Event coverage video reel"></video>
-          <button class="unmute-btn" onclick="var v=this.parentElement.querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊';" style="position:absolute;bottom:40px;right:8px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:4px;width:28px;height:28px;cursor:pointer;font-size:14px;">🔇</button>
-          <div class="play-overlay" style="display:flex;">
-            <button class="play-btn" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button>
-          </div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Event Video</h3>
-          <span class="portfolio-tag">🎥 Video Reel</span>
-        </div>
-        </div>
-
-        <div class="portfolio-card reveal reveal-delay-3" data-slideshow="wedding" data-count="4">
-          <div class="portfolio-media">
-            <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-1.jpg"
-                 alt="Wedding photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-            <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-            <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-            <div class="slide-indicators" aria-hidden="true"></div>
-          </div>
-          <div class="portfolio-info">
-            <h3>Wedding</h3>
-            <span class="portfolio-tag">Wedding Photography</span>
-          </div>
-        </div>
-
-        <div class="portfolio-card video-card reveal reveal-delay-3">
-        <div class="portfolio-media" id="video-card-media">
-          <video src="/images/portfolio/commercial/comm-1.mp4"
-                 preload="metadata" muted playsinline loop class="slide-img"
-                  poster="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/commercial/cover.jpg"
-                 aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
-          <button class="unmute-btn" onclick="var v=this.parentElement.querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊';" style="position:absolute;bottom:40px;right:8px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:4px;width:28px;height:28px;cursor:pointer;font-size:14px;">🔇</button>
-          <div class="play-overlay" id="video-play-overlay">
-            <button class="play-btn" aria-label="Play video">
-              <svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg>
-            </button>
-          </div>
-          <button class="video-nav-btn prev" aria-label="Previous video" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">◂</button>
-          <button class="video-nav-btn next" aria-label="Next video" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;">▸</button>
-        </div>
-        <div class="portfolio-info">
-          <h3>Commercial Video</h3>
-          <span class="portfolio-tag">Videography</span>
-        </div>
-      </div>
-
-      <div class="portfolio-card reveal reveal-delay-3" data-slideshow="realestate" data-count="6">
-        <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/realestate/realestate-1.jpg"
-               alt="Real estate photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators" aria-hidden="true"></div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Real Estate</h3>
-          <span class="portfolio-tag">Architectural Photography</span>
-        </div>
-      </div>
-
-      <div class="portfolio-card reveal reveal-delay-3" data-slideshow="art" data-count="14">
-        <div class="portfolio-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-1.jpg"
-               alt="Art photography by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators" aria-hidden="true"></div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Art</h3>
-          <span class="portfolio-tag">Fine Art Photography</span>
-        </div>
-      </div>
-
-      <div class="portfolio-card web-card reveal reveal-delay-3" data-slideshow="web-projects" data-count="5"
-           data-project-urls='["https://theo-jones.joffre-fab.workers.dev","https://cyco-ambassador.pages.dev","https://cyco-self-building-game.pages.dev","https://cyco-tesla-arcade.pages.dev","https://cyco-spaceship-game.pages.dev"]'>
-        <div class="portfolio-media" id="web-projects-media">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-projects/web-projects-1.jpg"
-               alt="Web development projects by CYCO PRO MEDIA" class="slide-img" loading="lazy">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image">▸</button>
-          <div class="slide-indicators"></div>
-          <div class="web-project-visit" style="position:absolute;top:8px;left:8px;z-index:10;background:rgba(0,240,255,0.15);color:var(--cyan);border:1px solid rgba(0,240,255,0.4);border-radius:6px;padding:4px 12px;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.05em;opacity:0;transition:opacity 0.3s ease;pointer-events:none;">VISIT SITE ↗</div>
-        </div>
-        <div class="portfolio-info">
-          <h3>Web Projects</h3>
-          <span class="portfolio-tag" id="web-projects-label">Theo Jones · Beauty &amp; Wellness</span>
-        </div>
-      </div>
-
-    </div>
-    <div style="margin-top: 32px;" class="reveal">
-      <a href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" class="btn btn-outline">
-        View Full Portfolio ↗
-      </a>
-    </div>
-    <div style="margin-top: 16px; text-align: center;" class="reveal reveal-delay-1">
-      <a href="#web-development" class="btn btn-primary" style="font-size: 1.05rem; padding: 16px 40px;">
-        Start Your Web Project ▸
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== WEB DEVELOPMENT ==================== -->
-<section class="section" id="web-development">
-  <div class="section-inner center">
-    <span class="section-label reveal">Web Development</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      Your Website, <span class="accent">Built on Co-Value</span>
-    </h2>
-    <p class="section-subtitle reveal reveal-delay-2">
-      We don't just build websites — we build partnerships. Every project starts with understanding <em>your</em> goals, <em>your</em> customers, and <em>your</em> vision. Our process is transparent, collaborative, and designed to deliver real business results.
-    </p>
-
-    <!-- === Process Timeline === -->
-    <div class="process-timeline">
-      <div class="process-step reveal">
-        <div class="process-icon" aria-hidden="true">💬</div>
-        <div class="process-number">01</div>
-        <h3>Consultation</h3>
-        <p>Free discovery call. We talk goals, audience, must-haves. No pitch — just listening. You walk away with clarity, even if we're not a fit.</p>
-      </div>
-      <div class="process-step reveal reveal-delay-1">
-        <div class="process-icon" aria-hidden="true">🔍</div>
-        <div class="process-number">02</div>
-        <h3>Deep Understanding</h3>
-        <p>We dive into your business — competitors, customers, content needs. Every question we ask shapes a strategy that's uniquely yours.</p>
-      </div>
-      <div class="process-step reveal reveal-delay-2">
-        <div class="process-icon" aria-hidden="true">📋</div>
-        <div class="process-number">03</div>
-        <h3>Proposal &amp; Plan</h3>
-        <p>Custom quote, sitemap, timeline, and milestones. You see exactly what you're getting, when, and for how much — before a dollar is spent.</p>
-      </div>
-      <div class="process-step reveal reveal-delay-3">
-        <div class="process-icon" aria-hidden="true">🎨</div>
-        <div class="process-number">04</div>
-        <h3>Design &amp; Prototype</h3>
-        <p>Mockups and wireframes aligned with your brand. You review, we refine. Nothing moves to code until you're excited about the direction.</p>
-      </div>
-      <div class="process-step reveal reveal-delay-3">
-        <div class="process-icon" aria-hidden="true">⚡</div>
-        <div class="process-number">05</div>
-        <h3>Build &amp; Test</h3>
-        <p>Clean, fast, mobile-responsive code. Regular check-ins so you see progress. Cross-browser tested. SEO-ready. Forms working. No surprises.</p>
-      </div>
-      <div class="process-step reveal reveal-delay-3">
-        <div class="process-icon" aria-hidden="true">🚀</div>
-        <div class="process-number">06</div>
-        <h3>Launch &amp; Support</h3>
-        <p>Domain connected. SSL active. Analytics verified. Training session so you own your site. 30 days of post-launch support included.</p>
-      </div>
-    </div>
-
-    <!-- === Co-Value Statement === -->
-    <div class="process-co-value reveal">
-      <p>"We believe in <strong>business co-value</strong> — your success is our success. Every project is a collaboration, not a transaction. We ask hard questions, propose honest solutions, and never bill for something you don't need. Your website isn't just a project to us — it's your storefront, your salesperson, your first impression. We treat it that way."</p>
-    </div>
-
-    <!-- === Web Dev Pricing === -->
-    <div style="margin-top: 60px;">
-      <span class="section-label reveal" style="margin-top: 0;">Pricing</span>
-      <h2 class="section-title reveal reveal-delay-1" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
-        Transparent <span class="accent">Web Packages</span>
-      </h2>
-      <div class="web-pricing-grid">
-        <div class="glass-card web-pricing-card reveal">
-          <h3>Landing Page</h3>
-          <div class="web-price">$750</div>
-          <p class="web-price-small">One-time</p>
-          <ul class="web-pricing-features">
-            <li>Single-page design</li>
-            <li>Mobile-responsive</li>
-            <li>Contact/lead form</li>
-            <li>Basic SEO setup</li>
-            <li>Domain connection</li>
-            <li>1 revision round</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">Get Started</a>
-        </div>
-        <div class="glass-card web-pricing-card featured reveal reveal-delay-1">
-          <h3>Business Site</h3>
-          <div class="web-price">Starting at $1,500</div>
-          <p class="web-price-small">One-time</p>
-          <ul class="web-pricing-features">
-            <li>6–12 custom pages</li>
-            <li>Portfolio/gallery + filtering</li>
-            <li>Booking or inquiry forms</li>
-            <li>Advanced SEO (schema, sitemap)</li>
-            <li>Speed + security optimization</li>
-            <li>Training + 30-day support</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Start Project</a>
-        </div>
-        <div class="glass-card web-pricing-card reveal reveal-delay-2">
-          <h3>Maintenance</h3>
-          <div class="web-price">Starting at $200<span style="font-size:1rem;">/mo</span></div>
-          <p class="web-price-small">Monthly retainer</p>
-          <ul class="web-pricing-features">
-            <li>Content updates</li>
-            <li>Plugin/security patches</li>
-            <li>Uptime monitoring</li>
-            <li>Monthly backups</li>
-            <li>Performance reports</li>
-            <li>Priority support</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">Inquire</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- === Capabilities === -->
-    <div style="margin-top: 48px;">
-      <span class="section-label reveal" style="margin-top: 0;">Everything We Do</span>
-      <h2 class="section-title reveal reveal-delay-1" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem);">
-        Full-Stack <span class="accent">Capabilities</span>
-      </h2>
-      <div class="capability-grid">
-        <div class="capability-item reveal">
-          <div class="capability-icon" aria-hidden="true">🏪</div>
-          <div class="capability-text">
-            <h4>Local Creation</h4>
-            <p>Google Business Profile, local SEO, maps integration — get found by nearby customers.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal">
-          <div class="capability-icon" aria-hidden="true">🎨</div>
-          <div class="capability-text">
-            <h4>Graphic Design</h4>
-            <p>Logos, brand identity, marketing collateral, social templates — cohesive visuals across every touchpoint.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal">
-          <div class="capability-icon" aria-hidden="true">📄</div>
-          <div class="capability-text">
-            <h4>Landing Page</h4>
-            <p>High-conversion single-page designs with clear CTAs, lead capture forms, and fast load times.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-1">
-          <div class="capability-icon" aria-hidden="true">🖥️</div>
-          <div class="capability-text">
-            <h4>Web UI</h4>
-            <p>Interface design, user experience, interactive prototypes — modern, responsive, accessible.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-1">
-          <div class="capability-icon" aria-hidden="true">🔤</div>
-          <div class="capability-text">
-            <h4>Font / Typography</h4>
-            <p>Custom type selection, brand typography systems, variable fonts — the voice of your brand.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-1">
-          <div class="capability-icon" aria-hidden="true">🤖</div>
-          <div class="capability-text">
-            <h4>Workflow AI Infrastructure</h4>
-            <p>AI agents, automation pipelines, voice assistants — custom AI systems that run your operations.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-2">
-          <div class="capability-icon" aria-hidden="true">📊</div>
-          <div class="capability-text">
-            <h4>Big Query / Analytics</h4>
-            <p>Data warehousing, SQL analytics, dashboards, custom reporting — turn data into decisions.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-2">
-          <div class="capability-icon" aria-hidden="true">🔍</div>
-          <div class="capability-text">
-            <h4>Search Market Analysis</h4>
-            <p>SEO research, keyword strategy, competitor gap analysis, search intent mapping.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-2">
-          <div class="capability-icon" aria-hidden="true">📋</div>
-          <div class="capability-text">
-            <h4>Business Plan</h4>
-            <p>Market positioning, financial modeling, go-to-market strategy — a roadmap built on data.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-3">
-          <div class="capability-icon" aria-hidden="true">🚀</div>
-          <div class="capability-text">
-            <h4>Business Creation</h4>
-            <p>Full launch package: brand identity + website + operations + marketing — ready to go live.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-3">
-          <div class="capability-icon" aria-hidden="true">⚙️</div>
-          <div class="capability-text">
-            <h4>Custom Tooling</h4>
-            <p>Internal dashboards, booking systems, client portals, API integrations — whatever your workflow needs.</p>
-          </div>
-        </div>
-        <div class="capability-item reveal reveal-delay-3">
-          <div class="capability-icon" aria-hidden="true">💡</div>
-          <div class="capability-text">
-            <h4>Consulting &amp; Strategy</h4>
-            <p>Tech stack advisory, digital transformation, creative direction — strategic guidance at any stage.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- === Bottom CTA === -->
-    <div style="margin-top: 48px;" class="reveal">
-      <a href="#contact" class="btn btn-primary" style="font-size: 1.05rem; padding: 16px 44px;">
-        Book Your Free Consultation ▸
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== STATS BAR ==================== -->
-<div class="stats-bar" aria-label="Key statistics">
-  <div class="stats-inner">
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="150">0</div>
-      <div class="stat-label">Projects Delivered</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <div class="stat-number" data-count="8">0</div>
-      <div class="stat-label">Years Experience</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-number" data-count="120">0</div>
-      <div class="stat-label">Happy Clients</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <div class="stat-number" data-count="12">0</div>
-      <div class="stat-label">Cities Served</div>
-    </div>
+<!-- Preloader -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__count" id="pre-count">0</div>
+    <div class="preloader__brand">CYCO PRO MEDIA</div>
   </div>
 </div>
 
-<!-- ==================== SERVICES ==================== -->
-<section class="section" id="services">
-  <div class="section-inner center">
-    <span class="section-label reveal">What We Do</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      Premium <span class="accent">Creative Services</span>
-    </h2>
-    <p class="section-subtitle reveal reveal-delay-2">
-      End-to-end creative solutions tailored to elevate your brand — from striking visuals to high-performance websites.
-    </p>
-    <div class="services-grid">
-      <div class="glass-card service-card reveal">
-        <div class="service-icon cyan">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 4h12"/></svg>
-        </div>
-        <h3>Photography</h3>
-        <p>Editorial, brand campaigns, event coverage, and real estate — every frame tells a compelling story.</p>
-        <span class="service-price">Starting at $200</span>
+<!-- Custom cursor -->
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<!-- Floating pillar image -->
+<div class="float-img" id="float-img" aria-hidden="true"><img src="" alt=""></div>
+
+<!-- Header -->
+<header class="header">
+  <a class="header__brand" href="#home" aria-label="CYCO PRO MEDIA Home" data-magnetic>
+    <img class="header__logo" src="images/logo.png" alt="CYCO PRO MEDIA logo" width="44" height="44">
+    <span class="header__name">CYCO PRO MEDIA</span>
+  </a>
+  <span class="header__clock" id="clock">ATL — 00:00:00</span>
+  <button class="header__menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-overlay" data-magnetic>
+    <span>Menu</span><span class="bars" aria-hidden="true"></span>
+  </button>
+</header>
+
+<!-- Fullscreen nav -->
+<nav class="nav-overlay" id="nav-overlay" aria-label="Main navigation">
+  <ul class="nav-overlay__list">
+    <li><a href="#work"><span class="idx">01</span>Work</a></li>
+    <li><a href="portfolio.html"><span class="idx">02</span>Portfolio</a></li>
+    <li><a href="branding.html"><span class="idx">03</span>Branding</a></li>
+    <li><a href="commercial.html"><span class="idx">04</span>Commercial</a></li>
+    <li><a href="headshots.html"><span class="idx">05</span>Headshots</a></li>
+    <li><a href="#pricing"><span class="idx">06</span>Pricing</a></li>
+    <li><a href="#about"><span class="idx">07</span>About</a></li>
+    <li><a href="#contact"><span class="idx">08</span>Contact</a></li>
+  </ul>
+  <div class="nav-overlay__meta">
+    <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener">LinkedIn</a>
+    <span>Atlanta, GA — Worldwide</span>
+  </div>
+</nav>
+
+<main>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero__grid">
+    <div class="hero__col">
+      <p class="hero__kicker label-mono">Atlanta, GA — Available Worldwide</p>
+      <h1 class="hero__title display-xl">
+        <span class="line"><span>Creative Media</span></span>
+        <span class="line"><span><em>&amp;</em> Web Solutions.</span></span>
+      </h1>
+      <p class="hero__slogan">Imitation isn't innovation.</p>
+      <p class="hero__sub">Transforming brands through cinematic visuals, cutting-edge web experiences, and strategic content that demands attention.</p>
+      <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
+    </div>
+    <div class="hero__logo" aria-hidden="true">
+      <img src="images/logo.png" alt="" loading="eager">
+    </div>
+  </div>
+  <span class="hero__scroll">Scroll</span>
+</section>
+
+<!-- Glowing slogan bar -->
+<div class="marquee marquee--glow" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Imitation is not innovation</span><span>Photography</span><span>Videography</span><span>Web Development</span><span>Content Creation</span>
+    <span>Imitation is not innovation</span><span>Photography</span><span>Videography</span><span>Web Development</span><span>Content Creation</span>
+  </div>
+</div>
+
+<!-- Selected work (full interactive — slideshows + videos) -->
+<section class="section work" id="work">
+  <div class="section__head">
+    <span class="label-mono">Selected work</span>
+    <a class="link-line" href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" data-magnetic>Full portfolio ↗</a>
+  </div>
+  <div class="port-grid">
+
+    <!-- Editorial -->
+    <article class="port-card reveal" data-slideshow="editorial" data-count="43" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/editorial/editorial-1.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
       </div>
-      <div class="glass-card service-card reveal reveal-delay-1">
-        <div class="service-icon magenta">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="5,2 19,10 5,18"/><rect x="2" y="1" width="3" height="22" rx="1"/></svg>
-        </div>
-        <h3>Videography</h3>
-        <p>Commercial reels, brand films, and event highlights — cinematic production that captivates audiences.</p>
-        <span class="service-price">Starting at $500</span>
+      <div class="port-card__info"><h3>Editorial Portraits</h3><span class="port-tag">Photography</span></div>
+    </article>
+
+    <!-- Brand -->
+    <article class="port-card reveal" data-slideshow="brand" data-count="8" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/brand/brand-1.jpg" alt="Brand campaign photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
       </div>
-      <div class="glass-card service-card reveal reveal-delay-2">
-        <div class="service-icon green">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="16" rx="1"/><path d="M8 18v4"/><path d="M16 18v4"/><line x1="2" y1="8" x2="22" y2="8"/></svg>
-        </div>
-        <h3>Web Development</h3>
-        <p>Custom websites, e-commerce, and web apps — modern, responsive, and built to perform.</p>
-        <span class="service-price">Starting at $750</span>
+      <div class="port-card__info"><h3>Brand Campaigns</h3><span class="port-tag">Commercial</span></div>
+    </article>
+
+    <!-- Event -->
+    <article class="port-card reveal" data-slideshow="event" data-count="13" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/event/event-1.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
       </div>
-      <div class="glass-card service-card reveal reveal-delay-3">
-        <div class="service-icon white">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3>Content Creation</h3>
-        <p>Ongoing social media content, strategy, and creative direction to keep your brand consistently fresh.</p>
-        <span class="service-price">$600/mo retainer</span>
+      <div class="port-card__info"><h3>Event Coverage</h3><span class="port-tag">Photography</span></div>
+    </article>
+
+    <!-- Event video -->
+    <article class="port-card port-card--video reveal">
+      <div class="port-card__media" data-video-toggle>
+        <video class="slide-img" src="images/portfolio/event/event-video.mp4" preload="metadata" muted playsinline loop poster="images/portfolio/event/event-1.jpg" aria-label="Event coverage video reel"></video>
+        <button class="vid-mute" aria-label="Toggle sound">🔇</button>
+        <div class="vid-overlay"><button class="vid-play" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button></div>
       </div>
+      <div class="port-card__info"><h3>Event Video</h3><span class="port-tag">🎥 Video Reel</span></div>
+    </article>
+
+    <!-- Commercial video slideshow -->
+    <article class="port-card port-card--video reveal">
+      <div class="port-card__media" id="comm-video-media" data-video-toggle>
+        <video class="slide-img" src="images/portfolio/commercial/comm-1.mp4" preload="metadata" muted playsinline loop poster="images/portfolio/commercial/cover.jpg" aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
+        <button class="vid-mute" aria-label="Toggle sound">🔇</button>
+        <div class="vid-overlay"><button class="vid-play" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button></div>
+        <button class="slide-btn prev vid-prev" aria-label="Previous video">◂</button>
+        <button class="slide-btn next vid-next" aria-label="Next video">▸</button>
+      </div>
+      <div class="port-card__info"><h3>Commercial Video</h3><span class="port-tag">Videography</span></div>
+    </article>
+
+    <!-- Wedding -->
+    <article class="port-card reveal" data-slideshow="wedding" data-count="4" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/wedding/wedding-1.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
+      </div>
+      <div class="port-card__info"><h3>Wedding</h3><span class="port-tag">Photo + Film</span></div>
+    </article>
+
+    <!-- Real estate -->
+    <article class="port-card reveal" data-slideshow="realestate" data-count="6" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/realestate/realestate-1.jpg" alt="Real estate photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
+      </div>
+      <div class="port-card__info"><h3>Real Estate</h3><span class="port-tag">Architectural</span></div>
+    </article>
+
+    <!-- Art -->
+    <article class="port-card reveal" data-slideshow="art" data-count="14" tabindex="0">
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/art/art-1.jpg" alt="Fine art photography by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
+      </div>
+      <div class="port-card__info"><h3>Fine Art</h3><span class="port-tag">Photography</span></div>
+    </article>
+
+    <!-- Web projects -->
+    <article class="port-card reveal" data-slideshow="web-projects" data-count="5" tabindex="0"
+      data-project-urls='["https://theo-jones.joffre-fab.workers.dev","https://cyco-ambassador.pages.dev","https://cyco-self-building-game.pages.dev","https://cyco-tesla-arcade.pages.dev","https://cyco-spaceship-game.pages.dev"]'>
+      <div class="port-card__media">
+        <img class="slide-img" src="images/portfolio/web-projects/web-projects-1.jpg" alt="Web development projects by CYCO PRO MEDIA" loading="lazy">
+        <button class="slide-btn prev" aria-label="Previous image">◂</button>
+        <button class="slide-btn next" aria-label="Next image">▸</button>
+        <div class="slide-dots" aria-hidden="true"></div>
+        <span class="web-visit">VISIT SITE ↗</span>
+      </div>
+      <div class="port-card__info"><h3>Web Projects</h3><span class="port-tag" id="web-projects-label">Theo Jones · Beauty &amp; Wellness</span></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- Pillars -->
+<section class="section pillars-section" id="services">
+  <div class="section__head">
+    <span class="label-mono">What we do</span>
+  </div>
+  <div class="pillars">
+    <div class="pillar" data-img="images/portfolio/editorial/editorial-3.jpg" tabindex="0">
+      <span class="pillar__num">01</span>
+      <h2 class="pillar__name">Media</h2>
+      <span class="pillar__tag">Photo / Video</span>
+      <p class="pillar__desc">Editorial photography, commercial film, events, weddings, and real estate — shot and graded to a cinematic standard. <span class="price">Starting at $200 photo · $500 video</span></p>
+    </div>
+    <div class="pillar" data-img="images/portfolio/web-projects/web-projects-1.jpg" tabindex="0">
+      <span class="pillar__num">02</span>
+      <h2 class="pillar__name">Web</h2>
+      <span class="pillar__tag">Design / Development</span>
+      <p class="pillar__desc">Fast, search-ready websites designed and built in-house — from brand sites to booking flows. <span class="price">Starting at $750</span></p>
+    </div>
+    <div class="pillar" data-img="images/portfolio/brand/brand-2.jpg" tabindex="0">
+      <span class="pillar__num">03</span>
+      <h2 class="pillar__name">Content</h2>
+      <span class="pillar__tag">Strategy / Social</span>
+      <p class="pillar__desc">Content systems for brands that post with purpose — strategy, production, and a library built to last. <span class="price">Starting at $600/mo retainer</span></p>
     </div>
   </div>
 </section>
 
-<!-- ==================== ABOUT ==================== -->
-<section class="section" id="about">
-  <div class="section-inner">
-    <span class="section-label reveal">About</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      The Team <span class="accent-magenta">Behind the Work</span>
-    </h2>
-    <div class="about-grid">
-      <div class="about-image-wrapper reveal reveal-delay-2">
-        <div class="about-image-placeholder about-slideshow" data-slideshow="about" data-count="4">
-          <img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/about/about-1.jpg"
-               alt="About CYCO PRO MEDIA" class="slide-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          <button class="portfolio-nav-btn prev" aria-label="Previous image" style="position:absolute;left:8px;top:50%;z-index:3;">◂</button>
-          <button class="portfolio-nav-btn next" aria-label="Next image" style="position:absolute;right:8px;top:50%;z-index:3;">▸</button>
-          <div class="slide-indicators" aria-hidden="true" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:3;"></div>
-        </div>
-      </div>
-      <div class="about-content reveal reveal-delay-3">
-        <h3>Creative Technologists, United</h3>
-        <p>
-          CYCO PRO MEDIA isn't a one-person show — it's a tight-knit collective of photographers, videographers, web developers, and creative strategists who come together to make every project exceptional.
-        </p>
-        <p>
-          Our team brings decades of combined experience across editorial photography, cinematic video production, custom web development, and brand content strategy. Every shoot, every edit, every line of code — handled by a specialist who lives and breathes their craft.
-        </p>
-        <p>
-          We operate lean and agile: no bloated agency overhead, no junior staff practicing on your brand. Just a curated roster of Atlanta's best creative talent, assembled project-by-project to match your exact needs.
-        </p>
-        <div class="about-mission">
-          "To empower creators, entrepreneurs, and businesses with world-class media and web solutions — made in Atlanta, available everywhere."
-        </div>
-      </div>
-    </div>
+<!-- Ecosystem -->
+<section class="section section--glow eco" aria-label="The CYCO ecosystem">
+  <div class="section__head" style="justify-content:center">
+    <span class="label-mono">One ecosystem</span>
   </div>
+  <h2 class="display-md reveal" style="max-width:34rem;margin:0 auto 3rem">Every service feeds the next. Explore how it connects.</h2>
+  <div class="eco__canvas-wrap">
+    <canvas id="eco-canvas" role="img" aria-label="Interactive diagram: Media, Web, and Content orbiting the CYCO core"></canvas>
+  </div>
+  <p class="eco__hint">Hover a node — tap to explore</p>
 </section>
 
-<!-- ==================== PRICING ==================== -->
-<section class="section" id="pricing">
-  <div class="section-inner center">
-    <span class="section-label reveal">Pricing</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      Simple, <span class="accent">Transparent</span> Pricing
-    </h2>
-    <p class="section-subtitle reveal reveal-delay-2">
-      No hidden fees. No surprises. Just premium creative services at competitive rates.
-    </p>
-    <div class="pricing-grid">
-      <div class="glass-card pricing-card reveal">
-        <h3>Starter</h3>
-        <div class="price">$200</div>
-        <p class="price-desc">Perfect for small shoots</p>
-        <ul class="pricing-features">
-          <li>1-hour session</li>
-          <li>10 edited images</li>
-          <li>1 location</li>
-          <li>Online gallery</li>
-          <li>5-day delivery</li>
-        </ul>
-        <a href="#contact" class="btn btn-outline">Get Started</a>
-      </div>
-      <div class="glass-card pricing-card featured reveal reveal-delay-1">
-        <h3>Business</h3>
-        <div class="price">$500</div>
-        <p class="price-desc">Most popular for brands</p>
-        <ul class="pricing-features">
-          <li>3-hour session</li>
-          <li>20 edited images</li>
-          <li>1 location</li>
-          <li>Online gallery</li>
-          <li>3-day delivery</li>
-          <li>Commercial usage rights</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Start Project</a>
-      </div>
-      <div class="glass-card pricing-card reveal reveal-delay-2">
-        <h3>Custom</h3>
-        <div class="price">$1,500+</div>
-        <p class="price-desc">For full production needs</p>
-        <ul class="pricing-features">
-          <li>Multi-day production</li>
-          <li>Unlimited deliverables</li>
-          <li>Multiple locations</li>
-          <li>Video + photo packages</li>
-          <li>Priority delivery</li>
-          <li>Full creative direction</li>
-        </ul>
-        <a href="#contact" class="btn btn-outline">Contact Us</a>
-      </div>
-    </div>
+<!-- Production pricing -->
+<section class="section section--glow" id="pricing">
+  <div class="section__head">
+    <span class="label-mono">Pricing — Production</span>
   </div>
-</section>
-
-<!-- ==================== CONTACT ==================== -->
-<section class="section" id="contact">
-  <div class="section-inner">
-    <span class="section-label reveal">Contact</span>
-    <h2 class="section-title reveal reveal-delay-1">
-      Let's <span class="accent">Work Together</span>
-    </h2>
-    <div class="contact-grid">
-      <div class="contact-form reveal reveal-delay-2">
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-              action="https://hooks.zapier.com/hooks/catch/27766190/4bucdaq/"
-              aria-label="Contact form">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="sr-only">
-            <label>Don't fill this out: <input name="bot-field"></label>
-          </p>
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your name" autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone (optional)</label>
-            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
-          </div>
-          <div class="form-group">
-            <label for="service">Service Interested In</label>
-            <select id="service" name="service" required>
-              <option value="">Select a service...</option>
-              <option value="Photography">Photography</option>
-              <option value="Videography">Videography</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Content Creation">Content Creation</option>
-              <option value="Other">Other / Multiple</option>
-            </select>
-            <select id="web-service" name="web_service" style="display:none; margin-top: 12px;" aria-label="Web Development service type">
-              <option value="">Select type of web project...</option>
-              <option value="Landing Page">Landing Page</option>
-              <option value="Business Website">Business Website</option>
-              <option value="Web UI / Interface Design">Web UI / Interface Design</option>
-              <option value="Graphic Design">Graphic Design</option>
-              <option value="Typography / Font">Typography / Font</option>
-              <option value="Local Business Setup">Local Business Setup</option>
-              <option value="SEO / Search Market Analysis">SEO / Search Market Analysis</option>
-              <option value="Workflow AI Infrastructure">Workflow AI Infrastructure</option>
-              <option value="Big Query / Analytics">Big Query / Analytics</option>
-              <option value="Business Plan / Strategy">Business Plan / Strategy</option>
-              <option value="Business Creation (Full Launch)">Business Creation (Full Launch)</option>
-              <option value="Custom Tooling">Custom Tooling</option>
-              <option value="Maintenance / Retainer">Maintenance / Retainer</option>
-              <option value="Consulting">Consulting</option>
-              <option value="Other Web Project">Other Web Project</option>
-            </select>
-            <select id="photo-service" name="photo_service" style="display:none; margin-top: 12px;" aria-label="Photography type">
-              <option value="">What kind of photography?</option>
-              <option value="Portrait">Portrait</option>
-              <option value="Event">Event</option>
-              <option value="Wedding">Wedding</option>
-              <option value="Corporate / Brand">Corporate / Brand</option>
-              <option value="Real Estate">Real Estate</option>
-              <option value="Editorial">Editorial</option>
-              <option value="Product">Product</option>
-              <option value="Fashion">Fashion</option>
-              <option value="Other Photography">Other Photography</option>
-            </select>
-            <select id="video-service" name="video_service" style="display:none; margin-top: 12px;" aria-label="Videography type">
-              <option value="">What kind of video?</option>
-              <option value="Commercial / Promo">Commercial / Promo</option>
-              <option value="Music Video">Music Video</option>
-              <option value="Documentary">Documentary</option>
-              <option value="Podcast / Interview">Podcast / Interview</option>
-              <option value="Event Coverage">Event Coverage</option>
-              <option value="Brand Film">Brand Film</option>
-              <option value="Social Reels">Social Reels</option>
-              <option value="Other Videography">Other Videography</option>
-            </select>
-            <select id="content-service" name="content_service" style="display:none; margin-top: 12px;" aria-label="Content Creation type">
-              <option value="">What kind of content?</option>
-              <option value="Photo Content Package">Photo Content Package</option>
-              <option value="Video Content Package">Video Content Package</option>
-              <option value="Photo + Video Package">Photo + Video Package</option>
-              <option value="Full Social Media Management">Full Social Media Management</option>
-              <option value="Brand Content Strategy">Brand Content Strategy</option>
-              <option value="Monthly Retainer">Monthly Retainer</option>
-              <option value="One-Time Campaign">One-Time Campaign</option>
-              <option value="Other Content">Other Content</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Tell Us About Your Project</label>
-            <textarea id="message" name="message" required placeholder="Describe your project, timeline, budget, and any specific requirements..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message ▸</button>
-        </form>
-      </div>
-      <div class="contact-info reveal reveal-delay-3">
-        <div class="contact-info-item">
-          <div class="contact-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>
-          </div>
-          <div class="contact-info-text">
-            <h4>Email</h4>
-            <a href="mailto:joffre@cycopromedia.com">joffre@cycopromedia.com</a><br>
-            <a href="mailto:techstylebyjoffre@gmail.com">techstylebyjoffre@gmail.com</a>
-          </div>
-        </div>
-        <div class="contact-info-item">
-          <div class="contact-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          </div>
-          <div class="contact-info-text">
-            <h4>Phone</h4>
-            <a href="tel:+14706526060">(470) 652-6060</a>
-          </div>
-        </div>
-        <div class="contact-info-item">
-          <div class="contact-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          </div>
-          <div class="contact-info-text">
-            <h4>Location</h4>
-            <p>Atlanta, GA — Available Worldwide</p>
-          </div>
-        </div>
-        <div class="contact-info-item">
-          <div class="contact-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </div>
-          <div class="contact-info-text">
-            <h4>Social</h4>
-            <div class="contact-socials">
-              <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener" aria-label="Instagram @cycoprozz">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-              </a>
-              <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8" cy="10" r="2"/><line x1="8" y1="14" x2="8" y2="20"/><path d="M15 14v6"/><path d="M15 11a3 3 0 016 0v9"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer" role="contentinfo">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="#home" aria-label="CYCO PRO MEDIA Home"><img src="https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/logo.png" alt="CYCO PRO MEDIA" class="footer-logo-img" loading="lazy" style="height:56px;width:auto;"></a>
-      <p>Creative Media &amp; Web Solutions. Photography, videography, web development, and content creation — crafted in Atlanta, delivered worldwide.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
+  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">Simple, <span class="accent">transparent</span> pricing. No hidden fees, no surprises.</h2>
+  <div class="price-grid">
+    <div class="glass-card reveal">
+      <h3>Starter</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$200</div>
+      <p class="price-desc">Perfect for small shoots</p>
       <ul>
-        <li><a href="#services">Photography</a></li>
-        <li><a href="#services">Videography</a></li>
-        <li><a href="#web-development">Web Development</a></li>
-        <li><a href="#services">Content Creation</a></li>
+        <li>1-hour session</li>
+        <li>10 edited images</li>
+        <li>1 location</li>
+        <li>Online gallery</li>
+        <li>5-day delivery</li>
       </ul>
+      <a href="#booking" class="btn" data-service="Photography" data-package="Starter — $200">Book Starter</a>
     </div>
-    <div class="footer-col">
-      <h4>Links</h4>
+    <div class="glass-card featured reveal">
+      <h3>Business</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$500</div>
+      <p class="price-desc">Most popular for brands</p>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li>3-hour session</li>
+        <li>20 edited images</li>
+        <li>1 location</li>
+        <li>Online gallery</li>
+        <li>3-day delivery</li>
+        <li>Commercial usage rights</li>
       </ul>
+      <a href="#booking" class="btn" data-service="Photography" data-package="Business — $500">Book Business</a>
     </div>
-    <div class="footer-col">
-      <h4>Payment Methods</h4>
-      <div class="payment-badges">
-        <span class="payment-badge">Cash App</span>
-        <span class="payment-badge">Venmo</span>
-        <span class="payment-badge">Zelle</span>
-        <span class="payment-badge">Apple Pay</span>
+    <div class="glass-card reveal">
+      <h3>Custom</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$1,500+</div>
+      <p class="price-desc">For full production needs</p>
+      <ul>
+        <li>Multi-day production</li>
+        <li>Unlimited deliverables</li>
+        <li>Multiple locations</li>
+        <li>Video + photo packages</li>
+        <li>Priority delivery</li>
+        <li>Full creative direction</li>
+      </ul>
+      <a href="#booking" class="btn" data-service="Photography" data-package="Custom — $1,500+">Book Custom</a>
+    </div>
+  </div>
+</section>
+
+<!-- Web pricing -->
+<section class="section" id="web">
+  <div class="section__head">
+    <span class="label-mono">Pricing — Web</span>
+  </div>
+  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">Websites designed, built, and maintained <span class="accent">in-house</span>.</h2>
+  <div class="price-grid">
+    <div class="glass-card reveal">
+      <h3>Landing Page</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$750</div>
+      <p class="price-desc">One-time</p>
+      <ul>
+        <li>Single-page design</li>
+        <li>Mobile-responsive</li>
+        <li>Contact/lead form</li>
+        <li>Basic SEO setup</li>
+        <li>Domain connection</li>
+        <li>1 revision round</li>
+      </ul>
+      <a href="#booking" class="btn" data-service="Web Development" data-package="Landing Page — $750">Book Landing Page</a>
+    </div>
+    <div class="glass-card featured reveal">
+      <h3>Business Site</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$1,500<small>+</small></div>
+      <p class="price-desc">One-time</p>
+      <ul>
+        <li>6–12 custom pages</li>
+        <li>Portfolio/gallery + filtering</li>
+        <li>Booking or inquiry forms</li>
+        <li>Advanced SEO (schema, sitemap)</li>
+        <li>Speed + security optimization</li>
+        <li>Training + 30-day support</li>
+      </ul>
+      <a href="#booking" class="btn" data-service="Web Development" data-package="Business Site — $1,500+">Book Business Site</a>
+    </div>
+    <div class="glass-card reveal">
+      <h3>Maintenance</h3>
+      <span class="price-from">Starting at</span>
+      <div class="price">$200<small>/mo</small></div>
+      <p class="price-desc">Monthly retainer</p>
+      <ul>
+        <li>Content updates</li>
+        <li>Plugin/security patches</li>
+        <li>Uptime monitoring</li>
+        <li>Monthly backups</li>
+        <li>Performance reports</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#booking" class="btn" data-service="Web Development" data-package="Maintenance — $200/mo">Book Maintenance</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section about" id="about">
+  <div class="section__head">
+    <span class="label-mono">About</span>
+  </div>
+  <div class="about__grid">
+    <div class="about__media" data-slideshow="about" data-count="4">
+      <img class="slide-img" src="images/portfolio/about/about-1.jpg" alt="The team behind CYCO PRO MEDIA" loading="lazy">
+      <button class="slide-btn prev" aria-label="Previous image">◂</button>
+      <button class="slide-btn next" aria-label="Next image">▸</button>
+      <div class="slide-dots" aria-hidden="true"></div>
+    </div>
+    <div class="about__body">
+      <h2 class="display-md reveal">Creative <span class="accent">technologists</span>, united.</h2>
+      <p class="reveal">CYCO PRO MEDIA isn't a one-person show — it's a tight-knit collective of photographers, videographers, web developers, and creative strategists who come together to make every project exceptional.</p>
+      <p class="reveal">Our team brings decades of combined experience across editorial photography, cinematic video production, custom web development, and brand content strategy. Every shoot, every edit, every line of code — handled by a specialist who lives and breathes their craft.</p>
+      <p class="reveal">We operate lean and agile: no bloated agency overhead, no junior staff practicing on your brand. Just a curated roster of Atlanta's best creative talent, assembled project-by-project to match your exact needs.</p>
+      <div class="about__stats reveal">
+        <div class="stat"><b>8</b><span>Creative disciplines</span></div>
+        <div class="stat"><b>100+</b><span>Portfolio pieces</span></div>
+        <div class="stat"><b>ATL</b><span>Based / worldwide</span></div>
       </div>
-      <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">
-        Secure, flexible payment options for every project.
-      </p>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 CYCO PRO MEDIA. All rights reserved.</span>
-    <span>Built with passion in Atlanta, GA</span>
+</section>
+
+<!-- Booking process -->
+<section class="section section--glow process" id="process">
+  <div class="section__head">
+    <span class="label-mono">How booking works</span>
   </div>
+  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">A clear, collaborative process — <span class="accent">built on co-value</span>.</h2>
+  <ol class="process__list">
+    <li class="process__step reveal">
+      <span class="process__num">01</span>
+      <h3>Consultation</h3>
+      <p>Free discovery call. We talk goals, audience, must-haves. No pitch — just listening. You walk away with clarity, even if we're not a fit.</p>
+    </li>
+    <li class="process__step reveal">
+      <span class="process__num">02</span>
+      <h3>Deep Understanding</h3>
+      <p>We dive into your brand — competitors, customers, content needs. Every question we ask shapes a strategy that's uniquely yours.</p>
+    </li>
+    <li class="process__step reveal">
+      <span class="process__num">03</span>
+      <h3>Proposal &amp; Plan</h3>
+      <p>Custom quote, scope, timeline, and milestones. You see exactly what you're getting, when, and for how much — before a dollar is spent.</p>
+    </li>
+    <li class="process__step reveal">
+      <span class="process__num">04</span>
+      <h3>Design &amp; Prototype</h3>
+      <p>Mockups and direction aligned with your brand. You review, we refine. Nothing moves forward until you're excited about it.</p>
+    </li>
+    <li class="process__step reveal">
+      <span class="process__num">05</span>
+      <h3>Production &amp; Build</h3>
+      <p>The shoot, the edit, the build. Regular check-ins so you see progress. Tested, polished, and ready — no surprises.</p>
+    </li>
+    <li class="process__step reveal">
+      <span class="process__num">06</span>
+      <h3>Delivery &amp; Support</h3>
+      <p>Final assets delivered, site launched, training included. We stay on for 30 days of post-launch support so you're never stuck.</p>
+    </li>
+  </ol>
+
+  <!-- Booking form -->
+  <div class="booking" id="booking">
+    <div class="booking__intro reveal">
+      <span class="label-mono">Start your booking</span>
+      <h3 class="display-md">Tell us what you need.</h3>
+      <p>Pick a service and a package — we'll know exactly where to start. Submitting opens a pre-filled email so you can send it in one tap.</p>
+    </div>
+    <form class="booking__form reveal" id="booking-form" novalidate>
+      <div class="field">
+        <label for="bk-service">Service</label>
+        <select id="bk-service" name="service" required>
+          <option value="" disabled selected>Choose a service…</option>
+          <option>Photography</option>
+          <option>Videography</option>
+          <option>Web Development</option>
+          <option>Content Creation</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bk-package">Package</label>
+        <select id="bk-package" name="package" required disabled>
+          <option value="" disabled selected>Select a service first…</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bk-name">Name</label>
+        <input type="text" id="bk-name" name="name" placeholder="Your name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="bk-email">Email</label>
+        <input type="email" id="bk-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="bk-date">Preferred date <span class="opt">(optional)</span></label>
+        <input type="date" id="bk-date" name="date">
+      </div>
+      <div class="field">
+        <label for="bk-budget">Budget range <span class="opt">(optional)</span></label>
+        <select id="bk-budget" name="budget">
+          <option value="" disabled selected>Choose…</option>
+          <option>Under $500</option>
+          <option>$500 – $1,500</option>
+          <option>$1,500 – $5,000</option>
+          <option>$5,000+</option>
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="bk-message">Project details <span class="opt">(optional)</span></label>
+        <textarea id="bk-message" name="message" rows="4" placeholder="Tell us about your project, timeline, location…"></textarea>
+      </div>
+      <div class="field field--full">
+        <button type="submit" class="btn-book btn-book--cyan" data-magnetic>Send Booking Request →</button>
+        <p class="booking__note" id="booking-note" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Mission -->
+<section class="section mission" aria-label="Our mission">
+  <p class="mission__quote reveal">"To empower creators, entrepreneurs, and businesses with world-class media and web solutions — <span class="accent">made in Atlanta, available everywhere</span>."</p>
+</section>
+
+<!-- Contact -->
+<section class="section section--glow contact" id="contact">
+  <span class="label-mono">Contact — Book Your Consultation</span>
+  <h2 class="display-lg reveal" style="margin-top:1.5rem">Let's build.</h2>
+  <a class="contact__email" href="mailto:joffre@cycopromedia.com">joffre@cycopromedia.com</a>
+  <div class="contact__book reveal">
+    <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
+  </div>
+  <div class="contact__meta">
+    <a href="tel:+14706526060">+1 470 652 6060</a>
+    <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener">LinkedIn</a>
+    <span>Atlanta, GA</span>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer booking CTA -->
+<div class="footer-cta">
+  <p class="footer-cta__text">Ready to start? <span class="accent">Let's talk.</span></p>
+  <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
+</div>
+
+<footer class="footer">
+  <span>© <span id="year">2026</span> CYCO PRO MEDIA</span>
+  <span>Atlanta, GA — Worldwide</span>
+  <span><a href="#home">Back to top ↑</a></span>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<script>
-/* ==================== CANVAS PARTICLE NETWORK ==================== */
-(function() {
-  var canvas = document.getElementById('hero-canvas');
-  var ctx = canvas.getContext('2d');
-  var particles = [];
-  var PARTICLE_COUNT = 80;
-  var CONNECT_DIST = 130;
-  var mouseX = -1000, mouseY = -1000;
-  var w, h;
-
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function createParticles() {
-    particles = [];
-    for (var i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: Math.random() * 1.8 + 0.5
-      });
-    }
-  }
-  createParticles();
-
-  document.addEventListener('mousemove', function(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-
-      // Update
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = w;
-      if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h;
-      if (p.y > h) p.y = 0;
-
-      // Draw particle
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
-      ctx.fill();
-
-      // Mouse interaction
-      var dmx = mouseX - p.x;
-      var dmy = mouseY - p.y;
-      var distMouse = Math.sqrt(dmx * dmx + dmy * dmy);
-      if (distMouse < 160) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(mouseX, mouseY);
-        var alphaMouse = (1 - distMouse / 160) * 0.35;
-        ctx.strokeStyle = 'rgba(255, 0, 170, ' + alphaMouse + ')';
-        ctx.lineWidth = 0.6;
-        ctx.stroke();
-        p.vx += dmx * 0.0002;
-        p.vy += dmy * 0.0002;
-      }
-
-      // Connect nearby particles
-      for (var j = i + 1; j < particles.length; j++) {
-        var q = particles[j];
-        var dx = p.x - q.x;
-        var dy = p.y - q.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECT_DIST) {
-          var alpha = (1 - dist / CONNECT_DIST) * 0.2;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = 'rgba(0, 240, 255, ' + alpha + ')';
-          ctx.lineWidth = 0.4;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ==================== NAVIGATION ==================== */
-(function() {
-  var nav = document.getElementById('nav');
-  var toggle = document.getElementById('nav-toggle');
-  var links = document.getElementById('nav-links');
-  var backToTop = document.getElementById('back-to-top');
-
-  // Scroll: nav shadow + back-to-top
-  window.addEventListener('scroll', function() {
-    var scrolled = window.scrollY > 50;
-    nav.classList.toggle('scrolled', scrolled);
-    backToTop.classList.toggle('visible', window.scrollY > 600);
-  });
-
-  // Mobile toggle
-  toggle.addEventListener('click', function() {
-    var isOpen = links.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', isOpen);
-  });
-
-  // Close mobile nav on link click
-  links.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Back to top
-  backToTop.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-
-/* ==================== INTERSECTION OBSERVER - REVEAL ==================== */
-(function() {
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(function(el) {
-    observer.observe(el);
-  });
-})();
-
-/* ==================== COUNTER ANIMATION ==================== */
-(function() {
-  var counterObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (!entry.isIntersecting) return;
-      var el = entry.target;
-      var target = parseInt(el.getAttribute('data-count'), 10);
-      if (!target || el.dataset.animated) return;
-      el.dataset.animated = 'true';
-      var current = 0;
-      var duration = 2000;
-      var step = Math.max(1, Math.ceil(target / (duration / 16)));
-      var suffix = el.textContent.replace(/[0-9]/g, '').trim();
-
-      function update() {
-        current += step;
-        if (current >= target) {
-          el.textContent = target + (suffix ? ' ' + suffix : '') + '+';
-          return;
-        }
-        el.textContent = current + (suffix ? ' ' + suffix : '');
-        requestAnimationFrame(update);
-      }
-      update();
-    });
-  }, { threshold: 0.6 });
-
-  document.querySelectorAll('.stat-number').forEach(function(el) {
-    counterObserver.observe(el);
-  });
-})();
-
-/* ==================== PORTFOLIO SLIDESHOWS ==================== */
-(function() {
-  var slideshows = {};
-
-  document.querySelectorAll('.portfolio-card[data-slideshow], .portfolio-card[data-docker-slideshow], .about-slideshow[data-slideshow]').forEach(function(card) {
-    var prefix = card.getAttribute('data-slideshow') || card.getAttribute('data-docker-slideshow');
-    var count = parseInt(card.getAttribute('data-count'), 10);
-    var current = 0;
-    var img = card.querySelector('.slide-img');
-    var indicators = card.querySelector('.slide-indicators');
-    var prevBtn = card.querySelector('.portfolio-nav-btn.prev');
-    var nextBtn = card.querySelector('.portfolio-nav-btn.next');
-
-    // Build image paths
-    var images = [];
-    for (var i = 1; i <= count; i++) {
-      if (prefix === 'brand') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/brand/brand-' + i + '.jpg');
-      } else if (prefix === 'editorial') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/editorial/editorial-' + i + '.jpg');
-      } else if (prefix === 'elle') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/elle-' + i + '.jpg');
-      } else if (prefix === 'cyco') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/cyco-pro-' + i + '.jpg');
-      } else if (prefix === 'event') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/event/event-' + i + '.jpg');
-      } else if (prefix === 'art') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/art/art-' + i + '.jpg');
-      } else if (prefix === 'wedding') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/wedding/wedding-' + i + '.jpg');
-      } else if (prefix === 'realestate') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/realestate/realestate-' + i + '.jpg');
-      } else if (prefix === 'about') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/about/about-' + i + '.jpg');
-      } else if (prefix === 'web-projects') {
-        images.push('https://raw.githubusercontent.com/cycoprozz/CYCO-PRO-MEDIA-FINAL/main/images/portfolio/web-projects/web-projects-' + i + '.jpg');
-      }
-    }
-
-    // Docker-served slideshows (assets on local Docker, not Cloudflare)
-    var dockerBase = card.getAttribute('data-docker-base');
-    if (dockerBase) {
-      images = [];
-      for (var di = 1; di <= count; di++) {
-        images.push(dockerBase + '/editorial-' + di + '.jpg');
-      }
-    }
-
-    // Shuffle images for editorial and event cards — aggressive 7-round shuffle
-    if (prefix === 'editorial' || prefix === 'event' || prefix === 'brand') {
-      for (var round = 0; round < 7; round++) {
-        for (var si = images.length - 1; si > 0; si--) {
-          var sj = Math.floor(Math.random() * (si + 1));
-          var tmp = images[si]; images[si] = images[sj]; images[sj] = tmp;
-        }
-      }
-      // Set initial image to a random one so the first photo isn't always the same
-      if (img && images.length > 0) {
-        var ri = Math.floor(Math.random() * images.length);
-        img.src = images[ri];
-        // Sync initial label for web-projects
-        if (prefix === 'web-projects') {
-          var wpli = ['Theo Jones \u00b7 Beauty & Wellness', 'Ambassador Global Chauffeur \u00b7 Luxury Transportation', 'Self-Building Game', 'Tesla Arcade Creator', 'Spaceship Game'];
-          var wplEl2 = document.getElementById('web-projects-label');
-          if (wplEl2) wplEl2.textContent = wpli[ri];
-        }
-      }
-    }
-
-    // Build dot indicators
-    for (var d = 0; d < count; d++) {
-      var dot = document.createElement('button');
-      dot.className = 'slide-dot' + (d === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Image ' + (d + 1));
-      dot.addEventListener('click', (function(idx) {
-        return function() { goTo(idx); };
-      })(d));
-      indicators.appendChild(dot);
-    }
-    var dots = indicators.querySelectorAll('.slide-dot');
-
-    function goTo(idx) {
-      current = idx;
-      img.style.opacity = '0';
-      setTimeout(function() {
-        img.src = images[current];
-        img.style.opacity = '1';
-      }, 150);
-      dots.forEach(function(dd, di) {
-        dd.classList.toggle('active', di === current);
-      });
-      // Update project label for web-projects
-      if (prefix === 'web-projects') {
-        var wpl = ['Theo Jones \u00b7 Beauty & Wellness', 'Ambassador Global Chauffeur \u00b7 Luxury Transportation', 'Self-Building Game', 'Tesla Arcade Creator', 'Spaceship Game'];
-        var wplEl = document.getElementById('web-projects-label');
-        if (wplEl) wplEl.textContent = wpl[current];
-      }
-    }
-
-    prevBtn.addEventListener('click', function() {
-      goTo((current - 1 + count) % count);
-    });
-    nextBtn.addEventListener('click', function() {
-      goTo((current + 1) % count);
-    });
-
-    // Keyboard nav on focus
-    card.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo((current - 1 + count) % count); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); goTo((current + 1) % count); }
-    });
-
-    // Auto-advance
-    var autoInterval = setInterval(function() {
-      if (document.hidden) return;
-      goTo((current + 1) % count);
-    }, 4000);
-
-    // Pause on hover
-    card.addEventListener('mouseenter', function() { clearInterval(autoInterval); });
-    card.addEventListener('mouseleave', function() {
-      autoInterval = setInterval(function() {
-        if (document.hidden) return;
-        goTo((current + 1) % count);
-      }, 4000);
-    });
-
-    slideshows[prefix] = { goTo: goTo, current: current };
-  });
-
-  // --- Gallery Slideshow (Pic-Time albums) ---
-  var galleryImages = [
-    {
-      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/377/46377844/homepage/smallres/homepage.jpg?rs=133969113164962363',
-      url: 'https://cycopro.pic-time.com/-portfolio6831/gallery?inviteptoken2=AAAAAAoAAABCEsBkRY8nYp1tqascrjVs2w%2C%2C',
-      label: 'Stories in Frames'
-    },
-    {
-      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/360/46360376/homepage/smallres/homepage.jpg?rs=133966343480116186',
-      url: 'https://cycopro.pic-time.com/-sii/gallery?inviteptoken2=AAAAAP0AAAB7Car6_VfNwa9s2yqq0PeoOA%2C%2C',
-      label: 'SII'
-    },
-    {
-      thumb: 'https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/46/428/46428334/homepage/homepage.jpg?rs=133969939061910222',
-      url: 'https://cycopro.pic-time.com/-tyrone3006/gallery?inviteptoken2=AAAAACgBAAAeO2GG4FGrYWEhkGEIfJx60Q%2C%2C',
-      label: 'Tyrone 3006'
-    }
-  ];
-
-  var galleryCard = document.querySelector('[data-gallery-slideshow]');
-  if (galleryCard) {
-    var gImg = galleryCard.querySelector('.gallery-slide');
-    var gIndicators = galleryCard.querySelector('.slide-indicators');
-    var gPrev = galleryCard.querySelector('.portfolio-nav-btn.prev');
-    var gNext = galleryCard.querySelector('.portfolio-nav-btn.next');
-    var gCurrent = 0;
-
-    // Build dots
-    for (var g = 0; g < 3; g++) {
-      var gDot = document.createElement('button');
-      gDot.className = 'slide-dot' + (g === 0 ? ' active' : '');
-      gDot.setAttribute('aria-label', galleryImages[g].label);
-      gDot.addEventListener('click', (function(idx) {
-        return function() { goToGallery(idx); };
-      })(g));
-      gIndicators.appendChild(gDot);
-    }
-    var gDots = gIndicators.querySelectorAll('.slide-dot');
-
-    function goToGallery(idx) {
-      gCurrent = idx;
-      gImg.style.opacity = '0';
-      setTimeout(function() {
-        gImg.src = galleryImages[gCurrent].thumb;
-        gImg.style.opacity = '1';
-      }, 150);
-      gDots.forEach(function(dd, di) {
-        dd.classList.toggle('active', di === gCurrent);
-      });
-    }
-
-    gPrev.addEventListener('click', function() {
-      goToGallery((gCurrent - 1 + 3) % 3);
-    });
-    gNext.addEventListener('click', function() {
-      goToGallery((gCurrent + 1) % 3);
-    });
-
-    // Click card → open gallery
-    galleryCard.style.cursor = 'pointer';
-    galleryCard.addEventListener('click', function(e) {
-      if (e.target.closest('.portfolio-nav-btn, .slide-dot')) return;
-      window.open(galleryImages[gCurrent].url, '_blank');
-    });
-
-    // Auto-advance
-    setInterval(function() {
-      if (!document.hidden) goToGallery((gCurrent + 1) % 3);
-    }, 5000);
-  }
-
-  // Image fade transition style
-  var styleEl = document.createElement('style');
-  styleEl.textContent = '.portfolio-card .slide-img, .about-slideshow .slide-img { transition: opacity 0.3s ease; opacity: 1; object-fit: contain !important; background: #0A0A0F; width: 100% !important; height: 100% !important; cursor: pointer; }';
-  document.head.appendChild(styleEl);
-
-  // --- Lightbox: click any portfolio image to expand ---
-  var lb = document.createElement('div');
-  lb.id = 'lightbox';
-  lb.style.cssText = 'display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);cursor:pointer;align-items:center;justify-content:center;';
-  lb.innerHTML = '<img id="lightbox-img" style="max-width:95vw;max-height:95vh;object-fit:contain;" alt=""><span id="lightbox-close" style="position:absolute;top:20px;right:30px;color:#fff;font-size:36px;cursor:pointer;">✕</span>';
-  document.body.appendChild(lb);
-  var lbImg = document.getElementById('lightbox-img');
-  var lbClose = document.getElementById('lightbox-close');
-  
-  function openLightbox(src) {
-    lbImg.src = src;
-    lb.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    lb.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  lb.addEventListener('click', closeLightbox);
-  lbClose.addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
-  lbImg.addEventListener('click', function(e) { e.stopPropagation(); });
-
-  // Attach click to all portfolio/About slide images
-  document.addEventListener('click', function(e) {
-    var target = e.target;
-    if (target.tagName === 'IMG' && (target.closest('.portfolio-card') || target.closest('.about-slideshow')) && target.src && !target.closest('#lightbox')) {
-      // Web projects card: open project site instead of lightbox
-      var wpCard = target.closest('[data-project-urls]');
-      if (wpCard) {
-        var urls = JSON.parse(wpCard.getAttribute('data-project-urls'));
-        var dots = wpCard.querySelectorAll('.slide-dot');
-        var idx = 0;
-        dots.forEach(function(d, i) { if (d.classList.contains('active')) idx = i; });
-        if (urls[idx]) window.open(urls[idx], '_blank');
-        return;
-      }
-      openLightbox(target.src);
-    }
-  });
-
-  // --- Commercial Video Slideshow ---
-  var commVideo = document.querySelector('[data-video-slideshow="comm"]');
-  if (commVideo) {
-    var vCount = parseInt(commVideo.getAttribute('data-video-count'), 10);
-    var vBase = '/images/portfolio/commercial/comm-';
-    var vCurrent = 0;
-    var vPoster = commVideo.getAttribute('poster');
-    
-    document.querySelector('#video-card-media .video-nav-btn.prev').addEventListener('click', function(e) {
-      e.stopPropagation();
-      vCurrent = (vCurrent - 1 + vCount) % vCount;
-      var wasPlaying = !commVideo.paused;
-      commVideo.src = vBase + (vCurrent + 1) + '.mp4';
-      commVideo.load();
-      if (wasPlaying) commVideo.play();
-    });
-    document.querySelector('#video-card-media .video-nav-btn.next').addEventListener('click', function(e) {
-      e.stopPropagation();
-      vCurrent = (vCurrent + 1) % vCount;
-      var wasPlaying = !commVideo.paused;
-      commVideo.src = vBase + (vCurrent + 1) + '.mp4';
-      commVideo.load();
-      if (wasPlaying) commVideo.play();
-    });
-  }
-})();
-
-/* ==================== VIDEO PLAYER ==================== */
-(function() {
-  var video = document.querySelector('#video-card-media video');
-  var overlay = document.getElementById('video-play-overlay');
-  if (!video || !overlay) return;
-
-  overlay.addEventListener('click', function() {
-    if (video.paused) {
-      video.play();
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-    }
-  });
-
-  video.addEventListener('click', function() {
-    if (!video.paused) {
-      video.pause();
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
-    }
-  });
-
-  video.addEventListener('ended', function() {
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'auto';
-  });
-})();
-
-/* ==================== SMOOTH SCROLL FOR ALL ANCHOR LINKS ==================== */
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-  anchor.addEventListener('click', function(e) {
-    var targetId = this.getAttribute('href');
-    if (targetId === '#') return;
-    var target = document.querySelector(targetId);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-/* ==================== SERVICE SUB-SELECTS ==================== */
-(function() {
-  var serviceSelect = document.getElementById('service');
-  if (!serviceSelect) return;
-
-  var subs = {
-    'Photography':      document.getElementById('photo-service'),
-    'Videography':      document.getElementById('video-service'),
-    'Web Development':  document.getElementById('web-service'),
-    'Content Creation': document.getElementById('content-service')
-  };
-
-  function styleSelect(el) {
-    el.style.display = 'block';
-    el.style.width = '100%';
-    el.style.padding = '14px 18px';
-    el.style.background = 'rgba(255,255,255,0.03)';
-    el.style.border = '1px solid rgba(255,255,255,0.08)';
-    el.style.borderRadius = '10px';
-    el.style.color = 'var(--text-primary)';
-    el.style.fontFamily = 'var(--font-body)';
-    el.style.fontSize = '0.95rem';
-    el.style.outline = 'none';
-    el.style.cursor = 'pointer';
-    el.style.appearance = 'none';
-    el.setAttribute('required', '');
-  }
-
-  function hideSelect(el) {
-    el.style.display = 'none';
-    el.removeAttribute('required');
-  }
-
-  serviceSelect.addEventListener('change', function() {
-    var val = this.value;
-    Object.keys(subs).forEach(function(key) {
-      if (!subs[key]) return;
-      if (key === val) {
-        styleSelect(subs[key]);
-      } else {
-        hideSelect(subs[key]);
-      }
-    });
-  });
-})();
-
-/* ==================== FORM SUBMISSION (Netlify + Zapier fallback) ==================== */
-(function() {
-  var form = document.querySelector('form[name="contact"]');
-  if (!form) return;
-
-  form.addEventListener('submit', function(e) {
-    var btn = form.querySelector('button[type="submit"]');
-    if (btn) {
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
-    }
-    // Trigger auto-responder via Cloudflare tunnel
-    var formData = new FormData(form);
-    var data = {};
-    formData.forEach(function(v, k) { data[k] = v; });
-    if (data.email) {
-      fetch('https://agency-relevance-geneva-economy.trycloudflare.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: data.email, name: data.name, service: data.service })
-      }).catch(function() { /* silent */ });
-    }
-    // Netlify + Zapier handle the rest natively
-    setTimeout(function() {
-      if (btn) {
-        btn.textContent = 'Message Sent ✓';
-        btn.style.background = 'var(--green)';
-        setTimeout(function() {
-          btn.textContent = 'Send Message ▸';
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 3000);
-      }
-    }, 1000);
-  });
-})();
-</script>
-
+<script src="js/site.js?v=5" defer></script>
 </body>
 </html>
