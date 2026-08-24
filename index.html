@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FAFAF8">
 <meta name="description" content="CYCO PRO MEDIA — Creative Media & Web Solutions. Photography, Videography, Web Development & Content Creation. Atlanta, GA, available worldwide.">
 <meta name="keywords" content="creative agency, photography, videography, web development, content creation, Atlanta, media production">
 <meta name="author" content="CYCO PRO MEDIA">
@@ -18,7 +19,6 @@
 <meta name="twitter:title" content="CYCO PRO MEDIA — Creative Media & Web Solutions">
 <meta name="twitter:description" content="Premium photography, videography, web development, and content creation. Based in Atlanta, serving worldwide.">
 <title>CYCO PRO MEDIA — Creative Media & Web Solutions</title>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,508 +45,99 @@
   ]
 }
 </script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;600;700&display=swap">
-<link rel="stylesheet" href="css/styles.css?v=7">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter+Tight:wght@400;500;600;700&display=swap">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body>
 
-<!-- Preloader -->
-<div class="preloader" id="preloader" aria-hidden="true">
-  <div class="preloader__inner">
-    <div class="preloader__count" id="pre-count">0</div>
-    <div class="preloader__brand">CYCO PRO MEDIA</div>
-  </div>
-</div>
+<a class="sr-only" href="#main">Skip to main content</a>
 
-<!-- Custom cursor -->
-<div class="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"></div>
-
-<!-- Floating pillar image -->
-<div class="float-img" id="float-img" aria-hidden="true"><img src="" alt=""></div>
-
-<!-- Header -->
-<header class="header">
-  <a class="header__brand" href="#home" aria-label="CYCO PRO MEDIA Home" data-magnetic>
-    <img class="header__logo" src="images/logo.png" alt="CYCO PRO MEDIA logo" width="44" height="44">
-    <span class="header__name">CYCO PRO MEDIA</span>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="CYCO PRO MEDIA home">
+    <span class="brand__chip"><img src="images/logo.png" alt="" width="34" height="34"></span>
+    <span class="brand__name">CYCO PRO MEDIA</span>
   </a>
-  <span class="header__clock" id="clock">ATL — 00:00:00</span>
-  <button class="header__menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-overlay" data-magnetic>
-    <span>Menu</span><span class="bars" aria-hidden="true"></span>
-  </button>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-overlay" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
 </header>
-
-<!-- Fullscreen nav -->
-<nav class="nav-overlay" id="nav-overlay" aria-label="Main navigation">
-  <ul class="nav-overlay__list">
-    <li><a href="#work"><span class="idx">01</span>Work</a></li>
-    <li><a href="portfolio.html"><span class="idx">02</span>Portfolio</a></li>
-    <li><a href="branding.html"><span class="idx">03</span>Branding</a></li>
-    <li><a href="commercial.html"><span class="idx">04</span>Commercial</a></li>
-    <li><a href="headshots.html"><span class="idx">05</span>Headshots</a></li>
-    <li><a href="#pricing"><span class="idx">06</span>Pricing</a></li>
-    <li><a href="#about"><span class="idx">07</span>About</a></li>
-    <li><a href="#contact"><span class="idx">08</span>Contact</a></li>
-  </ul>
-  <div class="nav-overlay__meta">
-    <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener">LinkedIn</a>
-    <span>Atlanta, GA — Worldwide</span>
+<div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+  <div class="menu-overlay__top">
+    <a class="brand" href="index.html" aria-label="CYCO PRO MEDIA home">
+      <span class="brand__chip"><img src="images/logo.png" alt="" width="34" height="34"></span>
+      <span class="brand__name">CYCO PRO MEDIA</span>
+    </a>
+    <button class="menu-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
   </div>
-</nav>
-
-<main>
-
-<!-- Hero -->
-<section class="hero" id="home">
-  <div class="hero__grid">
-    <div class="hero__col">
-      <p class="hero__kicker label-mono">Atlanta, GA — Available Worldwide</p>
-      <h1 class="hero__title display-xl">
-        <span class="line"><span>Creative Media</span></span>
-        <span class="line"><span><em>&amp;</em> Web Solutions.</span></span>
-      </h1>
-      <p class="hero__slogan">Imitation isn't innovation.</p>
-      <p class="hero__sub">Transforming brands through cinematic visuals, cutting-edge web experiences, and strategic content that demands attention.</p>
-      <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
+  <nav class="menu-overlay__links" aria-label="Main navigation">
+    <a href="index.html" aria-current="page">Work</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="branding.html">Branding</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="interiors.html">Interiors</a>
+    <a href="art.html">Art</a>
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-overlay__meta">
+    <a class="menu-overlay__email" href="mailto:joffre@cycopromedia.com">joffre@cycopromedia.com</a>
+    <a href="tel:+14706526060">+1 470 652 6060</a>
+    <div class="menu-overlay__social">
+      <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-7.9c0-1.88-.03-4.3-2.62-4.3-2.62 0-3.02 2.05-3.02 4.16V23H8V8z"/></svg></a>
     </div>
-    <div class="hero__logo" aria-hidden="true">
-      <img src="images/logo.png" alt="" loading="eager">
-    </div>
-  </div>
-  <span class="hero__scroll">Scroll</span>
-</section>
-
-<!-- Glowing slogan bar -->
-<div class="marquee marquee--glow" aria-hidden="true">
-  <div class="marquee__track">
-    <span>Imitation is not innovation</span><span>Photography</span><span>Videography</span><span>Web Development</span><span>Content Creation</span>
-    <span>Imitation is not innovation</span><span>Photography</span><span>Videography</span><span>Web Development</span><span>Content Creation</span>
+    <span class="menu-overlay__copy">&copy; 2026 CYCO PRO MEDIA</span>
   </div>
 </div>
 
-<!-- Selected work (full interactive — slideshows + videos) -->
-<section class="section work" id="work">
-  <div class="section__head">
-    <span class="label-mono">Selected work</span>
-    <a class="link-line" href="https://cycopro.pic-time.com/portfolio" target="_blank" rel="noopener" data-magnetic>Full portfolio ↗</a>
-  </div>
-  <div class="port-grid">
-
-    <!-- Editorial -->
-    <article class="port-card reveal" data-slideshow="editorial" data-count="43" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/editorial/editorial-1.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Editorial Portraits</h3><span class="port-tag">Photography</span></div>
-    </article>
-
-    <!-- Brand -->
-    <article class="port-card reveal" data-slideshow="brand" data-count="8" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/brand/brand-1.jpg" alt="Brand campaign photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Brand Campaigns</h3><span class="port-tag">Commercial</span></div>
-    </article>
-
-    <!-- Event -->
-    <article class="port-card reveal" data-slideshow="event" data-count="13" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/event/event-1.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Event Coverage</h3><span class="port-tag">Photography</span></div>
-    </article>
-
-    <!-- Event video -->
-    <article class="port-card port-card--video reveal">
-      <div class="port-card__media" data-video-toggle>
-        <video class="slide-img" src="images/portfolio/event/event-video.mp4" preload="metadata" muted playsinline loop poster="images/portfolio/event/event-1.jpg" aria-label="Event coverage video reel"></video>
-        <button class="vid-mute" aria-label="Toggle sound">🔇</button>
-        <div class="vid-overlay"><button class="vid-play" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button></div>
-      </div>
-      <div class="port-card__info"><h3>Event Video</h3><span class="port-tag">🎥 Video Reel</span></div>
-    </article>
-
-    <!-- Commercial video slideshow -->
-    <article class="port-card port-card--video reveal">
-      <div class="port-card__media" id="comm-video-media" data-video-toggle>
-        <video class="slide-img" src="images/portfolio/commercial/comm-1.mp4" preload="metadata" muted playsinline loop poster="images/portfolio/commercial/cover.jpg" aria-label="Commercial video reel by CYCO PRO MEDIA" data-video-slideshow="comm" data-video-count="6"></video>
-        <button class="vid-mute" aria-label="Toggle sound">🔇</button>
-        <div class="vid-overlay"><button class="vid-play" aria-label="Play video"><svg viewBox="0 0 24 24"><polygon points="6,2 20,12 6,22"/></svg></button></div>
-        <button class="slide-btn prev vid-prev" aria-label="Previous video">◂</button>
-        <button class="slide-btn next vid-next" aria-label="Next video">▸</button>
-      </div>
-      <div class="port-card__info"><h3>Commercial Video</h3><span class="port-tag">Videography</span></div>
-    </article>
-
-    <!-- Wedding -->
-    <article class="port-card reveal" data-slideshow="wedding" data-count="4" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/wedding/wedding-1.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Wedding</h3><span class="port-tag">Photo + Film</span></div>
-    </article>
-
-    <!-- Real estate -->
-    <article class="port-card reveal" data-slideshow="realestate" data-count="6" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/realestate/realestate-1.jpg" alt="Real estate photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Real Estate</h3><span class="port-tag">Architectural</span></div>
-    </article>
-
-    <!-- Art -->
-    <article class="port-card reveal" data-slideshow="art" data-count="14" tabindex="0">
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/art/art-1.jpg" alt="Fine art photography by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-      </div>
-      <div class="port-card__info"><h3>Fine Art</h3><span class="port-tag">Photography</span></div>
-    </article>
-
-    <!-- Web projects -->
-    <article class="port-card reveal" data-slideshow="web-projects" data-count="5" tabindex="0"
-      data-project-urls='["https://theo-jones.joffre-fab.workers.dev","https://cyco-ambassador.pages.dev","https://cyco-self-building-game.pages.dev","https://cyco-tesla-arcade.pages.dev","https://cyco-spaceship-game.pages.dev"]'>
-      <div class="port-card__media">
-        <img class="slide-img" src="images/portfolio/web-projects/web-projects-1.jpg" alt="Web development projects by CYCO PRO MEDIA" loading="lazy">
-        <button class="slide-btn prev" aria-label="Previous image">◂</button>
-        <button class="slide-btn next" aria-label="Next image">▸</button>
-        <div class="slide-dots" aria-hidden="true"></div>
-        <span class="web-visit">VISIT SITE ↗</span>
-      </div>
-      <div class="port-card__info"><h3>Web Projects</h3><span class="port-tag" id="web-projects-label">Theo Jones · Beauty &amp; Wellness</span></div>
-    </article>
-
-  </div>
-</section>
-
-<!-- Pillars -->
-<section class="section pillars-section" id="services">
-  <div class="section__head">
-    <span class="label-mono">What we do</span>
-  </div>
-  <div class="pillars">
-    <div class="pillar" data-img="images/portfolio/editorial/editorial-3.jpg" tabindex="0">
-      <span class="pillar__num">01</span>
-      <h2 class="pillar__name">Media</h2>
-      <span class="pillar__tag">Photo / Video</span>
-      <p class="pillar__desc">Editorial photography, commercial film, events, weddings, and real estate — shot and graded to a cinematic standard. <span class="price">Starting at $200 photo · $500 video</span></p>
-    </div>
-    <div class="pillar" data-img="images/portfolio/web-projects/web-projects-1.jpg" tabindex="0">
-      <span class="pillar__num">02</span>
-      <h2 class="pillar__name">Web</h2>
-      <span class="pillar__tag">Design / Development</span>
-      <p class="pillar__desc">Fast, search-ready websites designed and built in-house — from brand sites to booking flows. <span class="price">Starting at $750</span></p>
-    </div>
-    <div class="pillar" data-img="images/portfolio/brand/brand-2.jpg" tabindex="0">
-      <span class="pillar__num">03</span>
-      <h2 class="pillar__name">Content</h2>
-      <span class="pillar__tag">Strategy / Social</span>
-      <p class="pillar__desc">Content systems for brands that post with purpose — strategy, production, and a library built to last. <span class="price">Starting at $600/mo retainer</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- Ecosystem -->
-<section class="section section--glow eco" aria-label="The CYCO ecosystem">
-  <div class="section__head" style="justify-content:center">
-    <span class="label-mono">One ecosystem</span>
-  </div>
-  <h2 class="display-md reveal" style="max-width:34rem;margin:0 auto 3rem">Every service feeds the next. Explore how it connects.</h2>
-  <div class="eco__canvas-wrap">
-    <canvas id="eco-canvas" role="img" aria-label="Interactive diagram: Media, Web, and Content orbiting the CYCO core"></canvas>
-  </div>
-  <p class="eco__hint">Hover a node — tap to explore</p>
-</section>
-
-<!-- Production pricing -->
-<section class="section section--glow" id="pricing">
-  <div class="section__head">
-    <span class="label-mono">Pricing — Production</span>
-  </div>
-  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">Simple, <span class="accent">transparent</span> pricing. No hidden fees, no surprises.</h2>
-  <div class="price-grid">
-    <div class="glass-card reveal">
-      <h3>Starter</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$200</div>
-      <p class="price-desc">Perfect for small shoots</p>
-      <ul>
-        <li>1-hour session</li>
-        <li>10 edited images</li>
-        <li>1 location</li>
-        <li>Online gallery</li>
-        <li>5-day delivery</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Photography" data-package="Starter — $200">Book Starter</a>
-    </div>
-    <div class="glass-card featured reveal">
-      <h3>Business</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$500</div>
-      <p class="price-desc">Most popular for brands</p>
-      <ul>
-        <li>3-hour session</li>
-        <li>20 edited images</li>
-        <li>1 location</li>
-        <li>Online gallery</li>
-        <li>3-day delivery</li>
-        <li>Commercial usage rights</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Photography" data-package="Business — $500">Book Business</a>
-    </div>
-    <div class="glass-card reveal">
-      <h3>Custom</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$1,500+</div>
-      <p class="price-desc">For full production needs</p>
-      <ul>
-        <li>Multi-day production</li>
-        <li>Unlimited deliverables</li>
-        <li>Multiple locations</li>
-        <li>Video + photo packages</li>
-        <li>Priority delivery</li>
-        <li>Full creative direction</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Photography" data-package="Custom — $1,500+">Book Custom</a>
-    </div>
-  </div>
-</section>
-
-<!-- Web pricing -->
-<section class="section" id="web">
-  <div class="section__head">
-    <span class="label-mono">Pricing — Web</span>
-  </div>
-  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">Websites designed, built, and maintained <span class="accent">in-house</span>.</h2>
-  <div class="price-grid">
-    <div class="glass-card reveal">
-      <h3>Landing Page</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$750</div>
-      <p class="price-desc">One-time</p>
-      <ul>
-        <li>Single-page design</li>
-        <li>Mobile-responsive</li>
-        <li>Contact/lead form</li>
-        <li>Basic SEO setup</li>
-        <li>Domain connection</li>
-        <li>1 revision round</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Web Development" data-package="Landing Page — $750">Book Landing Page</a>
-    </div>
-    <div class="glass-card featured reveal">
-      <h3>Business Site</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$1,500<small>+</small></div>
-      <p class="price-desc">One-time</p>
-      <ul>
-        <li>6–12 custom pages</li>
-        <li>Portfolio/gallery + filtering</li>
-        <li>Booking or inquiry forms</li>
-        <li>Advanced SEO (schema, sitemap)</li>
-        <li>Speed + security optimization</li>
-        <li>Training + 30-day support</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Web Development" data-package="Business Site — $1,500+">Book Business Site</a>
-    </div>
-    <div class="glass-card reveal">
-      <h3>Maintenance</h3>
-      <span class="price-from">Starting at</span>
-      <div class="price">$200<small>/mo</small></div>
-      <p class="price-desc">Monthly retainer</p>
-      <ul>
-        <li>Content updates</li>
-        <li>Plugin/security patches</li>
-        <li>Uptime monitoring</li>
-        <li>Monthly backups</li>
-        <li>Performance reports</li>
-        <li>Priority support</li>
-      </ul>
-      <a href="#booking" class="btn" data-service="Web Development" data-package="Maintenance — $200/mo">Book Maintenance</a>
-    </div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="section about" id="about">
-  <div class="section__head">
-    <span class="label-mono">About</span>
-  </div>
-  <div class="about__grid">
-    <div class="about__media" data-slideshow="about" data-count="4">
-      <img class="slide-img" src="images/portfolio/about/about-1.jpg" alt="The team behind CYCO PRO MEDIA" loading="lazy">
-      <button class="slide-btn prev" aria-label="Previous image">◂</button>
-      <button class="slide-btn next" aria-label="Next image">▸</button>
-      <div class="slide-dots" aria-hidden="true"></div>
-    </div>
-    <div class="about__body">
-      <h2 class="display-md reveal">Creative <span class="accent">technologists</span>, united.</h2>
-      <p class="reveal">CYCO PRO MEDIA isn't a one-person show — it's a tight-knit collective of photographers, videographers, web developers, and creative strategists who come together to make every project exceptional.</p>
-      <p class="reveal">Our team brings decades of combined experience across editorial photography, cinematic video production, custom web development, and brand content strategy. Every shoot, every edit, every line of code — handled by a specialist who lives and breathes their craft.</p>
-      <p class="reveal">We operate lean and agile: no bloated agency overhead, no junior staff practicing on your brand. Just a curated roster of Atlanta's best creative talent, assembled project-by-project to match your exact needs.</p>
-      <div class="about__stats reveal">
-        <div class="stat"><b>8</b><span>Creative disciplines</span></div>
-        <div class="stat"><b>100+</b><span>Portfolio pieces</span></div>
-        <div class="stat"><b>ATL</b><span>Based / worldwide</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Booking process -->
-<section class="section section--glow process" id="process">
-  <div class="section__head">
-    <span class="label-mono">How booking works</span>
-  </div>
-  <h2 class="display-md reveal" style="max-width:36rem;margin-bottom:3.5rem">A clear, collaborative process — <span class="accent">built on co-value</span>.</h2>
-  <ol class="process__list">
-    <li class="process__step reveal">
-      <span class="process__num">01</span>
-      <h3>Consultation</h3>
-      <p>Free discovery call. We talk goals, audience, must-haves. No pitch — just listening. You walk away with clarity, even if we're not a fit.</p>
-    </li>
-    <li class="process__step reveal">
-      <span class="process__num">02</span>
-      <h3>Deep Understanding</h3>
-      <p>We dive into your brand — competitors, customers, content needs. Every question we ask shapes a strategy that's uniquely yours.</p>
-    </li>
-    <li class="process__step reveal">
-      <span class="process__num">03</span>
-      <h3>Proposal &amp; Plan</h3>
-      <p>Custom quote, scope, timeline, and milestones. You see exactly what you're getting, when, and for how much — before a dollar is spent.</p>
-    </li>
-    <li class="process__step reveal">
-      <span class="process__num">04</span>
-      <h3>Design &amp; Prototype</h3>
-      <p>Mockups and direction aligned with your brand. You review, we refine. Nothing moves forward until you're excited about it.</p>
-    </li>
-    <li class="process__step reveal">
-      <span class="process__num">05</span>
-      <h3>Production &amp; Build</h3>
-      <p>The shoot, the edit, the build. Regular check-ins so you see progress. Tested, polished, and ready — no surprises.</p>
-    </li>
-    <li class="process__step reveal">
-      <span class="process__num">06</span>
-      <h3>Delivery &amp; Support</h3>
-      <p>Final assets delivered, site launched, training included. We stay on for 30 days of post-launch support so you're never stuck.</p>
-    </li>
-  </ol>
-
-  <!-- Booking form -->
-  <div class="booking" id="booking">
-    <div class="booking__intro reveal">
-      <span class="label-mono">Start your booking</span>
-      <h3 class="display-md">Tell us what you need.</h3>
-      <p>Pick a service and a package — we'll know exactly where to start. Submitting opens a pre-filled email so you can send it in one tap.</p>
-    </div>
-    <form class="booking__form reveal" id="booking-form" novalidate>
-      <div class="field">
-        <label for="bk-service">Service</label>
-        <select id="bk-service" name="service" required>
-          <option value="" disabled selected>Choose a service…</option>
-          <option>Photography</option>
-          <option>Videography</option>
-          <option>Web Development</option>
-          <option>Content Creation</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="bk-package">Package</label>
-        <select id="bk-package" name="package" required disabled>
-          <option value="" disabled selected>Select a service first…</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="bk-name">Name</label>
-        <input type="text" id="bk-name" name="name" placeholder="Your name" autocomplete="name" required>
-      </div>
-      <div class="field">
-        <label for="bk-email">Email</label>
-        <input type="email" id="bk-email" name="email" placeholder="you@example.com" autocomplete="email" required>
-      </div>
-      <div class="field">
-        <label for="bk-date">Preferred date <span class="opt">(optional)</span></label>
-        <input type="date" id="bk-date" name="date">
-      </div>
-      <div class="field">
-        <label for="bk-budget">Budget range <span class="opt">(optional)</span></label>
-        <select id="bk-budget" name="budget">
-          <option value="" disabled selected>Choose…</option>
-          <option>Under $500</option>
-          <option>$500 – $1,500</option>
-          <option>$1,500 – $5,000</option>
-          <option>$5,000+</option>
-        </select>
-      </div>
-      <div class="field field--full">
-        <label for="bk-message">Project details <span class="opt">(optional)</span></label>
-        <textarea id="bk-message" name="message" rows="4" placeholder="Tell us about your project, timeline, location…"></textarea>
-      </div>
-      <div class="field field--full">
-        <button type="submit" class="btn-book btn-book--cyan" data-magnetic>Send Booking Request →</button>
-        <p class="booking__note" id="booking-note" role="status" aria-live="polite"></p>
-      </div>
-    </form>
-  </div>
-</section>
-
-<!-- Mission -->
-<section class="section mission" aria-label="Our mission">
-  <p class="mission__quote reveal">"To empower creators, entrepreneurs, and businesses with world-class media and web solutions — <span class="accent">made in Atlanta, available everywhere</span>."</p>
-</section>
-
-<!-- Contact -->
-<section class="section section--glow contact" id="contact">
-  <span class="label-mono">Contact — Book Your Consultation</span>
-  <h2 class="display-lg reveal" style="margin-top:1.5rem">Let's build.</h2>
-  <a class="contact__email" href="mailto:joffre@cycopromedia.com">joffre@cycopromedia.com</a>
-  <div class="contact__book reveal">
-    <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
-  </div>
-  <div class="contact__meta">
-    <a href="tel:+14706526060">+1 470 652 6060</a>
-    <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener">LinkedIn</a>
-    <span>Atlanta, GA</span>
-  </div>
-</section>
+<main id="main">
+<section class="photo-grid" aria-label="Selected photography">
+      <img src="images/portfolio/editorial/editorial-14.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-2.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-9.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/wedding/wedding-4.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-18.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-6.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-5.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-11.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/wedding/wedding-2.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-15.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-3.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-7-cutout.png" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-4.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-17.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-19.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-13.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-10.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/wedding/wedding-1.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-1.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-1.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-2.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-3.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-20.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-4.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-12.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-8.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/wedding/wedding-3.jpg" alt="Wedding photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-16.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/event/event-6.jpg" alt="Event coverage photography by CYCO PRO MEDIA" loading="lazy">
+      <img src="images/portfolio/editorial/editorial-5.jpg" alt="Editorial portrait photography by CYCO PRO MEDIA" loading="lazy">
+    </section>
 
 </main>
 
-<!-- Footer booking CTA -->
-<div class="footer-cta">
-  <p class="footer-cta__text">Ready to start? <span class="accent">Let's talk.</span></p>
-  <a class="btn-book btn-book--cyan" href="mailto:joffre@cycopromedia.com?subject=Consultation%20Request%20%E2%80%94%20CYCO%20PRO%20MEDIA&amp;body=Hi%20Joffre%2C%0A%0AI%27d%20like%20to%20book%20a%20consultation.%0A%0AProject%20type%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks%21" data-magnetic>Book a Consultation →</a>
-</div>
-
 <footer class="footer">
-  <span>© <span id="year">2026</span> CYCO PRO MEDIA</span>
-  <span>Atlanta, GA — Worldwide</span>
-  <span><a href="#home">Back to top ↑</a></span>
+  <span>&copy; <span id="year">2026</span> CYCO PRO MEDIA</span>
+  <nav aria-label="Footer">
+    <a href="mailto:joffre@cycopromedia.com">Email</a>
+    <a href="https://instagram.com/cycoprozz" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://linkedin.com/company/cyco-pro-media" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
 </footer>
 
-<script src="js/site.js?v=7" defer></script>
+<script src="js/site.js?v=9" defer></script>
 </body>
 </html>
